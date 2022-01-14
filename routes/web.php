@@ -11,9 +11,8 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', 'HomeController@index');
+
 
 view()->composer(['*'], function ($view) {
     $currentUser = Auth::user();
@@ -25,5 +24,7 @@ Route::post('/admin', 'AdminController@postAdminLogin');
 
 Route::prefix('admin')->middleware('adminLogin')->group(function () {
     Route::get('/dashboard', 'AdminController@showDashboard');
-    
+    Route::get('/logout', 'AdminController@getLogout');
+
+
 });

@@ -41,7 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     {{ session('Notice') }}
                 </div>
             @endif
-            <form action="login" method="POST">
+            <form action="admin" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="email" class="ggg" name="email" placeholder="E-MAIL" required="">
                 <input type="password" class="ggg" name="password" placeholder="PASSWORD" required="">

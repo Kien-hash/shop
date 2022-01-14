@@ -54,7 +54,7 @@
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
-                @yield('admin_content')
+                @yield('content')
             </section>
             <!-- footer -->
             <div class="footer">
