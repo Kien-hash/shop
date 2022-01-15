@@ -11,7 +11,6 @@ use Session;
 
 session_start();
 
-
 class CheckoutController extends Controller
 {
     public function getLogin()

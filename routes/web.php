@@ -25,6 +25,7 @@ Route::post('/add-cart', 'AjaxController@postAddCartAjax');
 Route::get('/show-cart', 'CartController@getShowCart');
 Route::get('/del-all-product', 'CartController@deleteAllCartProduct');
 Route::post('/update-cart', 'CartController@postUpdateCart');
+Route::get('/del-product/{session_id}', 'CartController@deleteProduct');
 
 // Coupon
 Route::post('/check-coupon', 'CartController@postCheckCoupon');
