@@ -76,6 +76,17 @@
                     </ul>
                 </li>
 
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Payments</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ URL::to('admin/payment/all') }}">All</a></li>
+                        <li><a href="{{ URL::to('admin/payment/add') }}">Add</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
         <!-- sidebar menu end-->

@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(){
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
-        $products = Product::where('status', '=', 0)->orderByDesc('id')->limit(6)->get();
+        $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
         return view('pages.home.index',  ['products' => $products, 'categories' => $categories, 'brands' => $brands]);
     }
 }

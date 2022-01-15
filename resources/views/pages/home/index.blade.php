@@ -12,7 +12,7 @@
                                 <img style="height: 200px;" src="{{ 'public/uploads/product/' . $product->image }}"
                                     alt="" /></a>
                             <h2>{{ number_format($product->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
-                            <p style="height: 100px;" >{{ $product->name }}</p>
+                            <p style="height: 100px;">{{ $product->name }}</p>
                             <form action="{{ URL::to('/save-cart') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{ $product->id }}"
@@ -47,6 +47,9 @@
             </div>
         @endforeach
     </div>
+    <ul class="pagination text-center pagination-sm m-t-none m-b-none">
+        {!! $products->links() !!}
+    </ul>
     <!--/category-tab-->
 
     <div class="recommended_items">
@@ -124,7 +127,8 @@
                                     closeOnConfirm: false
                                 },
                                 function() {
-                                    window.location.href = "{{ url('/show-cart-ajax') }}";
+                                    window.location.href =
+                                        "{{ url('/show-cart-ajax') }}";
                                 });
                             // alert(data);
                         }
