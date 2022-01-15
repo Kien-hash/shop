@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    @extends('pages.layouts.sidebar')
+                    @include('pages.layouts.sidebar')
                 </div>
 
                 <div class="col-sm-9 padding-right">

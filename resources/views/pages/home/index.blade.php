@@ -12,7 +12,7 @@
                                 <img style="height: 200px;" src="{{ 'public/uploads/product/' . $product->image }}"
                                     alt="" /></a>
                             <h2>{{ number_format($product->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
-                            <p>{{ $product->name }}</p>
+                            <p style="height: 100px;" >{{ $product->name }}</p>
                             <form action="{{ URL::to('/save-cart') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{ $product->id }}"

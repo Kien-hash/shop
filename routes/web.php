@@ -13,6 +13,10 @@
 
 Route::get('/', 'HomeController@index');
 
+// Ajax Handler
+Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
+
+
 
 view()->composer(['*'], function ($view) {
     $currentUser = Auth::user();
@@ -82,6 +86,3 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
     });
 });
 
-
-// Ajax Handler
-Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
