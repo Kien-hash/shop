@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layouts.index')
 @section('content')
     <div class="table-agile-info">
         <div class="panel panel-default">
@@ -91,13 +91,14 @@
             </div>
             <footer class="panel-footer">
                 <div class="row">
-
-                    <div class="col-sm-5 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-                    </div>
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
+                            {{ $brands->links() }}
                         </ul>
+                    </div>
+                    <div class="col-sm-5 text-center">
+                        <small class="text-muted inline m-t-sm m-b-sm">showing {{ $brands->currentPage() }} of
+                            {{ $brands->total() }} items</small>
                     </div>
                 </div>
             </footer>

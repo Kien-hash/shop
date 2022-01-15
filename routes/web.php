@@ -39,4 +39,17 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'CategoryController@getDelete');
     });
 
+    Route::prefix('brand')->group(function () {
+        Route::get('/add', 'BrandController@getAdd');
+        Route::get('/all', 'BrandController@getAll');
+        Route::post('/add', 'BrandController@postAdd');
+        Route::get('/inactive/{id}', 'BrandController@getInactive');
+        Route::get('/active/{id}', 'BrandController@getActive');
+
+        Route::get('/edit/{id}', 'BrandController@getEdit');
+        Route::post('/edit/{id}', 'BrandController@postEdit');
+        Route::get('/delete/{id}', 'BrandController@getDelete');
+    });
+
+
 });
