@@ -72,7 +72,7 @@
                     </a>
                     <ul class="sub">
                         <li><a href="{{ URL::to('admin/delivery/all') }}">All</a></li>
-                        <li><a href="{{ URL::to('admin/delivery/add') }}">Add</a></li>
+                        {{-- <li><a href="{{ URL::to('admin/delivery/add') }}">Add</a></li> --}}
                     </ul>
                 </li>
 
