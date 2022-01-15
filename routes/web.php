@@ -72,4 +72,16 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::post('/add', 'CouponController@postAdd');
     });
 
+    Route::prefix('delivery')->group(function () {
+        Route::get('/all', 'DeliveryController@getAll');
+
+        Route::get('/delete/{id}', 'DeliveryController@getDelete');
+
+        Route::post('/edit/{id}', 'DeliveryController@postEdit');
+        Route::post('/add', 'DeliveryController@postAdd');
+    });
 });
+
+
+// Ajax Handler
+Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
