@@ -26,7 +26,6 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::get('/logout', 'AdminController@getLogout');
 
-
     Route::prefix('category')->group(function () {
         Route::get('/add', 'CategoryController@getAdd');
         Route::get('/all', 'CategoryController@getAll');
@@ -51,5 +50,16 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'BrandController@getDelete');
     });
 
+    Route::prefix('product')->group(function () {
+        Route::get('/add', 'ProductController@getAdd');
+        Route::get('/all', 'ProductController@getAll');
+        Route::post('/add', 'ProductController@postAdd');
+        Route::get('/inactive/{id}', 'ProductController@getInactive');
+        Route::get('/active/{id}', 'ProductController@getActive');
+
+        Route::get('/edit/{id}', 'ProductController@getEdit');
+        Route::post('/edit/{id}', 'ProductController@postEdit');
+        Route::get('/delete/{id}', 'ProductController@getDelete');
+    });
 
 });
