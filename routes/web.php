@@ -12,9 +12,17 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/category/{slug}', 'HomeController@showCategory');
+Route::get('/brand/{slug}', 'HomeController@showBrand');
+Route::get('/details/{slug}', 'HomeController@showDetail');
+Route::post('/search', 'HomeController@postSearch');
 
 // Ajax Handler
 Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
+Route::post('/add-cart', 'AjaxController@postAddCartAjax');
+
+// Cart Handler
+Route::get('/show-cart', 'CartController@getShowCart');
 
 
 

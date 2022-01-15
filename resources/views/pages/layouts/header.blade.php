@@ -41,7 +41,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa"
                                 data-toggle="dropdown">
-                                USA
+                                VN
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -53,7 +53,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa"
                                 data-toggle="dropdown">
-                                DOLLAR
+                                VNĐ
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -66,29 +66,24 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
+                            <li><a href="{{ URL::to('/show-cart-ajax') }}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+
                             @if (Session::has('customer_id'))
                                 @if (Session::has('shipping_id'))
-                                    <li><a href="{{ URL::to('/payment') }}"><i class="fa fa-crosshairs"></i>
-                                            Payment</a></li>
+                                    <li><a href="{{ URL::to('/payment') }}"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
                                 @else
-                                    <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-crosshairs"></i>
-                                            Payment</a></li>
+                                    <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
                                 @endif
                             @else
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>
-                                        Payment</a></li>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Thanh toán</a></li>
                             @endif
 
-                            <li><a href="{{ URL::to('/show-cart-ajax') }}"><i class="fa fa-shopping-cart"></i>
-                                    Cart</a>
-                            </li>
+
                             @if (Session::has('customer_id'))
-                                <li><a href="{{ URL::to('/logout-checkout') }}"><i class="fa fa-lock"></i>
-                                        Logout</a></li>
+                                <li><a href="{{ URL::to('/logout-checkout') }}"><i class="fa fa-lock"></i>Đăng xuất</a></li>
                             @else
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>
-                                        Login</a></li>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng nhập</a></li>
                             @endif
 
                         </ul>
@@ -115,7 +110,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{ URL::to('/') }}" class="active">Home</a></li>
+                            <li><a href="{{ URL::to('/') }}" class="active">Trang chủ</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="shop.html">Products</a></li>
@@ -131,8 +126,8 @@
                                     <li><a href="blog-single.html">Blog Single</a></li>
                                 </ul>
                             </li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
+                            {{-- <li><a href="404.html">404</a></li> --}}
+                            <li><a href="contact-us.html">Liên hệ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -140,8 +135,8 @@
                     <form action="{{ URL::to('/search') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="search_box pull-right">
-                            <input name="keywords" type="text" placeholder="Search products..." />
-                            <input type="submit" class="btn btn-success btn-sm" name="search" value="Search">
+                            <input name="keywords" type="text" placeholder="Điền từ khóa..." />
+                            <input type="submit" class="btn btn-success btn-sm" name="search" value="Tìm kiếm">
                         </div>
                     </form>
 
