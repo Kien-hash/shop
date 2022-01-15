@@ -81,7 +81,7 @@
 
 
                             @if (Session::has('customer_id'))
-                                <li><a href="{{ URL::to('/logout-checkout') }}"><i class="fa fa-lock"></i>Đăng xuất</a></li>
+                                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-lock"></i>Đăng xuất</a></li>
                             @else
                                 <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng nhập</a></li>
                             @endif

@@ -23,7 +23,21 @@ Route::post('/add-cart', 'AjaxController@postAddCartAjax');
 
 // Cart Handler
 Route::get('/show-cart', 'CartController@getShowCart');
+Route::get('/del-all-product', 'CartController@deleteAllCartProduct');
+Route::post('/update-cart', 'CartController@postUpdateCart');
 
+// Coupon
+Route::post('/check-coupon', 'CartController@postCheckCoupon');
+Route::get('/unset-coupon', 'CartController@getUnsetCoupon');
+
+// User login
+Route::get('/login-checkout', 'CheckoutController@getLogin');
+Route::get('/logout', 'CheckoutController@getLogout');
+Route::post('/login', 'CheckoutController@postLogin');
+Route::post('/signup', 'CheckoutController@postSignup');
+
+// Checkout pages
+Route::get('/checkout', 'CheckoutController@getCheckout');
 
 
 view()->composer(['*'], function ($view) {
