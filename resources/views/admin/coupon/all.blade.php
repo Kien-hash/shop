@@ -107,8 +107,8 @@
                         </ul>
                     </div>
                     <div class="col-sm-5 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">showing {{ $coupons->currentPage() }} of
-                            {{ $coupons->total() }} items</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Records {{ $coupons->firstItem() }} -
+                            {{ $coupons->lastItem() }} of {{ $coupons->total() }} items</small>
                     </div>
                 </div>
             </footer>

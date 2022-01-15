@@ -97,8 +97,8 @@
                         </ul>
                     </div>
                     <div class="col-sm-5 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">showing {{ $categories->currentPage() }} of
-                            {{ $categories->total() }} items</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Records {{ $categories->firstItem() }} -
+                            {{ $categories->lastItem() }} of {{ $categories->total() }} items</small>
                     </div>
                 </div>
             </footer>
