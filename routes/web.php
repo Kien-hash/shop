@@ -62,4 +62,14 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'ProductController@getDelete');
     });
 
+    Route::prefix('coupon')->group(function () {
+        Route::get('/all', 'CouponController@getAll');
+        Route::get('/add', 'CouponController@getAdd');
+        Route::get('/edit/{id}', 'CouponController@getEdit');
+        Route::get('/delete/{id}', 'CouponController@getDelete');
+
+        Route::post('/edit/{id}', 'CouponController@postEdit');
+        Route::post('/add', 'CouponController@postAdd');
+    });
+
 });
