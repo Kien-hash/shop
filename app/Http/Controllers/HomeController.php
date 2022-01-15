@@ -14,7 +14,8 @@ class HomeController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
-        return view('pages.home.index',  ['products' => $products, 'categories' => $categories, 'brands' => $brands]);
+        $bestsellers = Product::where('status', '=', 0)->orderByDesc('sold')->limit(3)->get();
+        return view('pages.home.index',  ['products' => $products, 'categories' => $categories, 'brands' => $brands, 'bestsellers'=> $bestsellers]);
     }
 
     public function showCategory($slug)
@@ -55,7 +56,8 @@ class HomeController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $product = Product::where('slug', '=', $slug)->first();
-        return view('pages.home.detail', ['product' => $product, 'categories' => $categories, 'brands' => $brands]);
+        $relates = Product::where('category_id', $product->category_id)->where('status', 0)->where('id', '!=', $product->id)->paginate(3);
+        return view('pages.home.detail', ['product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates'=>$relates]);
 
     }
 }

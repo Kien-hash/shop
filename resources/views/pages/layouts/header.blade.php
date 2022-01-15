@@ -67,7 +67,7 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-                            <li><a href="{{ URL::to('/show-cart-ajax') }}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                            <li><a href="{{ URL::to('/show-cart') }}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
 
                             @if (Session::has('customer_id'))
                                 @if (Session::has('shipping_id'))

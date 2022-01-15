@@ -9,23 +9,17 @@
             </div>
             <div id="similar-product" class="carousel slide" data-ride="carousel">
 
-                <!-- Wrapper for slides -->
                 <div class="carousel-inner">
 
                     <div class="item active">
-                        <a href=""><img src="{{ ('public/frontend/images/similar1.jpg') }}" alt=""></a>
-                        <a href=""><img src="{{ ('public/frontend/images/similar2.jpg') }}" alt=""></a>
-                        <a href=""><img src="{{ ('public/frontend/images/similar3.jpg') }}" alt=""></a>
+                        <a href=""><img src="{{ 'public/frontend/images/similar1.jpg' }}" alt=""></a>
+                        <a href=""><img src="{{ 'public/frontend/images/similar2.jpg' }}" alt=""></a>
+                        <a href=""><img src="{{ 'public/frontend/images/similar3.jpg' }}" alt=""></a>
                     </div>
                 </div>
 
-                <!-- Controls -->
-                <a class="left item-control" href="#similar-product" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right item-control" href="#similar-product" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
+                <a class="left item-control" href="#similar-product" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                <a class="right item-control" href="#similar-product" data-slide="next"><i class="fa fa-angle-right"></i></a>
             </div>
 
         </div>
@@ -45,26 +39,23 @@
                     <input type="hidden" value="{{ $product->quantity }}"
                         class="cart_product_quantity_{{ $product->id }}">
                     <input type="hidden" value="{{ $product->price }}" class="cart_product_price_{{ $product->id }}">
-
                     <span>
                         <span>{{ number_format($product->price, 0, ',', '.') . 'VNĐ' }}</span>
-
                         <label>Quantity:</label>
                         <input name="qty" type="number" min="1" class="cart_product_qty_{{ $product->id }}" value="1" />
                         <input name="productid_hidden" type="hidden" value="{{ $product->id }}" />
                     </span>
-                    <input type="button" value="Add to Cart" class="btn btn-primary btn-sm add-to-cart"
+                    <input type="button" value="Thêm vào giỏ hàng" class="btn btn-primary btn-sm add-to-cart"
                         data-id_product="{{ $product->id }}" name="add-to-cart">
                 </form>
 
-                <p><b>Available:</b>Yes</p>
-                <p><b>Condition:</b>100% new</p>
-                <p><b>In Stock:</b> {{ $product->quantity }}</p>
-                <p><b>Brand:</b> {{ $product->brand->name }}</p>
-                <p><b>Category:</b> {{ $product->category->name }}</p>
+                <p><b>Còn hàng:</b>{{ $product->quantity > 0 ? 'Còn' : 'Hết' }}</p>
+                <p><b>Tình trạng:</b>100% new</p>
+                <p><b>Số lượng trong kho:</b> {{ $product->quantity }}</p>
+                <p><b>Thương hiệu:</b> {{ $product->brand->name }}</p>
+                <p><b>Danh mục:</b> {{ $product->category->name }}</p>
                 <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
             </div>
-            <!--/product-information-->
         </div>
     </div>
     <!--/product-details-->
@@ -73,15 +64,15 @@
         <!--category-tab-->
         <div class="col-sm-12">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#details" data-toggle="tab">Description</a></li>
-                <li><a href="#companyprofile" data-toggle="tab">Details</a></li>
+                <li class="active"><a href="#details" data-toggle="tab">Mô tả</a></li>
+                <li><a href="#companyprofile" data-toggle="tab">Chi tiết</a></li>
 
-                <li><a href="#reviews" data-toggle="tab">Rating</a></li>
+                <li><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
             </ul>
         </div>
         <div class="tab-content">
             <div class="tab-pane fade active in" id="details">
-                <p>{!! $product->description!!}</p>
+                <p>{!! $product->description !!}</p>
             </div>
 
             <div class="tab-pane fade" id="companyprofile">
@@ -121,29 +112,31 @@
 
     <div class="recommended_items">
         <!--recommended_items-->
-        <h2 class="title text-center">Related Products</h2>
+        <h2 class="title text-center">Sản phẩm liên quan</h2>
 
         <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-                    @foreach ($product->category->products as $relate)
-                        @if ($relate->id == $product->id )
-                            @continue
-                        @endif
+                    @foreach ($relates as $relate)
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center product-related">
-                                        <img src="{{ URL::to('public/uploads/product/' . $relate->image) }}" alt="" />
+                                        <a href="{{ URL::to('/details/' . $relate->slug) }}">
+                                            <img style="height: 200px;"
+                                                src="{{ URL::to('public/uploads/product/' . $relate->image) }}" alt="" />
+                                        </a>
                                         <h2>{{ number_format($relate->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
                                         <p>{{ $relate->name }}</p>
-
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <ul class="pagination pagination-sm m-t-none m-b-none">
+                        {!! $relates->links() !!}
+                    </ul>
                 </div>
             </div>
 
@@ -166,7 +159,9 @@
                 var _token = $('input[name="_token"]').val();
 
                 if (parseInt(cart_product_qty) > parseInt(cart_product_quantity)) {
-                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                    if (parseInt(cart_product_quantity) == 0) alert(
+                        'Sản phẩm tạm thời hết hàng, hãy chọn sản phẩm khác');
+                    else alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
                 } else {
                     $.ajax({
                         url: '{{ url('/add-cart') }}',

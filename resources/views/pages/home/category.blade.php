@@ -2,7 +2,7 @@
 @section('content')
     <div class="features_items">
         <!--features_items-->
-        <h2 class="title text-center">{{$name}}</h2>
+        <h2 class="title text-center">{{ $name }}</h2>
         @foreach ($products as $product)
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
@@ -29,7 +29,7 @@
                                 <input type="hidden" name="qty" type="number" min="1"
                                     class="cart_product_qty_{{ $product->id }}" value="1" />
                                 <input type="hidden" name="productid_hidden" type="hidden" value="{{ $product->id }}" />
-                                {{-- <input type="submit" value="Add to Cart" class="btn btn-primary btn-sm add-to-cart"
+                                {{-- <input type="submit" value="Thêm vào giỏ hàng" class="btn btn-primary btn-sm add-to-cart"
                                     data-id_product="{{ $product->id }}" name="add-to-cart"> --}}
                                 <button type="button" class="btn btn-primary btn-sm add-to-cart"
                                     data-id_product="{{ $product->id }}" name="add-to-cart">Thêm vào giỏ hàng</button>
