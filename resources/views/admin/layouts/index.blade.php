@@ -107,6 +107,9 @@
 
         });
 
+        CKEDITOR.replace('ckeditor1');
+        CKEDITOR.replace('ckeditor2');
+
         $(document).ready(function() {
             $('.choose').on('change', function() {
                 var action = $(this).attr('id');
@@ -135,8 +138,7 @@
                 });
             });
         });
-        CKEDITOR.replace('ckeditor1');
-        CKEDITOR.replace('ckeditor2');
+
     </script> --}}
     <script language="javascript" type="text/javascript"
         src="{{ asset('public/backend/js/flot-chart/excanvas.min.js') }}">
