@@ -7,7 +7,10 @@ use App\Brand;
 use App\Category;
 use App\Coupon;
 use App\City;
+use App\Shipping;
 use App\Payment;
+use App\Order;
+use App\OrderDetail;
 use Session;
 
 session_start();
@@ -90,5 +93,45 @@ class CartController extends Controller
     {
         Session::forget('fee');
         return redirect()->back();
+    }
+
+    public function postConfirmOrder(Request $request)
+    {
+        $data = $request->all();
+
+        $shipping = new Shipping();
+        $shipping->name = $data['shipping_name'];
+        $shipping->email = $data['shipping_email'];
+        $shipping->phone = $data['shipping_phone'];
+        $shipping->address = $data['shipping_address'];
+        $shipping->notes = $data['shipping_notes'];
+        $shipping->save();
+
+        $order = new Order();
+        $order->code =  substr(md5(microtime()), rand(0, 26), 5);
+        $order->customer_id = Session::get('customer_id');
+        $order->shipping_id = $shipping->id;
+        $order->payment_id = $data['shipping_method'];
+        $order->status = 0;
+        $order->coupon = $data['order_coupon'];
+        $order->shipping_fee = $data['order_fee'];
+        $order->save();
+
+
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart) {
+                $orderDetail = new OrderDetail();
+                $orderDetail->order_id = $order->id;
+                $orderDetail->order_code = $order->code;
+                $orderDetail->product_id = $cart['product_id'];
+                $orderDetail->product_name = $cart['product_name'];
+                $orderDetail->product_price = $cart['product_price'];
+                $orderDetail->product_sales_quantity = $cart['product_qty'];
+                $orderDetail->save();
+            }
+        }
+        Session::forget('coupon');
+        Session::forget('fee');
+        Session::forget('cart');
     }
 }

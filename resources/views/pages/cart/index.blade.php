@@ -89,10 +89,10 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Phí vận chuyển</label>
                             @if (Session::get('fee'))
-                                <input type="number" class="form-control input-sm m-bot15 order_fee" name="order_fee"
+                                <input disabled type="number" class="form-control input-sm m-bot15 order_fee" name="order_fee"
                                     value="{{ Session::get('fee') }}">
                             @else
-                                <input type="text" class="form-control input-sm m-bot15 order_fee" name="order_fee"
+                                <input disabled type="text" class="form-control input-sm m-bot15 order_fee" name="order_fee"
                                     placeholder="Bạn chưa chọn địa điểm để tính phí vận chuyển" value="">
                             @endif
                         </div>
@@ -375,18 +375,6 @@
                             let order_fee = $('.order_fee').val();
                             let order_coupon = $('.order_coupon').val();
                             let _token = $('input[name="_token"]').val();
-                            // let data = {
-                            //         shipping_email: shipping_email,
-                            //         shipping_name: shipping_name,
-                            //         shipping_address: shipping_address,
-                            //         shipping_phone: shipping_phone,
-                            //         shipping_notes: shipping_notes,
-                            //         _token: _token,
-                            //         order_fee: order_fee,
-                            //         order_coupon: order_coupon,
-                            //         shipping_method: shipping_method
-                            //     }
-                            //     console.log(data);
 
                             $.ajax({
                                 url: '{{ url('/confirm-order') }}',
@@ -414,10 +402,10 @@
                             }, 3000);
 
                         } else {
-                            swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");
+                            swal("Đóng", "Đơn hàng chưa được gửi, hãy hoàn tất đơn hàng", "error");
                         }
 
-                    });
+                });
             });
         });
 
