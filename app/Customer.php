@@ -12,4 +12,9 @@ class Customer extends Model
     {
         return $this->hasMany('App\Order', 'customer_id', 'id');
     }
+
+    public function shipping()
+    {
+        return $this->hasMany('App\Shipping','shipping_id', 'id');
+    }
 }

@@ -24,6 +24,22 @@
                             <div class="form-one" style="width:90%;">
                                 <form action="" method="POST">
                                     @csrf
+                                    @if ($shipping)
+                                    <input type="text" name="shipping_email" class="shipping_email"
+                                        placeholder="Điền email" data-validation="email"
+                                        value="{{$shipping->email}}" >
+                                    <input type="text" name="shipping_name" class="shipping_name"
+                                        placeholder="Họ và tên người gửi" data-validation="length" data-validation-length='1-255'
+                                        value="{{$shipping->name}}" >
+                                    <input type="text" name="shipping_address" class="shipping_address"
+                                        placeholder="Địa chỉ gửi hàng" data-validation="length" data-validation-length='1-255'
+                                        value="{{$shipping->address}}" >
+                                    <input type="text" name="shipping_phone" class="shipping_phone"
+                                        placeholder="Số điện thoại" data-validation="length" data-validation-length='1-255'
+                                        value="{{$shipping->phone}}">
+                                    <textarea name="shipping_notes" class="shipping_notes"
+                                        placeholder="Ghi chú đơn hàng của bạn" rows="5">{{$shipping->notes}}</textarea>
+                                    @else
                                     <input type="text" name="shipping_email" class="shipping_email"
                                         placeholder="Điền email" data-validation="email" >
                                     <input type="text" name="shipping_name" class="shipping_name"
@@ -34,6 +50,7 @@
                                         placeholder="Số điện thoại" data-validation="length" data-validation-length='1-255'>
                                     <textarea name="shipping_notes" class="shipping_notes"
                                         placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
+                                    @endif
 
                                     @if (Session::get('coupon'))
                                         <input type="hidden" name="order_coupon" class="order_coupon"
@@ -53,8 +70,15 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <input type="button" value="Xác nhận đơn hàng" name="send_order"
+                                    @if (!Session::get('fee'))
+                                        <p>Chưa có thiết lập phí vận chuyển</p>
+                                    @elseif (Session::get('cart'))
+                                        <input type="button" value="Xác nhận đơn hàng" name="send_order"
                                         class="btn btn-primary btn-sm send_order">
+                                    @else
+                                        <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    @endif
+
                                 </form>
                             </div>
                         </div>

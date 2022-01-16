@@ -11,6 +11,7 @@ use App\Shipping;
 use App\Payment;
 use App\Order;
 use App\OrderDetail;
+use App\Customer;
 use Session;
 
 session_start();
@@ -23,7 +24,17 @@ class CartController extends Controller
         $brands = Brand::where('status', '=', 0)->get();
         $cities = City::orderBy('matp', 'ASC')->get();
         $payments = Payment::where('status', '=', 0)->get();
-        return view('pages.cart.index', ['categories' => $categories, 'brands' => $brands, 'cities' => $cities, 'payments' => $payments]);
+        $customer_id = Session::get('customer_id');
+        $shipping = null;
+        if ($customer_id) {
+            $shipping_id = Customer::find($customer_id)->shipping_id;
+            if ($shipping_id) {
+                $shipping = Shipping::find($shipping_id);
+            }
+            return view('pages.cart.index', ['shipping' => $shipping, 'categories' => $categories, 'brands' => $brands, 'cities' => $cities, 'payments' => $payments]);
+        } else {
+            return redirect()->back()->with('message', 'Authen failed!');
+        }
     }
 
     public function deleteAllCartProduct()
@@ -99,7 +110,15 @@ class CartController extends Controller
     {
         $data = $request->all();
 
-        $shipping = new Shipping();
+        $customer_id = Session::get('customer_id');
+        $customer = Customer::find($customer_id);
+
+        if (!$customer->shipping_id) {
+            $shipping = new Shipping();
+        } else {
+            $shipping = Shipping::find($shipping_id);
+        }
+
         $shipping->name = $data['shipping_name'];
         $shipping->email = $data['shipping_email'];
         $shipping->phone = $data['shipping_phone'];
@@ -107,16 +126,19 @@ class CartController extends Controller
         $shipping->notes = $data['shipping_notes'];
         $shipping->save();
 
+        $customer->shipping_id = $shipping->id;
+        $customer->save();
+
         $order = new Order();
         $order->code =  substr(md5(microtime()), rand(0, 26), 5);
-        $order->customer_id = Session::get('customer_id');
+        $order->customer_id = $customer_id;
         $order->shipping_id = $shipping->id;
         $order->payment_id = $data['shipping_method'];
+        $order->notes = $shipping->notes;
         $order->status = 0;
         $order->coupon = $data['order_coupon'];
         $order->shipping_fee = $data['order_fee'];
         $order->save();
-
 
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {

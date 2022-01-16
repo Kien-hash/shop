@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('shipping_id');
             $table->unsignedBigInteger('payment_id');
+            $table->string('notes')->nullable();
             $table->string('status')->default(0);
             $table->string('coupon')->nullable();
             $table->integer('shipping_fee');
