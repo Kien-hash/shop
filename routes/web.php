@@ -20,15 +20,18 @@ Route::post('/search', 'HomeController@postSearch');
 // Ajax Handler
 Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
 Route::post('/add-cart', 'AjaxController@postAddCartAjax');
+Route::post('/calculate-fee', 'AjaxController@postCalculateFee');
+
 
 // Cart Handler
 Route::get('/show-cart', 'CartController@getShowCart');
 Route::get('/del-all-product', 'CartController@deleteAllCartProduct');
 Route::post('/update-cart', 'CartController@postUpdateCart');
 Route::get('/del-product/{session_id}', 'CartController@deleteProduct');
+Route::get('/del-fee', 'CartController@getDeleteFee');
 
 // Coupon
-Route::post('/check-coupon', 'CartController@postCheckCoupon');
+Route::post('/check-coupon', 'AjaxController@postCheckCoupon');
 Route::get('/unset-coupon', 'CartController@getUnsetCoupon');
 
 // User login

@@ -7,6 +7,7 @@ use App\Brand;
 use App\Category;
 use App\Coupon;
 use App\City;
+use App\Payment;
 use Session;
 
 session_start();
@@ -18,7 +19,8 @@ class CartController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $cities = City::orderBy('matp', 'ASC')->get();
-        return view('pages.cart.index', ['categories' => $categories, 'brands' => $brands, 'cities'=>$cities]);
+        $payments = Payment::where('status', '=', 0)->get();
+        return view('pages.cart.index', ['categories' => $categories, 'brands' => $brands, 'cities' => $cities, 'payments' => $payments]);
     }
 
     public function deleteAllCartProduct()
@@ -75,39 +77,6 @@ class CartController extends Controller
         }
     }
 
-    public function postCheckCoupon(Request $request)
-    {
-        $data = $request->all();
-        $coupon = Coupon::where('code', $data['coupon'])->first();
-        if ($coupon) {
-            $count_coupon = $coupon->count();
-            if ($count_coupon > 0) {
-                $coupon_session = Session::get('coupon');
-                if ($coupon_session == true) {
-                    $is_avaiable = 0;
-                    if ($is_avaiable == 0) {
-                        $cou[] = array(
-                            'coupon_code' => $coupon->code,
-                            'coupon_condition' => $coupon->condition,
-                            'coupon_number' => $coupon->number,
-                        );
-                        Session::put('coupon', $cou);
-                    }
-                } else {
-                    $cou[] = array(
-                        'coupon_code' => $coupon->code,
-                        'coupon_condition' => $coupon->condition,
-                        'coupon_number' => $coupon->number,
-                    );
-                    Session::put('coupon', $cou);
-                }
-                Session::save();
-                return redirect()->back()->with('message', 'Thêm mã giảm giá thành công!');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Mã giảm giá không đúng!');
-        }
-    }
     public function getUnsetCoupon()
     {
         $coupon = Session::get('coupon');
@@ -115,5 +84,11 @@ class CartController extends Controller
             Session::forget('coupon');
             return redirect()->back()->with('message', 'Xóa hết giỏ thành công');
         }
+    }
+
+    public function getDeleteFee()
+    {
+        Session::forget('fee');
+        return redirect()->back();
     }
 }

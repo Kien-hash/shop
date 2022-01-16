@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\District;
 use App\Ward;
+use App\Delivery;
+use App\Coupon;
 
 use Session;
 session_start();
@@ -71,5 +73,60 @@ class AjaxController extends Controller
         }
 
         Session::save();
+    }
+
+    public function postCalculateFee(Request $request){
+        $data = $request->all();
+        if ($data['matp']) {
+            $default = Delivery::find(1);
+            $feeship = Delivery::where('matp', $data['matp'])->where('maqh', $data['maqh'])->where('xaid', $data['xaid'])->get();
+            if ($feeship) {
+                $count_feeship = $feeship->count();
+                if ($count_feeship > 0) {
+                    foreach ($feeship as $key => $fee) {
+                        Session::put('fee', $fee->fee);
+                        Session::save();
+                    }
+                } else {
+                    Session::put('fee', $default->fee);
+                    Session::save();
+                }
+            }
+        }
+    }
+
+    public function postCheckCoupon(Request $request)
+    {
+        $data = $request->all();
+        $code = null;
+        $coupon = Coupon::where('code', $data['coupon'])->first();
+        if ($coupon) {
+            $count_coupon = $coupon->count();
+            if ($count_coupon > 0) {
+                $coupon_session = Session::get('coupon');
+                if ($coupon_session == true) {
+                    $is_avaiable = 0;
+                    if ($is_avaiable == 0) {
+                        $cou[] = array(
+                            'coupon_code' => $coupon->code,
+                            'coupon_type' => $coupon->type,
+                            'coupon_amount' => $coupon->amount,
+                        );
+                        Session::put('coupon', $cou);
+                    }
+                } else {
+                    $cou[] = array(
+                        'coupon_code' => $coupon->code,
+                        'coupon_type' => $coupon->type,
+                        'coupon_amount' => $coupon->amount,
+                    );
+                    Session::put('coupon', $cou);
+                }
+                Session::save();
+                echo $coupon->code;
+            }
+        } else {
+            echo $code;
+        }
     }
 }
