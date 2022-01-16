@@ -25,13 +25,13 @@
                                 <form action="" method="POST">
                                     @csrf
                                     <input type="text" name="shipping_email" class="shipping_email"
-                                        placeholder="Điền email">
+                                        placeholder="Điền email" data-validation="email" >
                                     <input type="text" name="shipping_name" class="shipping_name"
-                                        placeholder="Họ và tên người gửi">
+                                        placeholder="Họ và tên người gửi" data-validation="length" data-validation-length='1-255'>
                                     <input type="text" name="shipping_address" class="shipping_address"
-                                        placeholder="Địa chỉ gửi hàng">
+                                        placeholder="Địa chỉ gửi hàng" data-validation="length" data-validation-length='1-255'>
                                     <input type="text" name="shipping_phone" class="shipping_phone"
-                                        placeholder="Số điện thoại">
+                                        placeholder="Số điện thoại" data-validation="length" data-validation-length='1-255'>
                                     <textarea name="shipping_notes" class="shipping_notes"
                                         placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
 
@@ -89,10 +89,10 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Phí vận chuyển</label>
                             @if (Session::get('fee'))
-                                <input disabled type="text" class="form-control input-sm m-bot15" name="order_fee" class="order_fee"
+                                <input type="number" class="form-control input-sm m-bot15 order_fee" name="order_fee"
                                     value="{{ Session::get('fee') }}">
                             @else
-                                <input disabled type="text" class="form-control input-sm m-bot15" name="order_fee" class="order_fee"
+                                <input type="text" class="form-control input-sm m-bot15 order_fee" name="order_fee"
                                     placeholder="Bạn chưa chọn địa điểm để tính phí vận chuyển" value="">
                             @endif
                         </div>
@@ -326,11 +326,7 @@
                 }
 
             });
-        });
-    </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
             $('.calculate_delivery').click(function() {
                 let matp = $('.city').val();
                 let maqh = $('.district').val();
@@ -354,7 +350,79 @@
                     });
                 }
             });
+
+            $('.send_order').click(function() {
+                swal({
+                        title: "Xác nhận đơn hàng",
+                        text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-danger",
+                        confirmButtonText: "Cảm ơn, Mua hàng",
+
+                        cancelButtonText: "Đóng,chưa mua",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function(isConfirm) {
+                        if (isConfirm) {
+                            let shipping_email = $('.shipping_email').val();
+                            let shipping_name = $('.shipping_name').val();
+                            let shipping_address = $('.shipping_address').val();
+                            let shipping_phone = $('.shipping_phone').val();
+                            let shipping_notes = $('.shipping_notes').val();
+                            let shipping_method = $('.payment_select').val();
+                            let order_fee = $('.order_fee').val();
+                            let order_coupon = $('.order_coupon').val();
+                            let _token = $('input[name="_token"]').val();
+                            // let data = {
+                            //         shipping_email: shipping_email,
+                            //         shipping_name: shipping_name,
+                            //         shipping_address: shipping_address,
+                            //         shipping_phone: shipping_phone,
+                            //         shipping_notes: shipping_notes,
+                            //         _token: _token,
+                            //         order_fee: order_fee,
+                            //         order_coupon: order_coupon,
+                            //         shipping_method: shipping_method
+                            //     }
+                            //     console.log(data);
+
+                            $.ajax({
+                                url: '{{ url('/confirm-order') }}',
+                                method: 'POST',
+                                data: {
+                                    shipping_email: shipping_email,
+                                    shipping_name: shipping_name,
+                                    shipping_address: shipping_address,
+                                    shipping_phone: shipping_phone,
+                                    shipping_notes: shipping_notes,
+                                    _token: _token,
+                                    order_fee: order_fee,
+                                    order_coupon: order_coupon,
+                                    shipping_method: shipping_method
+                                },
+                                success: function() {
+                                    swal("Đơn hàng",
+                                        "Đơn hàng của bạn đã được gửi thành công",
+                                        "success");
+                                }
+                            });
+
+                            window.setTimeout(function() {
+                                location.reload();
+                            }, 3000);
+
+                        } else {
+                            swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");
+                        }
+
+                    });
+            });
         });
+
+        $.validate({});
     </script>
 
 @endsection
+

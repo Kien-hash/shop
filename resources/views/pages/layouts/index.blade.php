@@ -60,6 +60,7 @@
     <script src="{{ asset('public/frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('public/frontend/js/main.js') }}"></script>
     <script src="{{ asset('public/frontend/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('public/frontend/js/jquery.form-validator.min.js') }}"></script>
 
     @yield('scripts')
 
