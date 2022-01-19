@@ -11,6 +11,8 @@
 |
 */
 
+// Route::get('/send-mail', 'HomeController@sendMail');
+
 Route::get('/', 'HomeController@index');
 Route::get('/category/{slug}', 'HomeController@showCategory');
 Route::get('/brand/{slug}', 'HomeController@showBrand');
@@ -128,9 +130,6 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
 
     Route::prefix('order')->group(function () {
         Route::get('/all', 'OrderController@getAll');
-
-        Route::get('/inactive/{id}', 'OrderController@getInactive');
-        Route::get('/active/{id}', 'OrderController@getActive');
 
         Route::get('/status/{id}', 'OrderController@getStatus');
         Route::get('/detail/delete/{id}', 'OrderController@getDeleteDetail');

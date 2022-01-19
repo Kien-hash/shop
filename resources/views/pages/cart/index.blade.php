@@ -306,8 +306,8 @@
         $(document).ready(function() {
             if(sessionStorage.getItem('location')){
                 shipping_address = sessionStorage.getItem('location');
-                $('.shipping_address').val($('.shipping_address').val() + shipping_address);
-
+                if($('.shipping_address').val()==='')
+                    $('.shipping_address').val($('.shipping_address').val() + shipping_address);
             }
 
             $('.choose').on('change', function() {

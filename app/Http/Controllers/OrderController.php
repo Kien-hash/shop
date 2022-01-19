@@ -8,6 +8,7 @@ use App\Order;
 use App\OrderDetail;
 use App\Shipping;
 use App\Delivery;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -27,7 +28,21 @@ class OrderController extends Controller
     public function getStatus($id)
     {
         $order = Order::find($id);
+        $coupon = Coupon::where('code', $order->coupon)->first();
+
+        if ($order->status == 0) {
+            // Send mail to customer
+            $to_name = 'Shop Bán Hàng';
+            $to_email = $order->shipping->email; //send to this email
+
+            $data = array('order' => $order, 'coupon' => $coupon); //body of mail.blade.php
+            Mail::send('pages.mail.index', $data, function ($message) use ($to_name, $to_email) {
+                $message->to($to_email)->subject('Thông báo đặt hàng thành công'); //send this mail with subject
+                $message->from($to_email, $to_name); //send from this mail
+            });
+        }
         if ($order->status < 3) $order->status = $order->status + 1;
+
         $order->save();
         return redirect()->back()->with('Notice', 'Status update successfully!');
     }
