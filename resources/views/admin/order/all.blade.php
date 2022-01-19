@@ -80,8 +80,6 @@
                                 <td>
                                     <a href="{{ URL::to('admin/order/edit/' . $order->id) }}" class="active styling-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
-
-                                    </a>
                                 </td>
                                 <td>
                                     <a onclick="return confirm('Are you sure you want to delete this order?')"

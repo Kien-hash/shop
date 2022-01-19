@@ -1,10 +1,10 @@
 @extends('admin.layouts.index')
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading">
-                    order Edit
+                    order infomation
                 </header>
 
                 <div>
@@ -28,25 +28,202 @@
                         <form role="form" action="{{ URL::to('admin/order/edit/' . $order->id) }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label>
-                                <input type="text" value="{{ $order->name }}" onkeyup="ChangeToSlug();"
-                                    data-validation="length" data-validation-length='1-255' name="name"
-                                    class="form-control" id="slug">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Slug</label>
-                                <input type="text" value="{{ $order->slug }}" name="slug" class="form-control"
-                                    id="convert_slug" data-validation="length" data-validation-length='1-255'>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Notes</label>
-                                <textarea style="resize: none" rows="8" class="form-control" id='ckeditor1'
-                                    name="notes" id="exampleInputPassword1">{{ $order->notes }}</textarea>
+                                <label>Status: </label>
+                                @if ($order->status == 0)
+                                    Đang chờ xác nhận
+                                    <a href="{{ URL::to('admin/order/status/' . $order->id) }}" class="active btn"
+                                        ui-toggle-class="">Xác nhận đơn hàng</a>
+                                @elseif ($order->status == 1)
+                                    Đã xác nhận
+                                    <a href="{{ URL::to('admin/order/status/' . $order->id) }}" class="active btn"
+                                        ui-toggle-class="">Giao hàng</a>
+                                @elseif ($order->status == 2)
+                                    Đang giao hàng
+                                    <a href="{{ URL::to('admin/order/status/' . $order->id) }}" class="active btn"
+                                        ui-toggle-class="">Kết thúc</a>
+                                @else
+                                    Đã kết thúc
+                                @endif
                             </div>
 
-                            <button type="submit" name="update_order_product" class="btn btn-info">Update</button>
-                        </form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Code</label>
+                                <input type="text" value="{{ $order->code }}" data-validation="length"
+                                    data-validation-length='1-255' name="code" class="form-control">
+                            </div>
+
+                            @if ($coupon)
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Coupon</label>
+                                    <input disabled type="text" value="{{ $coupon->code }}" data-validation="length"
+                                        data-validation-length='1-255' name="coupon_code" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount: </label>
+                                    @if ($coupon->type == 1)
+                                        {{ $coupon->amount }} (VNĐ)
+                                    @elseif ($coupon->type == 2)
+                                        {{ $coupon->amount }} (%)
+                                    @else
+                                        Coupon not valid
+                                    @endif
+                                </div>
+                            @endif
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Shipping's Fee</label>
+                                <textarea style="resize: none" rows="1" class="form-control" name="shipping_fee"
+                                    id="exampleInputPassword1">{{ $order->shipping_fee }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Notes</label>
+                                <textarea style="resize: none" rows="7" class="form-control" name="notes"
+                                    id="exampleInputPassword1">{{ $order->notes }}</textarea>
+                            </div>
                     </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel">
+                <header class="panel-heading">
+                    Shipping information
+                </header>
+
+                <div class="panel-body">
+                    <div class="position-center">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" value="{{ $order->shipping->name }}" data-validation="length"
+                                data-validation-length='1-255' name="shipping_name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Address</label>
+                            <input type="text" value="{{ $order->shipping->address }}" data-validation="length"
+                                data-validation-length='1-255' name="shipping_address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Phone</label>
+                            <input type="text" value="{{ $order->shipping->phone }}" data-validation="length"
+                                data-validation-length='1-255' name="shipping_phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="text" value="{{ $order->shipping->email }}" data-validation="email"
+                                name="shipping_email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Notes</label>
+                            <textarea style="resize: none" rows="8" class="form-control" id='ckeditor1'
+                                name="shipping_notes" id="exampleInputPassword1">{{ $order->shipping->notes }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    {{-- <br> --}}
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Order Details
+                </header>
+
+                <div class="panel-body">
+                    <div class="position-center">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20px;">
+                                            <label class="i-checks m-b-none">
+                                                <input type="checkbox"><i></i>
+                                            </label>
+                                        </th>
+                                        <th>Product Name</th>
+                                        <th>In Stock</th>
+                                        <th>Price</th>
+                                        <th>Sales Amount</th>
+                                        <th>Total</th>
+                                        <th style="width:30px;"></th>
+                                    </tr>
+                                </thead>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                <tbody>
+                                    @foreach ($order->order_details as $detail)
+                                        @php
+                                            $total += $detail->product_price * $detail->product_sales_quantity;
+                                        @endphp
+                                        <tr>
+                                            @csrf
+                                            <td><label class="i-checks m-b-none"><input type="checkbox"
+                                                        name="post[]"><i></i></label></td>
+                                            <td>{{ $detail->product_name }}</td>
+                                            <td>{{ $detail->product->quantity }}</td>
+                                            <td>{{ $detail->product_price }}</td>
+                                            <td><input style="width:50px;" type="number" name="sale_amount[]"
+                                                    data-validation="number" min="1" step="1"
+                                                    value="{{ $detail->product_sales_quantity }}"></td>
+                                            <td>{{ $detail->product_price * $detail->product_sales_quantity }}</td>
+                                            <td>
+                                                <a style="visibility:{{ $order->status == 3 ? 'hidden' : '' }};"
+                                                    onclick="return confirm('Are you sure you want to delete this detail?')"
+                                                    href="{{ URL::to('admin/order/detail/delete/' . $detail->id) }}"
+                                                    class="active styling-edit" ui-toggle-class="">
+                                                    <i class="fa fa-times text-danger text"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ $total }}</td>
+                                        <td></td>
+                                    </tr>
+                                    @if ($coupon)
+                                        @php
+                                            $total_with_coupon = $coupon->type == 1 ? $total - $coupon->amount : $total * (1 - $coupon->amount / 100);
+                                            $total = $total_with_coupon;
+                                        @endphp
+                                        <tr>
+                                            <td></td>
+                                            <td>Total (with coupon)</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $total }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <td></td>
+                                        <td>Total (with fee)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ $total + $order->shipping_fee }}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button style="visibility:{{ $order->status == 3 ? 'hidden' : '' }};" type="submit"
+                                name="update_order_product" class="btn center btn-info">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -57,11 +234,8 @@
 
 @section('scripts')
     <script>
-
         $.validate({
 
         });
-
-        CKEDITOR.replace('ckeditor1');
     </script>
 @endsection
