@@ -304,6 +304,12 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            if(sessionStorage.getItem('location')){
+                shipping_address = sessionStorage.getItem('location');
+                $('.shipping_address').val($('.shipping_address').val() + shipping_address);
+
+            }
+
             $('.choose').on('change', function() {
                 let action = $(this).attr('id');
                 let ma_id = $(this).val();
@@ -356,10 +362,14 @@
                 let matp = $('.city').val();
                 let maqh = $('.district').val();
                 let xaid = $('.ward').val();
+                let city = $('.city').find(":selected").text();
+                let district = $('.district').find(":selected").text();
+                let ward = $('.ward').find(":selected").text();
                 let _token = $('input[name="_token"]').val();
                 if (matp == '' && maqh == '' && xaid == '') {
                     alert('Làm ơn chọn để tính phí vận chuyển');
                 } else {
+
                     $.ajax({
                         url: '{{ url('/calculate-fee') }}',
                         method: 'POST',
@@ -373,6 +383,9 @@
                             location.reload();
                         }
                     });
+                    let local =' ' + ward + ', ' + district + ', ' + city;
+                    sessionStorage.setItem('location', local);
+
                 }
             });
 

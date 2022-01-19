@@ -116,7 +116,7 @@ class CartController extends Controller
         if (!$customer->shipping_id) {
             $shipping = new Shipping();
         } else {
-            $shipping = Shipping::find($shipping_id);
+            $shipping = Shipping::find($customer->shipping_id);
         }
 
         $shipping->name = $data['shipping_name'];
