@@ -3,7 +3,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                All products
+                All banners
             </div>
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -50,48 +50,37 @@
                                 </label>
                             </th>
                             <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Sold</th>
-                            <th>Slug</th>
-                            <th>Description</th>
-                            <th>Price</th>
                             <th>Image</th>
-                            <th>Category</th>
-                            <th>Brand</th>
+                            <th>Description</th>
                             <th>Display</th>
                             <th style="width:30px;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($banners as $banner)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label>
                                 </td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->sold }}</td>
-                                <td>{{ $product->slug }}</td>
-                                <td>{{ $product->description }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td> <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
+                                <td>{{ $banner->name }}</td>
+                                <td> <img
+                                        src="{{ $banner->image != '' ? 'public/uploads/banner/' . $banner->image : '' }}"
                                         width="100" height="100" alt="" /></td>
-                                <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->brand->name }}</td>
+                                <td>{{ $banner->description }}</td>
                                 <td>
-                                    @if ($product->status == 0)
-                                        <a href="{{ URL::to('admin/product/inactive/' . $product->id) }}"><span
+                                    @if ($banner->status == 0)
+                                        <a href="{{ URL::to('admin/banner/inactive/' . $banner->id) }}"><span
                                                 class="fa-thumb-styling fa fa-thumbs-up"></span></a>
                                     @else
-                                        <a href="{{ URL::to('admin/product/active/' . $product->id) }}"><span
+                                        <a href="{{ URL::to('admin/banner/active/' . $banner->id) }}"><span
                                                 class="fa-thumb-styling fa fa-thumbs-down"></span></a>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ URL::to('admin/product/edit/' . $product->id) }}"
+                                    <a href="{{ URL::to('admin/banner/edit/' . $banner->id) }}"
                                         class="active styling-edit" ui-toggle-class="">
                                         <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-                                    <a onclick="return confirm('Are you sure you want to delete this product?')"
-                                        href="{{ URL::to('admin/product/delete/' . $product->id) }}"
+                                    <a onclick="return confirm('Are you sure you want to delete this banner?')"
+                                        href="{{ URL::to('admin/banner/delete/' . $banner->id) }}"
                                         class="active styling-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>
@@ -106,12 +95,12 @@
                 <div class="row">
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            {{ $products->links() }}
+                            {{ $banners->links() }}
                         </ul>
                     </div>
                     <div class="col-sm-5 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">Records {{ $products->firstItem() }} -
-                            {{ $products->lastItem() }} of {{ $products->total() }} items</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Records {{ $banners->firstItem() }} -
+                            {{ $banners->lastItem() }} of {{ $banners->total() }} items</small>
                     </div>
                 </div>
             </footer>

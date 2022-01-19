@@ -52,12 +52,8 @@
                             <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" class="form-control" name="image">
-                                <img src="
-                                                                      @if ($product->image != '')
-                                public/uploads/product/{{ $product->image }}
-                                @endif
-                                "
-                                width="100" height="100" alt="" />
+                                <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
+                                    width="100" height="100" alt="" />
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Keywords</label>

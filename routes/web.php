@@ -140,6 +140,18 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'OrderController@getDelete');
     });
 
+    Route::prefix('banner')->group(function () {
+        Route::get('/add', 'BannerController@getAdd');
+        Route::get('/all', 'BannerController@getAll');
+        Route::post('/add', 'BannerController@postAdd');
+        Route::get('/inactive/{id}', 'BannerController@getInactive');
+        Route::get('/active/{id}', 'BannerController@getActive');
+
+        Route::get('/edit/{id}', 'BannerController@getEdit');
+        Route::post('/edit/{id}', 'BannerController@postEdit');
+        Route::get('/delete/{id}', 'BannerController@getDelete');
+    });
+
 
 });
 
