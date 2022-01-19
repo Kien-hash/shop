@@ -39,6 +39,8 @@ class BannerController extends Controller
             $banner->image = $new_image;
         } else {
             $banner->image = '';
+            $banner->status = 1;
+
         }
         $banner->save();
         return redirect('admin/banner/all')->with('Notice', 'Product banner add successfully');
@@ -88,6 +90,7 @@ class BannerController extends Controller
             $get_image->move('public/uploads/banner', $new_image);
             $banner->image = $new_image;
         } else {
+            $banner->status = 1;
         }
         $banner->save();
         return redirect('admin/banner/all')->with('Notice', 'Product banner update successfully');

@@ -6,25 +6,21 @@
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-
                         </ol>
 
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                            @php
+                                $i = 0;
+                            @endphp
+                            @foreach ($banners as $banner)
+                                <div class="item {{ $i++ == 1 ? 'active' : '' }}">
+                                    <div class="col-sm-12">
+                                        <img alt="{{ $banner->description }}"
+                                            src="{{ 'public/uploads/banner/' . $banner->image }}" height="200"
+                                            width="100%" class="img img-responsive img-banner">
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'public/frontend/images/home/girl1.jpg' }}"
-                                        class="girl img-responsive" alt="" />
-                                    <img src="{{ 'public/frontend/images/home/pricing.png' }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div>
 

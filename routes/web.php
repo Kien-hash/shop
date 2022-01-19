@@ -152,6 +152,5 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'BannerController@getDelete');
     });
 
-
 });
 

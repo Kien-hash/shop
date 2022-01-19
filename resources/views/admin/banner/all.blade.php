@@ -64,7 +64,7 @@
                                 <td>{{ $banner->name }}</td>
                                 <td> <img
                                         src="{{ $banner->image != '' ? 'public/uploads/banner/' . $banner->image : '' }}"
-                                        width="100" height="100" alt="" /></td>
+                                        width="500" height="150" alt="" /></td>
                                 <td>{{ $banner->description }}</td>
                                 <td>
                                     @if ($banner->status == 0)
