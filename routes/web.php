@@ -125,5 +125,18 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::post('/edit/{id}', 'PaymentController@postEdit');
         Route::get('/delete/{id}', 'PaymentController@getDelete');
     });
+
+    Route::prefix('order')->group(function () {
+        Route::get('/all', 'OrderController@getAll');
+        
+        Route::get('/inactive/{id}', 'OrderController@getInactive');
+        Route::get('/active/{id}', 'OrderController@getActive');
+
+        Route::get('/edit/{id}', 'OrderController@getEdit');
+        Route::post('/edit/{id}', 'OrderController@postEdit');
+        Route::get('/delete/{id}', 'OrderController@getDelete');
+    });
+
+
 });
 

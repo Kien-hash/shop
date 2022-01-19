@@ -49,8 +49,8 @@
                         <span>Orders</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ URL::to('admin/order/all') }}">All</a></li>
-                        <li><a href="{{ URL::to('admin/order/add') }}">Add</a></li>
+                        <li><a href="{{ URL::to('admin/order/all') }}">Manage</a></li>
+                        {{-- <li><a href="{{ URL::to('admin/order/add') }}">Add</a></li> --}}
                     </ul>
                 </li>
 

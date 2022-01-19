@@ -70,13 +70,14 @@
                                             </select>
                                         </div>
                                     </div>
-                                    @if (!Session::get('fee'))
+
+                                    @if (!Session::get('cart'))
+                                        <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    @elseif (!Session::get('fee'))
                                         <p>Chưa có thiết lập phí vận chuyển</p>
-                                    @elseif (Session::get('cart'))
+                                    @else
                                         <input type="button" value="Xác nhận đơn hàng" name="send_order"
                                         class="btn btn-primary btn-sm send_order">
-                                    @else
-                                        <p>Chưa có sản phẩm nào trong giỏ hàng</p>
                                     @endif
 
                                 </form>
