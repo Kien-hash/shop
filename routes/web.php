@@ -134,7 +134,6 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/status/{id}', 'OrderController@getStatus');
         Route::get('/detail/delete/{id}', 'OrderController@getDeleteDetail');
 
-
         Route::get('/edit/{id}', 'OrderController@getEdit');
         Route::post('/edit/{id}', 'OrderController@postEdit');
         Route::get('/delete/{id}', 'OrderController@getDelete');
@@ -150,6 +149,18 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/edit/{id}', 'BannerController@getEdit');
         Route::post('/edit/{id}', 'BannerController@postEdit');
         Route::get('/delete/{id}', 'BannerController@getDelete');
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/all', 'UserController@getAll');
+        Route::get('/add', 'UserController@getAdd');
+        Route::get('/edit/{id}', 'UserController@getEdit');
+        Route::get('/delete/{id}', 'UserController@getDelete');
+
+        Route::post('/edit/{id}', 'UserController@postEdit');
+        Route::post('/add', 'UserController@postAdd');
+
+        Route::post('/assign-roles', 'UserController@assignRoles');
     });
 
 });

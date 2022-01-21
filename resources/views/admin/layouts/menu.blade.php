@@ -60,7 +60,7 @@
                         <span>Coupons</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ URL::to('admin/coupon/all') }}">All</a></li>
+                        <li><a href="{{ URL::to('admin/coupon/all') }}">List</a></li>
                         <li><a href="{{ URL::to('admin/coupon/add') }}">Add</a></li>
                     </ul>
                 </li>
@@ -71,7 +71,7 @@
                         <span>Deliveries</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ URL::to('admin/delivery/all') }}">All</a></li>
+                        <li><a href="{{ URL::to('admin/delivery/all') }}">List</a></li>
                         {{-- <li><a href="{{ URL::to('admin/delivery/add') }}">Add</a></li> --}}
                     </ul>
                 </li>
@@ -82,7 +82,7 @@
                         <span>Payments</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ URL::to('admin/payment/all') }}">All</a></li>
+                        <li><a href="{{ URL::to('admin/payment/all') }}">List</a></li>
                         <li><a href="{{ URL::to('admin/payment/add') }}">Add</a></li>
                     </ul>
                 </li>
@@ -93,8 +93,19 @@
                         <span>Banners</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ URL::to('admin/banner/all') }}">All</a></li>
+                        <li><a href="{{ URL::to('admin/banner/all') }}">List</a></li>
                         <li><a href="{{ URL::to('admin/banner/add') }}">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ URL::to('admin/user/all') }}">List</a></li>
+                        <li><a href="{{ URL::to('admin/user/add') }}">Add</a></li>
                     </ul>
                 </li>
 
