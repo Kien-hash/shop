@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Roles;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -42,8 +43,15 @@ class UserController extends Controller
 
     public function getDelete($id)
     {
-        User::find($id)->delete();
-        return redirect('admin/user/all')->with('Notice', 'Product user delete successfully');
+        if (Auth::id() == $id) {
+            return redirect()->back()->with('Notice', 'You can not delete your self');
+        }
+        $user = User::find($id);
+        if ($user) {
+            $user->roles()->detach();
+            $user->delete();
+        }
+        return redirect('admin/user/all')->with('Notice', 'User delete successfully');
     }
 
     public function getEdit($id)
@@ -79,7 +87,11 @@ class UserController extends Controller
     public function assignRoles(Request $request)
     {
         $data = $request->all();
-        $user = User::where('email', $data['email'])->first();
+        if (Auth::id() == $data['id']) {
+            return redirect()->back()->with('Notice', 'You can not authorize your self');
+        }
+
+        $user = User::find($data['id']);
         $user->roles()->detach();
 
         $roles = Roles::all();
@@ -88,6 +100,6 @@ class UserController extends Controller
                 $user->roles()->attach(Roles::where('name', $role->name)->first());
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with('Notice', 'User ' . $user->name . ' update successfully!');
     }
 }

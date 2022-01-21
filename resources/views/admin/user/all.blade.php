@@ -67,23 +67,21 @@
                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }} <input hidden type="text" name="email"
-                                            value="{{ $user->email }}"> </td>
+                                    <td>{{ $user->email }}
+                                        <input hidden type="text" name="id" value="{{ $user->id }}">
+                                    </td>
                                     <td>{{ $user->phone }}</td>
                                     @foreach ($roles as $role)
                                         <td><input type="checkbox" name="{{ $role->name }}"
                                                 {{ $user->hasRole($role->name) ? 'checked' : '' }}></td>
                                     @endforeach
                                     <td>
-                                        {{-- <a href="{{ URL::to('admin/user/edit/' . $user->id) }}"
-                                            class="active styling-edit" ui-toggle-class=""></a>
-                                            <i class="fa fa-pencil-square-o text-success text-active"></i>
+                                        <input type="submit" value="Assign roles" class="btn btn-sm btn-default">
                                         <a onclick="return confirm('Are you sure you want to delete this user?')"
                                             href="{{ URL::to('admin/user/delete/' . $user->id) }}"
-                                            class="active styling-edit" ui-toggle-class="">
-                                            <i class="fa fa-times text-danger text"></i>
-                                        </a> --}}
-                                        <input type="submit" value="Assign roles" class="btn btn-sm btn-default">
+                                            class="btn btn-sm btn-danger" ui-toggle-class="">
+                                            Delete user
+                                        </a>
                                     </td>
                                 </tr>
                             </form>
