@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Delivery;
 
 class DefaultDelivery extends Seeder
 {
@@ -11,13 +12,12 @@ class DefaultDelivery extends Seeder
      */
     public function run()
     {
-        DB::table('deliveries')->insert([
-            [
-                'matp' => 0,
-                'maqh' => 0,
-                'xaid' => 0,
-                'fee' => 25000
-            ],
+        Delivery::truncate();
+        Delivery::create([
+            'matp' => 0,
+            'maqh' => 0,
+            'xaid' => 0,
+            'fee' => 25000
         ]);
     }
 }
