@@ -31,6 +31,7 @@ class OrderController extends Controller
         $coupon = Coupon::where('code', $order->coupon)->first();
 
         if ($order->status == 0) {
+            // Đang xử lý -> xác nhận
             // Send mail to customer
             $to_name = 'Shop Bán Hàng';
             $to_email = $order->shipping->email; //send to this email
@@ -40,6 +41,22 @@ class OrderController extends Controller
                 $message->to($to_email)->subject('Thông báo đặt hàng thành công'); //send this mail with subject
                 $message->from($to_email, $to_name); //send from this mail
             });
+
+            // Coupon used
+            $coupon->quantity = $coupon->quantity - 1;
+            $coupon->save();
+        }
+        if($order->status == 1){
+            // Xác nhận -> chuyển hàng
+            foreach($order->order_details as $detail){
+                $product = $detail->product;
+                $product->quantity = $product->quantity - $detail->product_sales_quantity;
+                $product->save();
+            }
+        }
+        if ($order->status == 2){
+            // Chuyển hàng -> kêt thúc
+            // Payment use in here
         }
         if ($order->status < 3) $order->status = $order->status + 1;
 
