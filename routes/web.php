@@ -151,7 +151,7 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'BannerController@getDelete');
     });
 
-    Route::prefix('user')->group(function () {
+    Route::prefix('user')->middleware('auth.roles')->group(function () {
         Route::get('/all', 'UserController@getAll');
         Route::get('/add', 'UserController@getAdd');
         Route::get('/edit/{id}', 'UserController@getEdit');

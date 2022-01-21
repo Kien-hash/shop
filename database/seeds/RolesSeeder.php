@@ -14,9 +14,9 @@ class RolesSeeder extends Seeder
     public function run()
     {
         Roles::truncate();
+        DB::table('roles_user')->truncate();
 
         Roles::create(['name' => 'admin']);
-        Roles::create(['name' => 'author']);
         Roles::create(['name' => 'user']);
     }
 }
