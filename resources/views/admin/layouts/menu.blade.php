@@ -98,6 +98,7 @@
                     </ul>
                 </li>
 
+                @hasRole(['admin'])
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
@@ -108,6 +109,7 @@
                         <li><a href="{{ URL::to('admin/user/add') }}">Add</a></li>
                     </ul>
                 </li>
+                @endhasRole
 
             </ul>
         </div>

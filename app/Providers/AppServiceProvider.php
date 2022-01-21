@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use View;
-use App\Banner;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $banners = Banner::where('status',0)->orderByDesc('id')->get();
-        view()->share('banners', $banners);
-
+        //
     }
 }
