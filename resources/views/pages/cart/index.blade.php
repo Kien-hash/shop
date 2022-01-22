@@ -213,30 +213,31 @@
     <script>
         $(document).ready(function() {
 
-                    $('#check_coupon').click(function() {
-                        let coupon = $('#coupon').val();
-                        let _token = $('input[name="_token"]').val();
-                        if (coupon) {
-                            $.ajax({
-                                url: '{{ url('/check-coupon') }}',
-                                method: 'POST',
-                                data: {
-                                    coupon: coupon,
-                                    _token: _token
-                                },
-                                success: function(code) {
-                                    if (code);
-                                    else {
-                                        alert('Mã giảm giá không khả dụng!');
-                                    }
-                                    location.reload();
-                                }
-                            });
+            $('#check_coupon').click(function() {
+                let coupon = $('#coupon').val();
+                let _token = $('input[name="_token"]').val();
+                if (coupon) {
+                    $.ajax({
+                        url: '{{ url('/check-coupon') }}',
+                        method: 'POST',
+                        data: {
+                            coupon: coupon,
+                            _token: _token
+                        },
+                        success: function(code) {
+                            if (code);
+                            else {
+                                alert('Mã giảm giá không khả dụng!');
+                            }
+                            location.reload();
                         }
-
                     });
+                }
 
-                    $.validate({});
+            });
+
+            $.validate({});
+        });
     </script>
 
 @endsection
