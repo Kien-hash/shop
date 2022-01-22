@@ -11,7 +11,24 @@
             border: 2px solid #FE980F;
         }
 
+        .style-comment {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #F0F0E9;
+        }
+
     </style>
+
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {!! session()->get('message') !!}
+        </div>
+    @elseif(session()->has('error'))
+        <div class="alert alert-danger">
+            {!! session()->get('error') !!}
+        </div>
+    @endif
+
     <div class="product-details">
         <!--product-details-->
         <div class="col-sm-5">
@@ -92,26 +109,40 @@
                         <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
                         <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
                     </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p><b>Write Your Review</b></p>
 
-                    <form action="#">
-                        <span>
-                            <input type="text" placeholder="Your Name" />
-                            <input type="email" placeholder="Email Address" />
-                        </span>
-                        <textarea name=""></textarea>
-                        <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                        @if (Session::get('customer_id'))
+                    <div class="row style-comment">
+                        <div class="col-md-2">
+                            <img src="{{ asset('public/frontend/images/user.png') }}" alt="" width="100%"
+                                class="img img-responsive img-thumbnail">
+                        </div>
+                        <div class="col-md-10">
+                            <p style="color: green;">@ User's name </p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                                voluptate
+                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        </div>
+                    </div>
+
+
+
+                    @if (Session::get('customer_id'))
+                        <p><b>Viết đánh giá của bạn</b></p>
+                        <form action="#">
+                            <span>
+                                <input type="text" placeholder="Your Name" />
+                                <input type="email" placeholder="Email Address" />
+                            </span>
+                            <textarea name=""></textarea>
+                            <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
                             <button type="button" class="btn btn-default pull-right">
                                 Submit
                             </button>
-                        @endif
 
-                    </form>
+                        </form>
+                    @endif
+
                 </div>
             </div>
 
