@@ -19,6 +19,8 @@
     <base href="{{ asset('') }}">
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('public/backend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/backend/css/datatables.min.css') }}">
+
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
     <link href="{{ asset('public/backend/css/style.css') }}" rel='stylesheet' type='text/css' />
@@ -71,12 +73,12 @@
     <script src="{{ asset('public/backend/js/scripts.js') }}"></script>
     <script src="{{ asset('public/backend/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('public/backend/js/jquery.nicescroll.js') }}"></script>
-    <script src="{{ asset('public/backend/js/jquery.form-validator.min.js') }}"></script>
-    {{-- <script language="javascript" type="text/javascript"
-        src="{{ asset('public/backend/js/flot-chart/excanvas.min.js') }}">
-    </script>
-    <![endif]--> --}}
     <script src="{{ asset('public/backend/js/jquery.scrollTo.js') }}"></script>
+
+    <script src="{{ asset('public/backend/js/datatables.min.js') }}"></script>
+    <script src="{{ asset('public/backend/js/jquery.form-validator.min.js') }}"></script>
+
+
 
     @yield('scripts')
 

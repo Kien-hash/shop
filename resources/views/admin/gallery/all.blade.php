@@ -151,6 +151,5 @@
                 }
             });
         });
-        $.validate({});
     </script>
 @endsection
