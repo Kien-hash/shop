@@ -141,6 +141,15 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::post('/add', 'DeliveryController@postAdd');
     });
 
+    Route::prefix('gallery')->group(function () {
+        Route::get('/all/{product_id}', 'GalleryController@getAll');
+
+        Route::get('/delete/{id}', 'GalleryController@getDelete');
+
+        Route::post('/edit/{id}', 'GalleryController@postEdit');
+        Route::post('/add', 'GalleryController@postAdd');
+    });
+
     Route::prefix('payment')->group(function () {
         Route::get('/add', 'PaymentController@getAdd');
         Route::get('/all', 'PaymentController@getAll');
@@ -187,6 +196,4 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
 
         Route::post('/assign-roles', 'UserController@assignRoles');
     });
-
 });
-

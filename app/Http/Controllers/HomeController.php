@@ -21,11 +21,19 @@ class HomeController extends Controller
     public function showCategory($slug)
     {
         $category = Category::where('slug', $slug)->first();
+        $ids = array($category->id);
+        if ($category->parent_id == 0) {
+            $children = Category::where('parent_id', $category->id)->get();
+            foreach ($children as $child) {
+                array_push($ids, $child->id);
+            }
+        }
+       // $friend = DB::table('users')->whereIn('id', $ids)->get();
         $name = $category->name;
 
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
-        $products = Product::where('status', '=', 0)->where('category_id', $category->id)->paginate(9);
+        $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->paginate(9);
         return view('pages.home.category', ['name' => $name, 'products' => $products, 'categories' => $categories, 'brands' => $brands]);
     }
 

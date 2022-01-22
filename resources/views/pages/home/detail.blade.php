@@ -16,22 +16,18 @@
         <!--product-details-->
         <div class="col-sm-5">
             <ul id="imageGallery">
-                <li data-thumb="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}"
-                    data-src="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}">
-                    <img width="100%" height="330" src="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}" />
+                <li data-thumb="{{ asset('public/uploads/product/'.$product->image) }}"
+                    data-src="{{ asset('public/uploads/product/'.$product->image) }}">
+                    <img width="100%" height="330"
+                        src="{{ asset('public/uploads/product/'.$product->image) }}" />
                 </li>
-                <li data-thumb="{{ asset('public/frontend/images/home/gallery3.jpg') }}"
-                    data-src="{{ asset('public/frontend/images/home/gallery3.jpg') }}">
-                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery3.jpg') }}" />
-                </li>
-                <li data-thumb="{{ asset('public/frontend/images/home/gallery2.jpg') }}"
-                    data-src="{{ asset('public/frontend/images/home/gallery2.jpg') }}">
-                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery2.jpg') }}" />
-                </li>
-                <li data-thumb="{{ asset('public/frontend/images/home/gallery1.jpg') }}"
-                    data-src="{{ asset('public/frontend/images/home/gallery1.jpg') }}">
-                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery1.jpg') }}" />
-                </li>
+                @foreach ($product->galleries as $gallery)
+                    <li data-thumb="{{ asset('public/uploads/gallery/'.$gallery->image) }}"
+                        data-src="{{ asset('public/uploads/gallery/'.$gallery->image) }}">
+                        <img width="100%" height="330"
+                            src="{{ asset('public/uploads/gallery/'.$gallery->image) }}" />
+                    </li>
+                @endforeach
             </ul>
         </div>
 

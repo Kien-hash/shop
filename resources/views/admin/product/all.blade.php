@@ -53,7 +53,8 @@
                             <th>Quantity</th>
                             <th>Sold</th>
                             <th>Slug</th>
-                            <th>Description</th>
+                            <th>Gallery</th>
+                            <th style="width:150px;">Description</th>
                             <th>Price</th>
                             <th>Image</th>
                             <th>Category</th>
@@ -71,6 +72,7 @@
                                 <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->sold }}</td>
                                 <td>{{ $product->slug }}</td>
+                                <th><a href="{{ URL::to('admin/gallery/all/' . $product->id) }}">Setup Gallery</a></th>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td> <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
