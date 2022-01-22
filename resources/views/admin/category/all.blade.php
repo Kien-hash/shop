@@ -51,6 +51,7 @@
                             </th>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Parent</th>
                             <th>Description</th>
                             <th>Display</th>
                             <th style="width:30px;"></th>
@@ -63,6 +64,7 @@
                                 </td>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
+                                <td>{{ $category->parent?$category->parent->name:'Root category' }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td>
                                     @if ($category->status == 0)

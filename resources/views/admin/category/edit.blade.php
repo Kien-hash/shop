@@ -39,6 +39,17 @@
                                     id="convert_slug" data-validation="length" data-validation-length='1-255'>
                             </div>
                             <div class="form-group">
+                                <label>Parent</label>
+                                <select name="parent_id" class="form-control input-sm m-bot15">
+                                    <option {{ $category->parent_id == 0 ? 'selected' : '' }} value="0">Root
+                                        Category</option>
+                                    @foreach ($categories as $cate)
+                                        <option {{ $category->parent_id === $cate->id ? 'selected' : '' }}
+                                            value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputPassword1">Description</label>
                                 <textarea style="resize: none" rows="8" class="form-control" id='ckeditor1'
                                     name="description" id="exampleInputPassword1">{{ $category->description }}</textarea>

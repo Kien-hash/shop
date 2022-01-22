@@ -9,7 +9,8 @@ class CategoryController extends Controller
 {
     public function getAdd()
     {
-        return view('admin.category.add');
+        $categories = Category::where('parent_id', 0)->get();
+        return view('admin.category.add', ['categories' => $categories]);
     }
 
     public function getAll()
@@ -33,6 +34,7 @@ class CategoryController extends Controller
         $category->slug = $request->slug;
         $category->description = $request->description;
         $category->status = $request->status;
+        $category->parent_id = $request->parent_id;
         $category->keywords = $request->keywords;
         $category->save();
         return redirect('admin/category/all')->with('Notice', 'Product category add successfully');
@@ -57,7 +59,9 @@ class CategoryController extends Controller
     public function getEdit($id)
     {
         $category = Category::find($id);
-        return view('admin.category.edit', ['category' => $category]);
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('admin.category.edit', ['category' => $category, 'categories' => $categories]);
     }
 
     public function postEdit($id, Request $request)
@@ -77,6 +81,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = $request->slug;
         $category->description = $request->description;
+        $category->parent_id = $request->parent_id;
         $category->keywords = $request->keywords;
         $category->save();
         return redirect('admin/category/all')->with('Notice', 'Product category update successfully');
