@@ -39,8 +39,7 @@
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa"
-                                data-toggle="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                                 VN
                                 <span class="caret"></span>
                             </button>
@@ -51,8 +50,7 @@
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa"
-                                data-toggle="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                                 VNĐ
                                 <span class="caret"></span>
                             </button>
@@ -67,23 +65,29 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-                            <li><a href="{{ URL::to('/show-cart') }}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                            <li><a href="{{ URL::to('/show-cart') }}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a>
+                            </li>
 
                             @if (Session::has('customer_id'))
                                 @if (Session::has('shipping_id'))
-                                    <li><a href="{{ URL::to('/payment') }}"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
+                                    <li><a href="{{ URL::to('/payment') }}"><i class="fa fa-crosshairs"></i>Thanh
+                                            toán</a></li>
                                 @else
-                                    <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
+                                    <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-crosshairs"></i>Thanh
+                                            toán</a></li>
                                 @endif
                             @else
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Thanh toán</a></li>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Thanh
+                                        toán</a></li>
                             @endif
 
 
                             @if (Session::has('customer_id'))
-                                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-lock"></i>Đăng xuất</a></li>
+                                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-lock"></i>Đăng xuất</a>
+                                </li>
                             @else
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng nhập</a></li>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng
+                                        nhập</a></li>
                             @endif
 
                         </ul>
@@ -111,22 +115,20 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="{{ URL::to('/') }}" class="active">Trang chủ</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="{{ URL::to('/show-cart-ajax') }}">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    @foreach ($categories as $category) )
+                                        <li><a href="{{ URL::to('/category/' . $category->slug) }}">{{$category->name }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="blog.html">Blog List</a></li>
                                     <li><a href="blog-single.html">Blog Single</a></li>
                                 </ul>
                             </li>
-                            {{-- <li><a href="404.html">404</a></li> --}}
+                            <li><a href="{{ URL::to('/show-cart') }}">Giỏ hàng</a></li>
                             <li><a href="contact-us.html">Liên hệ</a></li>
                         </ul>
                     </div>
