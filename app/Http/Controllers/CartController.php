@@ -12,7 +12,7 @@ use App\Payment;
 use App\Order;
 use App\OrderDetail;
 use App\Customer;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 session_start();
 

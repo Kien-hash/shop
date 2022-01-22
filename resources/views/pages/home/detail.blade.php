@@ -19,13 +19,17 @@
 
     </style>
 
-    @if (session()->has('message'))
-        <div class="alert alert-success">
-            {!! session()->get('message') !!}
-        </div>
-    @elseif(session()->has('error'))
+    @if (count($errors) > 0)
         <div class="alert alert-danger">
-            {!! session()->get('error') !!}
+            @foreach ($errors->all() as $error)
+                {{ $error }} <br>
+            @endforeach
+        </div>
+    @endif
+
+    @if (session('Notice'))
+        <div class="alert alert-success">
+            {{ session('Notice') }}
         </div>
     @endif
 
@@ -104,40 +108,60 @@
 
             <div class="tab-pane fade active in" id="reviews">
                 <div class="col-sm-12">
-                    <ul>
+                    {{-- <ul>
                         <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
                         <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
                         <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                    </ul>
+                    </ul> --}}
 
-                    <div class="row style-comment">
-                        <div class="col-md-2">
-                            <img src="{{ asset('public/frontend/images/user.png') }}" alt="" width="100%"
-                                class="img img-responsive img-thumbnail">
+                    @foreach ($comments as $comment)
+                        @if ($comment->parent_id != 0)
+                            @continue
+                        @endif
+                        <div class="row style-comment">
+                            <div class="col-md-2">
+                                <img src="{{ asset('public/frontend/images/user.png') }}" alt="" width="100%"
+                                    class="img img-responsive img-thumbnail">
+                            </div>
+                            <div class="col-md-10">
+                                <label style="color: green;">@ {{ $comment->name }} </label>
+                                <p>{{ $comment->created_at }}</p>
+                                <p>{{ $comment->comment }}</p>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <p style="color: green;">@ User's name </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
-                                voluptate
-                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        </div>
-                    </div>
-
-
+                        {{-- <br> --}}
+                        @foreach ($comments as $reply)
+                            @if ($reply->parent_id == $comment->id)
+                                <div class="row style-comment" style="width: 80%; margin: 5px 40px">
+                                    <div class="col-md-2">
+                                        <img src="{{ asset('public/frontend/images/admin.png') }}"
+                                            class="img img-responsive img-thumbnail">
+                                    </div>
+                                    <div class="col-md-10   ">
+                                        <label style="color: red;">@ {{ $reply->name }} </label>
+                                        <p>{{ $reply->comment }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                        <br>
+                    @endforeach
 
                     @if (Session::get('customer_id'))
                         <p><b>Viết đánh giá của bạn</b></p>
-                        <form action="#">
+                        <form action="{{ URL::to('/add-comment') }}" method="POST">
+                            @csrf
                             <span>
-                                <input type="text" placeholder="Your Name" />
-                                <input type="email" placeholder="Email Address" />
+                                <input type="hidden" name="customer_id" value="{{ $customer->id }}" />
+                                <input type="hidden" name="product_id" value="{{ $product->id }}" />
+
+                                <input type="text" name="name" placeholder="Your Name" value="{{ $customer->name }}" />
+                                <input type="email" placeholder="Email Address" value="{{ $customer->email }}" />
                             </span>
-                            <textarea name=""></textarea>
-                            <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                            <button type="button" class="btn btn-default pull-right">
-                                Submit
+                            <textarea name="comment"></textarea>
+                            {{-- <b>Rating: </b> <img src="images/product-details/rating.png" alt="" /> --}}
+                            <button type="submit" class="btn btn-default pull-right">
+                                Gửi
                             </button>
 
                         </form>
@@ -186,6 +210,8 @@
 
 @section('scripts')
     <script type="text/javascript">
+        $.validate({});
+
         $(document).ready(function() {
             $('#imageGallery').lightSlider({
                 gallery: true,

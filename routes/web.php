@@ -51,6 +51,9 @@ Route::post('/signup', 'CheckoutController@postSignup');
 // Checkout pages
 Route::get('/checkout', 'CheckoutController@getCheckout');
 
+// Add comment
+Route::post('/add-comment', 'CommentController@postAdd');
+
 view()->composer(['*'], function ($view) {
     $currentUser = Auth::user();
     $view->with('currentUser', $currentUser);
@@ -73,6 +76,17 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/edit/{id}', 'CategoryController@getEdit');
         Route::post('/edit/{id}', 'CategoryController@postEdit');
         Route::get('/delete/{id}', 'CategoryController@getDelete');
+    });
+
+    Route::prefix('comment')->group(function () {
+        // Route::get('/add', 'CategoryController@getAdd');
+        Route::get('/all', 'CommentController@getAll');
+        Route::get('/inactive/{id}', 'CommentController@getInactive');
+        Route::get('/active/{id}', 'CommentController@getActive');
+
+        Route::get('/edit/{id}', 'CommentController@getEdit');
+        Route::post('/reply/{id}', 'CommentController@postReply');
+        Route::get('/delete/{id}', 'CommentController@getDelete');
     });
 
     Route::prefix('brand')->group(function () {

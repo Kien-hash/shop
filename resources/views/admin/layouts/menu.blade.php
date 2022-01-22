@@ -120,6 +120,17 @@
                     </ul>
                 </li>
 
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Comment</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ URL::to('admin/comment/all') }}">List</a></li>
+                        <li><a href="{{ URL::to('admin/comment/add') }}">Add</a></li>
+                    </ul>
+                </li>
+
                 @hasRole(['admin'])
                     <li class="sub-menu">
                         <a href="javascript:;">

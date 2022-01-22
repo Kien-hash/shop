@@ -17,9 +17,10 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
 
             $table->text('comment');
-            $table->unsignedBigInteger('customer_id');
+            $table->string('name');
             $table->integer('status');
             $table->unsignedBigInteger('parent_id')->default(0);
+            $table->unsignedBigInteger('product_id');
 
             $table->timestamps();
         });

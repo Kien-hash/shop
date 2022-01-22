@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Brand;
 use App\Category;
 use App\Product;
+use App\Customer;
+use App\Comment;
+
+use Illuminate\Support\Facades\Session;
+
+session_start();
 
 class HomeController extends Controller
 {
@@ -28,7 +34,6 @@ class HomeController extends Controller
                 array_push($ids, $child->id);
             }
         }
-       // $friend = DB::table('users')->whereIn('id', $ids)->get();
         $name = $category->name;
 
         $categories = Category::where('status', '=', 0)->get();
@@ -65,6 +70,13 @@ class HomeController extends Controller
         $brands = Brand::where('status', '=', 0)->get();
         $product = Product::where('slug', '=', $slug)->first();
         $relates = Product::where('category_id', $product->category_id)->where('status', 0)->where('id', '!=', $product->id)->paginate(3);
-        return view('pages.home.detail', ['product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
+        $comments = Comment::where('status', 0)->where('product_id', $product->id)->get();
+
+        if (Session::get('customer_id')) {
+            $customer = Customer::find(Session::get('customer_id'));
+            return view('pages.home.detail', ['comments' => $comments, 'customer' => $customer, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
+        } else {
+            return view('pages.home.detail', ['comments' => $comments, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
+        }
     }
 }

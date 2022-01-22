@@ -10,7 +10,7 @@ use App\City;
 use App\Shipping;
 use App\Payment;
 use App\Customer;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 session_start();
 
@@ -73,5 +73,4 @@ class CheckoutController extends Controller
             return redirect()->back()->with('message', 'Authen failed!');
         }
     }
-
 }

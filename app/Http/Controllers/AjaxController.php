@@ -9,7 +9,7 @@ use App\Delivery;
 use App\Coupon;
 use App\Product;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 session_start();
 
@@ -143,7 +143,7 @@ class AjaxController extends Controller
             ';
             foreach ($products as $product) {
                 $output .=
-                '
+                    '
                 <li class="li-search-ajax"><a href="details/' . $product->slug . '">' . $product->name . '</a></li>
                 ';
             }
