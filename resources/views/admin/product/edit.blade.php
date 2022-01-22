@@ -74,9 +74,17 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category_id" class="form-control input-sm m-bot15">
-                                    @foreach ($categories as $category) )
-                                        <option {{ $product->category_id === $category->id ? 'selected' : '' }}
-                                            value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @foreach ($categories as $category)
+                                        @if ($category->parent_id == 0)
+                                            <option {{ $product->category_id === $category->id ? 'selected' : '' }}
+                                                value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endif
+                                        @foreach ($categories as $child)
+                                        @if ($child->parent_id == $category->id)
+                                            <option {{ $product->category_id === $child->id ? 'selected' : '' }}
+                                                value="{{ $child->id }}">----{{ $child->name }}</option>
+                                        @endif
+                                        @endforeach
                                     @endforeach
                                 </select>
                             </div>

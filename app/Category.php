@@ -17,4 +17,9 @@ class Category extends Model
     {
         return $this->belongsTo('App\Category', 'parent_id', 'id');
     }
+
+    // public function children()
+    // {
+    //     return null !== $this->roles()->whereIn('name', $roles)->first();
+    // }
 }

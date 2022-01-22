@@ -67,8 +67,15 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category_id" class="form-control input-sm m-bot15">
-                                    @foreach ($categories as $category) )
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @foreach ($categories as $category)
+                                        @if ($category->parent_id == 0)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endif
+                                        @foreach ($categories as $child)
+                                        @if ($child->parent_id == $category->id)
+                                            <option value="{{ $child->id }}">----{{ $child->name }}</option>
+                                        @endif
+                                        @endforeach
                                     @endforeach
                                 </select>
                             </div>

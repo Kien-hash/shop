@@ -16,7 +16,7 @@
                                 <div class="item {{ $i++ == 1 ? 'active' : '' }}">
                                     <div class="col-sm-12">
                                         <img alt="{{ $banner->description }}"
-                                            src="{{ 'public/uploads/banner/' . $banner->image }}" height="200"
+                                            src="{{ 'public/uploads/banner/' . $banner->image }}" style="height: 300px;"
                                             width="100%" class="img img-responsive img-banner">
                                     </div>
                                 </div>
