@@ -9,7 +9,7 @@ class CouponController extends Controller
 {
     public function getAll()
     {
-        $coupons = Coupon::orderByDesc('id')->paginate(10);
+        $coupons = Coupon::orderByDesc('id')->get();
         return view('admin.coupon.all', ['coupons' => $coupons]);
     }
 

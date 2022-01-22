@@ -15,7 +15,7 @@ class HomePostController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $postCategory = PostCategory::where('slug', $slug)->first();
-        $posts = Post::where('category_id', $postCategory->id)->paginate(10);
+        $posts = Post::where('status', '0')->where('category_id', $postCategory->id)->paginate(5);
 
         return view('pages.post.category', ['posts' => $posts, 'postCategory' => $postCategory, 'brands' => $brands, 'categories' => $categories]);
     }

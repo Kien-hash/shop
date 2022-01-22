@@ -14,7 +14,7 @@ class BannerController extends Controller
 
     public function getAll()
     {
-        $banners = Banner::orderByDesc('id')->paginate(10);
+        $banners = Banner::orderByDesc('id')->get();
         return view('admin.banner.all', ['banners' => $banners]);
     }
 
@@ -40,7 +40,6 @@ class BannerController extends Controller
         } else {
             $banner->image = '';
             $banner->status = 1;
-
         }
         $banner->save();
         return redirect('admin/banner/all')->with('Notice', 'Product banner add successfully');

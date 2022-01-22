@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function getAll()
     {
-        $users = User::orderByDesc('id')->paginate(10);
+        $users = User::orderByDesc('id')->get();
         $roles = Roles::all();
         return view('admin.user.all', ['users' => $users, 'roles' => $roles]);
     }

@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <div class="row w3-res-tb">
+            {{-- <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
                     <select class="input-sm form-control w-sm inline v-middle">
                         <option value="0">Bulk action</option>
@@ -39,7 +39,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light">
                     <thead>
@@ -104,7 +104,7 @@
                 </table>
 
             </div>
-            <footer class="panel-footer">
+            {{-- <footer class="panel-footer">
                 <div class="row">
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
@@ -116,7 +116,15 @@
                             {{ $products->lastItem() }} of {{ $products->total() }} items</small>
                     </div>
                 </div>
-            </footer>
+            </footer> --}}
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $("#myTable").DataTable();
+        });
+    </script>
 @endsection

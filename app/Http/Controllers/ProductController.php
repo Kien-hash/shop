@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     public function getAll()
     {
-        $products = Product::orderByDesc('id')->paginate(10);
+        $products = Product::orderByDesc('id')->get();
         return view('admin.product.all', ['products' => $products]);
     }
 

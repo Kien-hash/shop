@@ -10,7 +10,7 @@ class DeliveryController extends Controller
 {
     public function getAll()
     {
-        $deliveries = Delivery::orderBy('id')->paginate(10);
+        $deliveries = Delivery::orderBy('id')->get();
         $cities = City::orderBy('matp', 'ASC')->get();
         return view('admin.delivery.all', ['deliveries' => $deliveries, 'cities' => $cities]);
     }
@@ -18,17 +18,17 @@ class DeliveryController extends Controller
 
     public function postAdd(Request $request)
     {
-        $delivery = Delivery::where('xaid',$request->xaid)->first();
-        if ($delivery){
+        $delivery = Delivery::where('xaid', $request->xaid)->first();
+        if ($delivery) {
             $delivery->fee = $request->fee;
-        }else{
+        } else {
             $delivery = new Delivery();
             $delivery->matp = $request->matp;
             $delivery->maqh = $request->maqh;
             $delivery->xaid = $request->xaid;
             $delivery->fee = $request->fee;
         }
-        
+
         $delivery->save();
 
         return redirect()->back()->with('Notice', 'Fee added successfully!');

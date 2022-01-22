@@ -10,7 +10,7 @@ class GalleryController extends Controller
 {
     public function getAll($product_id)
     {
-        $galleries = Gallery::where('product_id', $product_id)->paginate(10);
+        $galleries = Gallery::where('product_id', $product_id)->get();
         $product = Product::find($product_id);
         return view('admin.gallery.all', ['galleries' => $galleries, 'product' => $product]);
     }
@@ -46,7 +46,7 @@ class GalleryController extends Controller
     {
         $gallery = Gallery::find($id);
         $image = $request->file('image');
-        if($image){
+        if ($image) {
             // delete old gallery
             unlink('public/uploads/gallery/' . $gallery->image);
 
@@ -59,7 +59,7 @@ class GalleryController extends Controller
             // change database
             $gallery->name = $request->name;
             $gallery->image = $new_image;
-        }else{
+        } else {
             $gallery->name = $request->name;
         }
 
@@ -70,7 +70,7 @@ class GalleryController extends Controller
     public function getDelete($id)
     {
         $gallery = Gallery::find($id);
-        unlink('public/uploads/gallery/'.$gallery->image);
+        unlink('public/uploads/gallery/' . $gallery->image);
         $gallery->delete();
         return redirect()->back()->with('Notice', 'Gallery deleted successfully!');
     }

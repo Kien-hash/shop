@@ -16,7 +16,7 @@ class PostController extends Controller
 
     public function getAll()
     {
-        $posts = Post::orderByDesc('id')->paginate(10);
+        $posts = Post::orderByDesc('id')->get();
         return view('admin.post.all', ['posts' => $posts]);
     }
 

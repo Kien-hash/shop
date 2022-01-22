@@ -14,7 +14,7 @@ class BrandController extends Controller
 
     public function getAll()
     {
-        $brands = Brand::orderByDesc('id')->paginate(10);
+        $brands = Brand::orderByDesc('id')->get();
         return view('admin.brand.all', ['brands' => $brands]);
     }
 

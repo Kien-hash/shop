@@ -14,7 +14,7 @@ class PostCategoryController extends Controller
 
     public function getAll()
     {
-        $postCategories = PostCategory::orderByDesc('id')->paginate(10);
+        $postCategories = PostCategory::orderByDesc('id')->get();
         return view('admin.postCategory.all', ['postCategories' => $postCategories]);
     }
 
@@ -88,4 +88,3 @@ class PostCategoryController extends Controller
         return redirect('admin/postCategory/all')->with('Notice', 'Product postCategory delete successfully');;
     }
 }
-

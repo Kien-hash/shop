@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function getAll()
     {
-        $orders = Order::orderByDesc('id')->paginate(10);
+        $orders = Order::orderByDesc('id')->get();
         return view('admin.order.all', ['orders' => $orders]);
     }
 
@@ -46,15 +46,15 @@ class OrderController extends Controller
             $coupon->quantity = $coupon->quantity - 1;
             $coupon->save();
         }
-        if($order->status == 1){
+        if ($order->status == 1) {
             // Xác nhận -> chuyển hàng
-            foreach($order->order_details as $detail){
+            foreach ($order->order_details as $detail) {
                 $product = $detail->product;
                 $product->quantity = $product->quantity - $detail->product_sales_quantity;
                 $product->save();
             }
         }
-        if ($order->status == 2){
+        if ($order->status == 2) {
             // Chuyển hàng -> kêt thúc
             // Payment use in here
         }

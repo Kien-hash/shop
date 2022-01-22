@@ -47,7 +47,7 @@
                 Product's galleries
             </div>
 
-            <div class="row w3-res-tb">
+            {{-- <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
                     <select class="input-sm form-control w-sm inline v-middle">
                         <option value="0">Bulk action</option>
@@ -67,9 +67,9 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="table-responsive">
-                <table class="table table-striped b-t b-light">
+                <table id="myTable" class="table table-striped b-t b-light">
                     <thead>
                         <tr>
                             <th style="width:20px;">
@@ -113,7 +113,7 @@
                 </table>
 
             </div>
-            <footer class="panel-footer">
+            {{-- <footer class="panel-footer">
                 <div class="row">
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
@@ -125,7 +125,7 @@
                             {{ $galleries->lastItem() }} of {{ $galleries->total() }} items</small>
                     </div>
                 </div>
-            </footer>
+            </footer> --}}
         </div>
     </div>
 @endsection
@@ -150,6 +150,8 @@
                     $("#error_gallery").html('<span class="text-danger">' + error + '</span>');
                 }
             });
+            $("#myTable").DataTable();
+
         });
     </script>
 @endsection

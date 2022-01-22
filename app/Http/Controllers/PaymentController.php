@@ -14,7 +14,7 @@ class PaymentController extends Controller
 
     public function getAll()
     {
-        $payments = Payment::orderByDesc('id')->paginate(10);
+        $payments = Payment::orderByDesc('id')->get();
         return view('admin.payment.all', ['payments' => $payments]);
     }
 
