@@ -22,4 +22,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\OrderDetail', 'product_id', 'id');
     }
+
+    public function galleries()
+    {
+        return $this->hasMany('App\Gallery', 'product_id', 'id');
+    }
 }
