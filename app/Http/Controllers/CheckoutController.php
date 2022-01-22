@@ -68,7 +68,7 @@ class CheckoutController extends Controller
             if ($shipping_id) {
                 $shipping = Shipping::find($shipping_id);
             }
-            return view('pages.cart.index', ['shipping' => $shipping, 'categories' => $categories, 'brands' => $brands, 'cities' => $cities, 'payments' => $payments]);
+            return view('pages.checkout.index', ['shipping' => $shipping, 'categories' => $categories, 'brands' => $brands, 'cities' => $cities, 'payments' => $payments]);
         } else {
             return redirect()->back()->with('message', 'Authen failed!');
         }

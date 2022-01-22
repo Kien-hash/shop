@@ -124,8 +124,10 @@
                             </li>
                             <li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
+                                    @foreach ($postCategories as $postCategory)
+                                        <li><a href="{{ URL::to('/category/' . $postCategory->slug) }}">{{$postCategory->name }}</a></li>
+
+                                    @endforeach
                                 </ul>
                             </li>
                             <li><a href="{{ URL::to('/show-cart') }}">Giỏ hàng</a></li>
