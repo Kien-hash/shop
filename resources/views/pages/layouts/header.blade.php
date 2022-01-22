@@ -125,7 +125,7 @@
                             <li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     @foreach ($postCategories as $postCategory)
-                                        <li><a href="{{ URL::to('/category/' . $postCategory->slug) }}">{{$postCategory->name }}</a></li>
+                                        <li><a href="{{ URL::to('/post-category/' . $postCategory->slug) }}">{{$postCategory->name }}</a></li>
 
                                     @endforeach
                                 </ul>

@@ -169,12 +169,13 @@
                                             <td>{{ $detail->product_name }}</td>
                                             <td>{{ $detail->product->quantity }}</td>
                                             <td>{{ $detail->product_price }}</td>
-                                            <td><input style="width:50px;" type="number" name="sale_amount[]"
+                                            <td><input {{ $order->status > 1 ? 'disabled' : '' }}
+                                                    style="width:50px;" type="number" name="sale_amount[]"
                                                     data-validation="number" min="1" step="1"
                                                     value="{{ $detail->product_sales_quantity }}"></td>
                                             <td>{{ $detail->product_price * $detail->product_sales_quantity }}</td>
                                             <td>
-                                                <a style="visibility:{{ $order->status == 3 ? 'hidden' : '' }};"
+                                                <a style="visibility:{{ $order->status > 1 ? 'hidden' : '' }};"
                                                     onclick="return confirm('Are you sure you want to delete this detail?')"
                                                     href="{{ URL::to('admin/order/detail/delete/' . $detail->id) }}"
                                                     class="active styling-edit" ui-toggle-class="">
@@ -195,15 +196,16 @@
                                     @if ($coupon)
                                         @php
                                             $total_with_coupon = $coupon->type == 1 ? $total - $coupon->amount : $total * (1 - $coupon->amount / 100);
+                                            $coupon_decrease = $coupon->type == 1 ? $coupon->amount : $total * ($coupon->amount / 100);
                                             $total = $total_with_coupon;
                                         @endphp
                                         <tr>
                                             <td></td>
-                                            <td>Total (with coupon)</td>
+                                            <td>Coupon</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>{{ $total }}</td>
+                                            <td>- {{ $coupon_decrease }}</td>
                                             <td></td>
                                         </tr>
                                     @endif

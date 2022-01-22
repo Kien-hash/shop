@@ -11,13 +11,16 @@
 |
 */
 
-// Route::get('/send-mail', 'HomeController@sendMail');
-
 Route::get('/', 'HomeController@index');
 Route::get('/category/{slug}', 'HomeController@showCategory');
 Route::get('/brand/{slug}', 'HomeController@showBrand');
 Route::get('/details/{slug}', 'HomeController@showDetail');
 Route::post('/search', 'HomeController@postSearch');
+
+// Post pages
+Route::get('/post-category/{slug}', 'HomePostController@getPostCategory');
+Route::get('/post/{slug}', 'HomePostController@getPost');
+
 
 // Ajax Handler
 Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
@@ -46,7 +49,6 @@ Route::post('/signup', 'CheckoutController@postSignup');
 
 // Checkout pages
 Route::get('/checkout', 'CheckoutController@getCheckout');
-
 
 view()->composer(['*'], function ($view) {
     $currentUser = Auth::user();
