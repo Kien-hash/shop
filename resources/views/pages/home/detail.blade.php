@@ -1,28 +1,40 @@
 @extends('pages.layouts.index')
 @section('content')
+    <style>
+        .lSSlideOuter .lSPager.lSGallery img {
+            display: block;
+            height: 140px;
+            max-width: 100%;
+        }
+
+        li.active {
+            border: 2px solid #FE980F;
+        }
+
+    </style>
     <div class="product-details">
         <!--product-details-->
         <div class="col-sm-5">
-            <div class="view-product">
-                <img src="{{ URL::to('/public/uploads/product/' . $product->image) }}" alt="" />
-                <h3>ZOOM</h3>
-            </div>
-            <div id="similar-product" class="carousel slide" data-ride="carousel">
-
-                <div class="carousel-inner">
-
-                    <div class="item active">
-                        <a href=""><img src="{{ 'public/frontend/images/similar1.jpg' }}" alt=""></a>
-                        <a href=""><img src="{{ 'public/frontend/images/similar2.jpg' }}" alt=""></a>
-                        <a href=""><img src="{{ 'public/frontend/images/similar3.jpg' }}" alt=""></a>
-                    </div>
-                </div>
-
-                <a class="left item-control" href="#similar-product" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                <a class="right item-control" href="#similar-product" data-slide="next"><i class="fa fa-angle-right"></i></a>
-            </div>
-
+            <ul id="imageGallery">
+                <li data-thumb="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}"
+                    data-src="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}">
+                    <img width="100%" height="330" src="{{ asset('public/uploads/product/33475_sony_playstation_572.jpg') }}" />
+                </li>
+                <li data-thumb="{{ asset('public/frontend/images/home/gallery3.jpg') }}"
+                    data-src="{{ asset('public/frontend/images/home/gallery3.jpg') }}">
+                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery3.jpg') }}" />
+                </li>
+                <li data-thumb="{{ asset('public/frontend/images/home/gallery2.jpg') }}"
+                    data-src="{{ asset('public/frontend/images/home/gallery2.jpg') }}">
+                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery2.jpg') }}" />
+                </li>
+                <li data-thumb="{{ asset('public/frontend/images/home/gallery1.jpg') }}"
+                    data-src="{{ asset('public/frontend/images/home/gallery1.jpg') }}">
+                    <img width="100%" height="auto" src="{{ asset('public/frontend/images/home/gallery1.jpg') }}" />
+                </li>
+            </ul>
         </div>
+
         <div class="col-sm-7">
             <div class="product-information">
                 <!--/product-information-->
@@ -147,6 +159,21 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#imageGallery').lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                thumbItem: 3,
+                slideMargin: 0,
+                enableDrag: false,
+                currentPagerPosition: 'left',
+                onSliderLoad: function(el) {
+                    el.lightGallery({
+                        selector: '#imageGallery .lslide'
+                    });
+                }
+            });
+
             $('.add-to-cart').click(function() {
                 var id = $(this).data('id_product');
 
