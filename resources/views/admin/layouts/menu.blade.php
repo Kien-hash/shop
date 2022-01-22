@@ -79,6 +79,17 @@
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
+                        <span>Post Categories</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ URL::to('admin/postCategory/all') }}">List</a></li>
+                        <li><a href="{{ URL::to('admin/postCategory/add') }}">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
                         <span>Payments</span>
                     </a>
                     <ul class="sub">
@@ -99,16 +110,16 @@
                 </li>
 
                 @hasRole(['admin'])
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{ URL::to('admin/user/all') }}">List</a></li>
-                        <li><a href="{{ URL::to('admin/user/add') }}">Add</a></li>
-                    </ul>
-                </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-book"></i>
+                            <span>Users</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="{{ URL::to('admin/user/all') }}">List</a></li>
+                            <li><a href="{{ URL::to('admin/user/add') }}">Add</a></li>
+                        </ul>
+                    </li>
                 @endhasRole
 
             </ul>

@@ -84,6 +84,18 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'BrandController@getDelete');
     });
 
+    Route::prefix('postCategory')->group(function () {
+        Route::get('/add', 'PostCategoryController@getAdd');
+        Route::get('/all', 'PostCategoryController@getAll');
+        Route::post('/add', 'PostCategoryController@postAdd');
+        Route::get('/inactive/{id}', 'PostCategoryController@getInactive');
+        Route::get('/active/{id}', 'PostCategoryController@getActive');
+
+        Route::get('/edit/{id}', 'PostCategoryController@getEdit');
+        Route::post('/edit/{id}', 'PostCategoryController@postEdit');
+        Route::get('/delete/{id}', 'PostCategoryController@getDelete');
+    });
+
     Route::prefix('product')->group(function () {
         Route::get('/add', 'ProductController@getAdd');
         Route::get('/all', 'ProductController@getAll');
