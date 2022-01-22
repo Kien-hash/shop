@@ -96,6 +96,18 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'PostCategoryController@getDelete');
     });
 
+    Route::prefix('post')->group(function () {
+        Route::get('/add', 'PostController@getAdd');
+        Route::get('/all', 'PostController@getAll');
+        Route::post('/add', 'PostController@postAdd');
+        Route::get('/inactive/{id}', 'PostController@getInactive');
+        Route::get('/active/{id}', 'PostController@getActive');
+
+        Route::get('/edit/{id}', 'PostController@getEdit');
+        Route::post('/edit/{id}', 'PostController@postEdit');
+        Route::get('/delete/{id}', 'PostController@getDelete');
+    });
+
     Route::prefix('product')->group(function () {
         Route::get('/add', 'ProductController@getAdd');
         Route::get('/all', 'ProductController@getAll');

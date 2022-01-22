@@ -90,6 +90,17 @@
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
+                        <span>Posts</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ URL::to('admin/post/all') }}">List</a></li>
+                        <li><a href="{{ URL::to('admin/post/add') }}">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
                         <span>Payments</span>
                     </a>
                     <ul class="sub">
