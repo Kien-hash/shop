@@ -69,7 +69,36 @@
     <script src="{{ asset('public/frontend/js/lightslider.js') }}"></script>
     <script src="{{ asset('public/frontend/js/prettify.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            $("#keywords").keyup(function() {
+                let query = $(this).val();
+                // console.log(query);
+                if (query) {
+                    var _token = $('input[name="_token"]').val();
 
+                    $.ajax({
+                        url: '{{ url('/ajax-search') }}',
+                        method: 'POST',
+                        data: {
+                            query: query,
+                            _token: _token,
+                        },
+                        success: function(data) {
+                            $("#search-ajax").fadeIn();
+                            $("#search-ajax").html(data);
+                        }
+                    })
+                } else {
+                    $("#search-ajax").fadeOut();
+                }
+            })
+        });
+        $(document).on('click', '.li-search-ajax', function() {
+            $("#keywords").val($(this).text());
+            $("#search-ajax").fadeOut();
+        });
+    </script>
     @yield('scripts')
 
 </body>

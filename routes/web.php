@@ -26,6 +26,7 @@ Route::get('/post/{slug}', 'HomePostController@getPost');
 Route::post('/select-delivery', 'AjaxController@postSelectDelivery');
 Route::post('/add-cart', 'AjaxController@postAddCartAjax');
 Route::post('/calculate-fee', 'AjaxController@postCalculateFee');
+Route::post('/ajax-search', 'AjaxController@postSearch');
 
 
 // Cart Handler

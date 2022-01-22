@@ -136,11 +136,12 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form action="{{ URL::to('/search') }}" method="POST">
+                    <form action="{{ URL::to('/search') }}" autocomplete="off" method="POST">
                         {{ csrf_field() }}
                         <div class="search_box pull-right">
-                            <input name="keywords" type="text" placeholder="Điền từ khóa..." />
-                            <input type="submit" class="btn btn-success btn-sm" name="search" value="Tìm kiếm">
+                            <input name="keywords" id="keywords" type="text" placeholder="Điền từ khóa..." />
+                            <div id="search-ajax"></div>
+                            {{-- <input type="submit" class="btn btn-success btn-sm" name="search" value="Tìm kiếm"> --}}
                         </div>
                     </form>
 

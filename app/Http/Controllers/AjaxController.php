@@ -7,8 +7,10 @@ use App\District;
 use App\Ward;
 use App\Delivery;
 use App\Coupon;
+use App\Product;
 
 use Session;
+
 session_start();
 
 class AjaxController extends Controller
@@ -75,7 +77,8 @@ class AjaxController extends Controller
         Session::save();
     }
 
-    public function postCalculateFee(Request $request){
+    public function postCalculateFee(Request $request)
+    {
         $data = $request->all();
         if ($data['matp']) {
             $default = Delivery::find(1);
@@ -127,6 +130,25 @@ class AjaxController extends Controller
             }
         } else {
             echo $code;
+        }
+    }
+
+    public function postSearch(Request $request)
+    {
+        $data = $request->all();
+        if ($data['query']) {
+            $products = Product::where('status', 0)->where('name', 'LIKE', '%' . $data['query'] . '%')->get();
+            $output = '
+            <ul class="dropdown-menu" style="display:block; position:absolute;">
+            ';
+            foreach ($products as $product) {
+                $output .=
+                '
+                <li class="li-search-ajax"><a href="details/' . $product->slug . '">' . $product->name . '</a></li>
+                ';
+            }
+            $output .= '</ul>';
+            echo $output;
         }
     }
 }
