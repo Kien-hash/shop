@@ -34,7 +34,6 @@ Route::get('/del-fee', 'CartController@getDeleteFee');
 Route::post('/confirm-order', 'CartController@postConfirmOrder');
 
 
-
 // Coupon
 Route::post('/check-coupon', 'AjaxController@postCheckCoupon');
 Route::get('/unset-coupon', 'CartController@getUnsetCoupon');
