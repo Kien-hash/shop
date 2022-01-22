@@ -26,7 +26,7 @@ class CheckoutController extends Controller
     public function getLogout()
     {
         Session::flush();
-        return redirect('/login-checkout');
+        return redirect()->back();
     }
 
     public function postLogin(Request $request)

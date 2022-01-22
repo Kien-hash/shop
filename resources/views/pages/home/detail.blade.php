@@ -16,16 +16,14 @@
         <!--product-details-->
         <div class="col-sm-5">
             <ul id="imageGallery">
-                <li data-thumb="{{ asset('public/uploads/product/'.$product->image) }}"
-                    data-src="{{ asset('public/uploads/product/'.$product->image) }}">
-                    <img width="100%" height="330"
-                        src="{{ asset('public/uploads/product/'.$product->image) }}" />
+                <li data-thumb="{{ asset('public/uploads/product/' . $product->image) }}"
+                    data-src="{{ asset('public/uploads/product/' . $product->image) }}">
+                    <img width="100%" height="330" src="{{ asset('public/uploads/product/' . $product->image) }}" />
                 </li>
                 @foreach ($product->galleries as $gallery)
-                    <li data-thumb="{{ asset('public/uploads/gallery/'.$gallery->image) }}"
-                        data-src="{{ asset('public/uploads/gallery/'.$gallery->image) }}">
-                        <img width="100%" height="330"
-                            src="{{ asset('public/uploads/gallery/'.$gallery->image) }}" />
+                    <li data-thumb="{{ asset('public/uploads/gallery/' . $gallery->image) }}"
+                        data-src="{{ asset('public/uploads/gallery/' . $gallery->image) }}">
+                        <img width="100%" height="330" src="{{ asset('public/uploads/gallery/' . $gallery->image) }}" />
                     </li>
                 @endforeach
             </ul>
@@ -72,14 +70,14 @@
         <!--category-tab-->
         <div class="col-sm-12">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#details" data-toggle="tab">Mô tả</a></li>
+                <li><a href="#details" data-toggle="tab">Mô tả</a></li>
                 <li><a href="#companyprofile" data-toggle="tab">Chi tiết</a></li>
 
-                <li><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
+                <li class="active"><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade active in" id="details">
+            <div class="tab-pane fade" id="details">
                 <p>{!! $product->description !!}</p>
             </div>
 
@@ -87,7 +85,7 @@
                 <p>{!! $product->content !!}</p>
             </div>
 
-            <div class="tab-pane fade" id="reviews">
+            <div class="tab-pane fade active in" id="reviews">
                 <div class="col-sm-12">
                     <ul>
                         <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
@@ -107,9 +105,12 @@
                         </span>
                         <textarea name=""></textarea>
                         <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                        <button type="button" class="btn btn-default pull-right">
-                            Submit
-                        </button>
+                        @if (Session::get('customer_id'))
+                            <button type="button" class="btn btn-default pull-right">
+                                Submit
+                            </button>
+                        @endif
+
                     </form>
                 </div>
             </div>
