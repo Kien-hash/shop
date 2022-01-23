@@ -16,6 +16,7 @@ Route::get('/category/{slug}', 'HomeController@showCategory');
 Route::get('/brand/{slug}', 'HomeController@showBrand');
 Route::get('/details/{slug}', 'HomeController@showDetail');
 Route::post('/search', 'HomeController@postSearch');
+Route::get('/contact', 'HomeController@getContact');
 
 // Post pages
 Route::get('/post-category/{slug}', 'HomePostController@getPostCategory');

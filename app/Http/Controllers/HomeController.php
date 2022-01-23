@@ -82,4 +82,12 @@ class HomeController extends Controller
             return view('pages.home.detail', ['rating' => $rating, 'comments' => $comments, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
         }
     }
+
+    public function getContact()
+    {
+        $categories = Category::where('status', '=', 0)->get();
+        $brands = Brand::where('status', '=', 0)->get();
+
+        return view('pages.home.contact', ['categories' => $categories, 'brands' => $brands,]);
+    }
 }
