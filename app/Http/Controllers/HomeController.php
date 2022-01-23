@@ -9,6 +9,7 @@ use App\Product;
 use App\Customer;
 use App\Comment;
 use App\Rating;
+use App\Contact;
 
 use Illuminate\Support\Facades\Session;
 
@@ -87,7 +88,8 @@ class HomeController extends Controller
     {
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
+        $contact = Contact::all()->first();
 
-        return view('pages.home.contact', ['categories' => $categories, 'brands' => $brands,]);
+        return view('pages.home.contact', ['categories' => $categories, 'brands' => $brands, 'contact' => $contact]);
     }
 }

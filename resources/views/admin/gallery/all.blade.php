@@ -77,8 +77,8 @@
                                     <input type="checkbox"><i></i>
                                 </label>
                             </th>
-                            <th style="text-align: center;" >Name</th>
-                            <th style="text-align: center;" >Image</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Image</th>
                             <th style="width:40px;">Manage</th>
                             <th style="width:30px;"></th>
                         </tr>
@@ -86,12 +86,14 @@
                     <tbody align="center">
                         @foreach ($galleries as $gallery)
                             <tr>
-                                <form action="{{ URL::to('admin/gallery/edit/' . $gallery->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ URL::to('admin/gallery/edit/' . $gallery->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label></td>
                                     <td>
-                                        <textarea name="name" rows="5" style="width:100%;height:150px;">{{ $gallery->name }}</textarea>
+                                        <textarea name="name" rows="5"
+                                            style="width:100%;height:150px;">{{ $gallery->name }}</textarea>
                                     </td>
                                     <td>
                                         <img src="{{ $gallery->image != '' ? 'public/uploads/gallery/' . $gallery->image : '' }}"

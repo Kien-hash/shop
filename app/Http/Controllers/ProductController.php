@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Brand;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -120,6 +121,12 @@ class ProductController extends Controller
 
         $get_image = $request->file('image');
         if ($get_image) {
+            if ($product->image) {
+                try {
+                    unlink('public/uploads/product/' . $product->image);
+                } catch (Exception $e) {
+                }
+            }
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();

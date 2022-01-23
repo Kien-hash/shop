@@ -70,6 +70,12 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::get('/logout', 'AdminController@getLogout');
 
+    Route::prefix('contact')->group(function () {
+        Route::get('/config', 'ContactController@getConfig');
+        Route::post('/config', 'ContactController@postConfig');
+    });
+
+
     Route::prefix('category')->group(function () {
         Route::get('/add', 'CategoryController@getAdd');
         Route::get('/all', 'CategoryController@getAll');

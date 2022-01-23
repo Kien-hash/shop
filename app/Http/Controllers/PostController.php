@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\PostCategory;
 
+use Exception;
+
 class PostController extends Controller
 {
     public function getAdd()
@@ -106,6 +108,12 @@ class PostController extends Controller
 
         $get_image = $request->file('image');
         if ($get_image) {
+            if ($post->image) {
+                try {
+                    unlink('public/uploads/post/' . $post->image);
+                } catch (Exception $e) {
+                }
+            }
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();

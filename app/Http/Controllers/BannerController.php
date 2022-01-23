@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Banner;
+use Exception;
+
 
 class BannerController extends Controller
 {
@@ -83,6 +85,11 @@ class BannerController extends Controller
         $banner->description = $request->description;
         $get_image = $request->file('image');
         if ($get_image) {
+            if ($banner->image) {
+                try {
+                    unlink('public/uploads/banner/' . $banner->image);
+                } catch (Exception $e) {}
+            }
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();

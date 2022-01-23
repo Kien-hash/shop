@@ -4,11 +4,20 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="dashboard">
+                    <a class="active" href="{{ URL::to('admin/dashboard') }}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+
+                <li>
+                    <a class="active" href="{{ URL::to('admin/contact/config') }}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Config Contact</span>
+                    </a>
+                </li>
+
+
 
                 <li class="sub-menu">
                     <a href="javascript:;">

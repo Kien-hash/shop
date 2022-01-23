@@ -18,7 +18,7 @@ class CreateContactsTable extends Migration
             $table->text('contact');
             $table->text('map');
             $table->text('fanpage');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
