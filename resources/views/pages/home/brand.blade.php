@@ -54,34 +54,7 @@
 
     <div class="recommended_items">
         <!--recommended_items-->
-        <h2 class="title text-center">recommended items</h2>
 
-        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend3.jpg' }}" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                        to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
     </div>
     <!--/recommended_items--> --}}
 
@@ -89,6 +62,78 @@
 
 @section('scripts')
     <script type="text/javascript">
+        $("#row-wishlist-delete").click(function(){
+            localStorage.removeItem('data');
+            location.reload();
+        });
+
+        function view() {
+            if (localStorage.getItem('data') != null) {
+                let data = JSON.parse(localStorage.getItem('data'));
+
+                data.reverse();
+                document.getElementById('row-wishlist').style.overflow = 'scroll';
+                document.getElementById('row-wishlist').style.height = '600px';
+
+                for (let i = 0; i < data.length; i++) {
+                    let string = `
+                    <div class="row" style="margin:10px 0">
+                        <div class="col-md-4">
+                            <img src="` + data[i].image + `" width="100%" >
+                        </div>
+                        <div class="col-md-8 info_wishlist">
+                            <p>` + data[i].name + `</p>
+                            <p style="color:#FE980F">` + data[i].price + `</p>
+                            <p><a href="` + data[i].url + `">Chi tiết</a></p>
+                        </div>
+                    </div>
+                    `
+                    $("#row-wishlist").append(string);
+                }
+            }
+        }
+
+        view();
+
+        function add_wishlist(id) {
+            let name = $('.cart_product_name_' + id).val();
+            let image = "public/uploads/product/" + $('.cart_product_image_' + id).val();
+            let price = $('.cart_product_price_' + id).val();
+            let url = $('.cart_product_url_' + id).val();
+            // console.log(name, image, price, url);
+            let newItem = {
+                'url': url,
+                'id': id,
+                'name': name,
+                'image': image,
+                'price': price,
+            }
+            if (localStorage.getItem('data') == null) {
+                localStorage.setItem('data', '[]');
+            }
+            let oldData = JSON.parse(localStorage.getItem('data'));
+
+            if (oldData.find(item => item.id == newItem.id)) {
+                alert('Sản phẩm đã có trong danh sách yêu thích');
+            } else {
+                oldData.push(newItem);
+                let string = `
+                <div class="row" style="margin:10px 0">
+                    <div class="col-md-4">
+                        <img src="` + newItem.image + `" width="100%" >
+                    </div>
+                    <div class="col-md-8 info_wishlist">
+                        <p>` + newItem.name + `</p>
+                        <p style="color:#FE980F">` + newItem.price + `</p>
+                        <p><a href="` + newItem.url + `">Chi tiết</a></p>
+                    </div>
+                </div>
+                `
+                $("#row-wishlist").prepend(string);
+            }
+
+            localStorage.setItem('data', JSON.stringify(oldData));
+        }
         $(document).ready(function() {
             $('.add-to-cart').click(function() {
                 var id = $(this).data('id_product');
@@ -139,3 +184,4 @@
         });
     </script>
 @endsection
+

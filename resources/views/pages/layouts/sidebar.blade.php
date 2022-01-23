@@ -3,29 +3,30 @@
     <div class="panel-group category-products" id="accordian">
         <!--category-productsr-->
         @foreach ($categories as $category)
-        @if ($category->parent_id == 0)
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordian" href="{{ '#' . $category->slug }}">
-                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                            <a href="{{ URL::to('/category/' . $category->slug) }}">{{ $category->name }}</a>
-                        </a>
-                    </h4>
-                </div>
-                <div id="{{ $category->slug }}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <ul>
-                            @foreach ($categories as $child)
-                            @if ($child->parent_id == $category->id)
-                                <li><a href="{{ URL::to('/category/' . $child->slug) }}">{{$child->name}} </a></li>
-                            @endif
-                            @endforeach
-                        </ul>
+            @if ($category->parent_id == 0)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordian" href="{{ '#' . $category->slug }}">
+                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                <a href="{{ URL::to('/category/' . $category->slug) }}">{{ $category->name }}</a>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="{{ $category->slug }}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                @foreach ($categories as $child)
+                                    @if ($child->parent_id == $category->id)
+                                        <li><a href="{{ URL::to('/category/' . $child->slug) }}">{{ $child->name }}
+                                            </a></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
         @endforeach
     </div>
     <!--/category-products-->
@@ -45,7 +46,19 @@
     </div>
     <!--/brands_products-->
 
-    <div class="price-range">
+    <div class="brands_products">
+        <!--brands_products-->
+        <h2>Sản phẩm yêu thích</h2>
+        <div class="brands-name">
+            <a href="" id="row-wishlist-delete">Xóa</a>
+            <div id="row-wishlist" class="row" style="text-align:center;">
+
+            </div>
+        </div>
+    </div>
+    <!--/brands_products-->
+
+    {{-- <div class="price-range">
         <!--price-range-->
         <h2>Price Range</h2>
         <div class="well text-center">
@@ -54,7 +67,7 @@
             <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
         </div>
     </div>
-    <!--/price-range-->
+    <!--/price-range--> --}}
 
     <div class="shipping text-center">
         <!--shipping-->
