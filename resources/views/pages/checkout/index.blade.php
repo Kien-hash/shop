@@ -24,32 +24,39 @@
                             <div class="form-one" style="width:90%;">
                                 <form action="" method="POST">
                                     @csrf
+                                    <input type="hidden" name="total_price" class="total_price" id="total_price"
+                                        placeholder="">
                                     @if ($shipping)
-                                    <input type="text" name="shipping_email" class="shipping_email"
-                                        placeholder="Điền email" data-validation="email"
-                                        value="{{$shipping->email}}" >
-                                    <input type="text" name="shipping_name" class="shipping_name"
-                                        placeholder="Họ và tên người gửi" data-validation="length" data-validation-length='1-255'
-                                        value="{{$shipping->name}}" >
-                                    <input type="text" name="shipping_address" class="shipping_address"
-                                        placeholder="Địa chỉ gửi hàng" data-validation="length" data-validation-length='1-255'
-                                        value="{{$shipping->address}}" >
-                                    <input type="text" name="shipping_phone" class="shipping_phone"
-                                        placeholder="Số điện thoại" data-validation="length" data-validation-length='1-255'
-                                        value="{{$shipping->phone}}">
-                                    <textarea name="shipping_notes" class="shipping_notes"
-                                        placeholder="Ghi chú đơn hàng của bạn" rows="5">{{$shipping->notes}}</textarea>
+                                        <input type="text" name="shipping_email" class="shipping_email"
+                                            placeholder="Điền email" data-validation="email" value="{{ $shipping->email }}">
+                                        <input type="text" name="shipping_name" class="shipping_name"
+                                            placeholder="Họ và tên người gửi" data-validation="length"
+                                            data-validation-length='1-255' value="{{ $shipping->name }}">
+                                        <input type="text" name="shipping_address" class="shipping_address"
+                                            placeholder="Địa chỉ gửi hàng" data-validation="length"
+                                            data-validation-length='1-255' value="{{ $shipping->address }}">
+                                        <input type="text" name="shipping_phone" class="shipping_phone"
+                                            placeholder="Số điện thoại" data-validation="length"
+                                            data-validation-length='1-255' value="{{ $shipping->phone }}">
+
+                                        <textarea name="shipping_notes" class="shipping_notes"
+                                            placeholder="Ghi chú đơn hàng của bạn"
+                                            rows="5">{{ $shipping->notes }}</textarea>
                                     @else
-                                    <input type="text" name="shipping_email" class="shipping_email"
-                                        placeholder="Điền email" data-validation="email" >
-                                    <input type="text" name="shipping_name" class="shipping_name"
-                                        placeholder="Họ và tên người gửi" data-validation="length" data-validation-length='1-255'>
-                                    <input type="text" name="shipping_address" class="shipping_address"
-                                        placeholder="Địa chỉ gửi hàng" data-validation="length" data-validation-length='1-255'>
-                                    <input type="text" name="shipping_phone" class="shipping_phone"
-                                        placeholder="Số điện thoại" data-validation="length" data-validation-length='1-255'>
-                                    <textarea name="shipping_notes" class="shipping_notes"
-                                        placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
+                                        <input type="text" name="shipping_email" class="shipping_email"
+                                            placeholder="Điền email" data-validation="email">
+                                        <input type="text" name="shipping_name" class="shipping_name"
+                                            placeholder="Họ và tên người gửi" data-validation="length"
+                                            data-validation-length='1-255'>
+                                        <input type="text" name="shipping_address" class="shipping_address"
+                                            placeholder="Địa chỉ gửi hàng" data-validation="length"
+                                            data-validation-length='1-255'>
+                                        <input type="text" name="shipping_phone" class="shipping_phone"
+                                            placeholder="Số điện thoại" data-validation="length"
+                                            data-validation-length='1-255'>
+                                        <textarea name="shipping_notes" class="shipping_notes"
+                                            placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
+
                                     @endif
 
                                     @if (Session::get('coupon'))
@@ -65,7 +72,7 @@
                                             <select name="payment_select"
                                                 class="form-control input-sm m-bot15 payment_select">
                                                 @foreach ($payments as $payment)
-                                                    <option value="{{$payment->id}}">{{$payment->name }}</option>
+                                                    <option value="{{ $payment->id }}">{{ $payment->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -77,7 +84,7 @@
                                         <p>Chưa có thiết lập phí vận chuyển</p>
                                     @else
                                         <input type="button" value="Xác nhận đơn hàng" name="send_order"
-                                        class="btn btn-primary btn-sm send_order">
+                                            class="btn btn-primary btn-sm send_order">
                                     @endif
 
                                 </form>
@@ -98,8 +105,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Chọn quận huyện</label>
-                            <select name="district" id="district"
-                                class="form-control input-sm m-bot15 district choose">
+                            <select name="district" id="district" class="form-control input-sm m-bot15 district choose">
                                 <option value="">--Chọn quận huyện--</option>
 
                             </select>
@@ -114,8 +120,8 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Phí vận chuyển</label>
                             @if (Session::get('fee'))
-                                <input disabled type="number" class="form-control input-sm m-bot15 order_fee" name="order_fee"
-                                    value="{{ Session::get('fee') }}">
+                                <input disabled type="number" class="form-control input-sm m-bot15 order_fee"
+                                    name="order_fee" value="{{ Session::get('fee') }}">
                             @else
                                 <input disabled type="text" class="form-control input-sm m-bot15 order_fee" name="order_fee"
                                     placeholder="Bạn chưa chọn địa điểm để tính phí vận chuyển" value="">
@@ -174,12 +180,13 @@
                                                         <p>{{ $cart['product_name'] }}</p>
                                                     </td>
                                                     <td class="cart_price">
-                                                        <p>{{ number_format($cart['product_price'], 0, ',', '.') }}VNĐ</p>
+                                                        <p>{{ number_format($cart['product_price'], 0, ',', '.') }}VNĐ
+                                                        </p>
                                                     </td>
                                                     <td class="cart_quantity">
-                                                        <div class="cart_quantity_button" >
-                                                            <input style="width: 60px;" class="cart_quantity" type="number" min="1"
-                                                                name="cart_qty[{{ $cart['session_id'] }}]"
+                                                        <div class="cart_quantity_button">
+                                                            <input style="width: 60px;" class="cart_quantity" type="number"
+                                                                min="1" name="cart_qty[{{ $cart['session_id'] }}]"
                                                                 value="{{ $cart['product_qty'] }}">
                                                         </div>
                                                     </td>
@@ -208,7 +215,8 @@
                                                 </td>
 
                                                 <td colspan="2">
-                                                    <li>Tổng tiền :<span>{{ number_format($total, 0, ',', '.') }}VNĐ</span>
+                                                    <li>Tổng tiền
+                                                        :<span>{{ number_format($total, 0, ',', '.') }}VNĐ</span>
                                                     </li>
                                                     @if (Session::get('coupon'))
                                                         <li>
@@ -230,9 +238,9 @@
                                                                     {{ number_format($cou['coupon_amount'], 0, ',', '.') }}
                                                                     VNĐ
                                                                     <p>
-                                                                    @php
-                                                                        $total_coupon = $total - $cou['coupon_amount'];
-                                                                    @endphp
+                                                                        @php
+                                                                            $total_coupon = $total - $cou['coupon_amount'];
+                                                                        @endphp
                                                                     </p>
                                                                     @php
                                                                         $total_after_coupon = $total_coupon;
@@ -244,13 +252,15 @@
 
                                                     @if (Session::get('fee'))
                                                         <li>
-                                                            <a class="cart_quantity_delete" href="{{ url('/del-fee') }}"><i class="fa fa-times"></i></a>
+                                                            <a class="cart_quantity_delete"
+                                                                href="{{ url('/del-fee') }}"><i
+                                                                    class="fa fa-times"></i></a>
                                                             Phí vận chuyển
                                                             <span>{{ number_format(Session::get('fee'), 0, ',', '.') }}VNĐ</span>
                                                         </li>
                                                         <?php $total_after_fee = $total + Session::get('fee'); ?>
                                                     @endif
-                                                    <li>Tổng còn:
+                                                    <li id="summary">Tổng:
                                                         @php
                                                             if (Session::get('fee') && !Session::get('coupon')) {
                                                                 $total_after = $total_after_fee;
@@ -272,7 +282,11 @@
                                                 </td>
                                             </tr>
                                         @else
-                                            <tr><td colspan="5"><center> Làm ơn thêm sản phẩm vào giỏ hàng</center></td></tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <center> Làm ơn thêm sản phẩm vào giỏ hàng</center>
+                                                </td>
+                                            </tr>
                                         @endif
                                     </tbody>
 
@@ -285,8 +299,9 @@
                                         <form method="POST" action="{{ url('/check-coupon') }}">
                                             @csrf
                                             <input type="text" id="coupon" class="form-control" name="coupon"
-                                                placeholder="{{Session::get('coupon')?Session::get('coupon')[0]['coupon_code']:'Nhập mã giảm giá'}}"><br>
-                                            <button type="button" class="btn btn-default check_coupon" id="check_coupon" name="">Tính mã giảm giá</button>
+                                                placeholder="{{ Session::get('coupon') ? Session::get('coupon')[0]['coupon_code'] : 'Nhập mã giảm giá' }}"><br>
+                                            <button type="button" class="btn btn-default check_coupon" id="check_coupon"
+                                                name="">Tính mã giảm giá</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -304,151 +319,156 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            if(sessionStorage.getItem('location')){
+            $("#total_price").val($("#summary").text().replace(/\D/g, ''));
+
+            if (sessionStorage.getItem('location')) {
                 shipping_address = sessionStorage.getItem('location');
-                if($('.shipping_address').val()==='')
+                if ($('.shipping_address').val() === '')
                     $('.shipping_address').val($('.shipping_address').val() + shipping_address);
             }
+        });
 
-            $('.choose').on('change', function() {
-                let action = $(this).attr('id');
-                let ma_id = $(this).val();
-                let _token = $('input[name="_token"]').val();
-                let result = '';
-                if (action == 'city') {
-                    result = 'district';
-                } else {
-                    result = 'ward';
+        $('.choose').on('change', function() {
+            let action = $(this).attr('id');
+            let ma_id = $(this).val();
+            let _token = $('input[name="_token"]').val();
+            let result = '';
+            if (action == 'city') {
+                result = 'district';
+            } else {
+                result = 'ward';
+            }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ url('/select-delivery') }}',
+                method: 'POST',
+                data: {
+                    action: action,
+                    ma_id: ma_id,
+                    _token: _token,
+                },
+                success: function(data) {
+                    $('#' + result).html(data);
                 }
+            });
+        });
+
+        $('#check_coupon').click(function() {
+            let coupon = $('#coupon').val();
+            let _token = $('input[name="_token"]').val();
+            if (coupon) {
                 $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: '{{ url('/select-delivery') }}',
+                    url: '{{ url('/check-coupon') }}',
                     method: 'POST',
                     data: {
-                        action: action,
-                        ma_id: ma_id,
-                        _token: _token,
+                        coupon: coupon,
+                        _token: _token
                     },
-                    success: function(data) {
-                        $('#' + result).html(data);
+                    success: function(code) {
+                        if (code);
+                        else {
+                            alert('Mã giảm giá không khả dụng!');
+                        }
+                        location.reload();
                     }
                 });
-            });
+            }
 
-            $('#check_coupon').click(function() {
-                let coupon = $('#coupon').val();
-                let _token = $('input[name="_token"]').val();
-                if(coupon){
-                    $.ajax({
-                        url: '{{ url('/check-coupon') }}',
-                        method: 'POST',
-                        data: {
-                            coupon: coupon,
-                            _token: _token
-                        },
-                        success: function(code) {
-                            if(code);
-                            else {alert('Mã giảm giá không khả dụng!');}
-                            location.reload();
-                        }
-                    });
-                }
+        });
 
-            });
+        $('.calculate_delivery').click(function() {
+            let matp = $('.city').val();
+            let maqh = $('.district').val();
+            let xaid = $('.ward').val();
+            let city = $('.city').find(":selected").text();
+            let district = $('.district').find(":selected").text();
+            let ward = $('.ward').find(":selected").text();
+            let _token = $('input[name="_token"]').val();
+            if (matp == '' && maqh == '' && xaid == '') {
+                alert('Làm ơn chọn để tính phí vận chuyển');
+            } else {
 
-            $('.calculate_delivery').click(function() {
-                let matp = $('.city').val();
-                let maqh = $('.district').val();
-                let xaid = $('.ward').val();
-                let city = $('.city').find(":selected").text();
-                let district = $('.district').find(":selected").text();
-                let ward = $('.ward').find(":selected").text();
-                let _token = $('input[name="_token"]').val();
-                if (matp == '' && maqh == '' && xaid == '') {
-                    alert('Làm ơn chọn để tính phí vận chuyển');
-                } else {
-
-                    $.ajax({
-                        url: '{{ url('/calculate-fee') }}',
-                        method: 'POST',
-                        data: {
-                            matp: matp,
-                            maqh: maqh,
-                            xaid: xaid,
-                            _token: _token
-                        },
-                        success: function() {
-                            location.reload();
-                        }
-                    });
-                    let local =' ' + ward + ', ' + district + ', ' + city;
-                    sessionStorage.setItem('location', local);
-
-                }
-            });
-
-            $('.send_order').click(function() {
-                swal({
-                        title: "Xác nhận đơn hàng",
-                        text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonClass: "btn-danger",
-                        confirmButtonText: "Cảm ơn, Mua hàng",
-
-                        cancelButtonText: "Đóng,chưa mua",
-                        closeOnConfirm: false,
-                        closeOnCancel: false
+                $.ajax({
+                    url: '{{ url('/calculate-fee') }}',
+                    method: 'POST',
+                    data: {
+                        matp: matp,
+                        maqh: maqh,
+                        xaid: xaid,
+                        _token: _token
                     },
-                    function(isConfirm) {
-                        if (isConfirm) {
-                            let shipping_email = $('.shipping_email').val();
-                            let shipping_name = $('.shipping_name').val();
-                            let shipping_address = $('.shipping_address').val();
-                            let shipping_phone = $('.shipping_phone').val();
-                            let shipping_notes = $('.shipping_notes').val();
-                            let shipping_method = $('.payment_select').val();
-                            let order_fee = $('.order_fee').val();
-                            let order_coupon = $('.order_coupon').val();
-                            let _token = $('input[name="_token"]').val();
+                    success: function() {
+                        location.reload();
+                    }
+                });
+                let local = ' ' + ward + ', ' + district + ', ' + city;
+                sessionStorage.setItem('location', local);
 
-                            $.ajax({
-                                url: '{{ url('/confirm-order') }}',
-                                method: 'POST',
-                                data: {
-                                    shipping_email: shipping_email,
-                                    shipping_name: shipping_name,
-                                    shipping_address: shipping_address,
-                                    shipping_phone: shipping_phone,
-                                    shipping_notes: shipping_notes,
-                                    _token: _token,
-                                    order_fee: order_fee,
-                                    order_coupon: order_coupon,
-                                    shipping_method: shipping_method
-                                },
-                                success: function() {
-                                    swal("Đơn hàng",
-                                        "Đơn hàng của bạn đã được gửi thành công",
-                                        "success");
-                                }
-                            });
+            }
+        });
 
-                            window.setTimeout(function() {
-                                location.reload();
-                            }, 3000);
+        $('.send_order').click(function() {
+            swal({
+                    title: "Xác nhận đơn hàng",
+                    text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Cảm ơn, Mua hàng",
 
-                        } else {
-                            swal("Đóng", "Đơn hàng chưa được gửi, hãy hoàn tất đơn hàng", "error");
-                        }
+                    cancelButtonText: "Đóng,chưa mua",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        let shipping_email = $('.shipping_email').val();
+                        let shipping_name = $('.shipping_name').val();
+                        let shipping_address = $('.shipping_address').val();
+                        let shipping_phone = $('.shipping_phone').val();
+                        let shipping_notes = $('.shipping_notes').val();
+                        let shipping_method = $('.payment_select').val();
+                        let order_fee = $('.order_fee').val();
+                        let order_coupon = $('.order_coupon').val();
+                        let total_price = $("#total_price").val()
+                        let _token = $('input[name="_token"]').val();
+
+                        $.ajax({
+                            url: '{{ url('/confirm-order') }}',
+                            method: 'POST',
+                            data: {
+                                shipping_email: shipping_email,
+                                shipping_name: shipping_name,
+                                shipping_address: shipping_address,
+                                shipping_phone: shipping_phone,
+                                shipping_notes: shipping_notes,
+                                _token: _token,
+                                order_fee: order_fee,
+                                order_coupon: order_coupon,
+                                shipping_method: shipping_method,
+                                total_price: total_price,
+                            },
+                            success: function() {
+                                swal("Đơn hàng",
+                                    "Đơn hàng của bạn đã được gửi thành công",
+                                    "success");
+                            }
+                        });
+
+                        window.setTimeout(function() {
+                            location.reload();
+                        }, 3000);
+
+                    } else {
+                        swal("Đóng", "Đơn hàng chưa được gửi, hãy hoàn tất đơn hàng", "error");
+                    }
 
                 });
-            });
         });
 
         $.validate({});
     </script>
 
 @endsection
-

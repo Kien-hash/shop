@@ -126,6 +126,7 @@ class CartController extends Controller
         $order->status = 0;
         $order->coupon = $data['order_coupon'];
         $order->shipping_fee = $data['order_fee'];
+        $order->total_price = $data['total_price'];
         $order->save();
 
         if (Session::get('cart') == true) {

@@ -71,6 +71,7 @@
 
     <script>
         $(document).ready(function() {
+            view();
             $("#keywords").keyup(function() {
                 let query = $(this).val();
                 // console.log(query);
@@ -98,6 +99,37 @@
             $("#keywords").val($(this).text());
             $("#search-ajax").fadeOut();
         });
+
+        $("#row-wishlist-delete").click(function() {
+            localStorage.removeItem('data');
+            window.location.reload(true)
+        });
+
+        function view() {
+            if (localStorage.getItem('data') != null) {
+                let data = JSON.parse(localStorage.getItem('data'));
+
+                data.reverse();
+                document.getElementById('row-wishlist').style.overflow = 'scroll';
+                document.getElementById('row-wishlist').style.height = '600px';
+
+                for (let i = 0; i < data.length; i++) {
+                    let string = `
+                    <div class="row" style="margin:10px 0">
+                        <div class="col-md-4">
+                            <img src="` + data[i].image + `" width="100%" >
+                        </div>
+                        <div class="col-md-8 info_wishlist">
+                            <p>` + data[i].name + `</p>
+                            <p style="color:#FE980F">` + data[i].price + `</p>
+                            <p><a href="` + data[i].url + `">Chi tiết</a></p>
+                        </div>
+                    </div>
+                    `
+                    $("#row-wishlist").append(string);
+                }
+            }
+        }
     </script>
     @yield('scripts')
 
