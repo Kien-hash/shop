@@ -49,9 +49,9 @@
     <div class="brands_products">
         <!--brands_products-->
         <h2>Sản phẩm yêu thích</h2>
-        <div class="brands-name">
+        <div class="brands-name" style="text-align:center;">
             <a href="" id="row-wishlist-delete">Xóa</a>
-            <div id="row-wishlist" class="row" style="text-align:center;">
+            <div id="row-wishlist" class="row" >
 
             </div>
         </div>
