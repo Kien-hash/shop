@@ -1,5 +1,22 @@
 @extends('pages.layouts.index')
 @section('content')
+    <style>
+        .button_wishlist {
+            border: none;
+            color: #B3AFA8;
+            background: #ffff;
+        }
+
+        ul .nav .nav-pills .nav-justified li {
+            text-align: center;
+            font-size: 13px;
+        }
+
+        ul .nav .nav-pills .nav-justified li {
+            color: #B3AFA8;
+        }
+
+    </style>
     <div class="features_items">
         <!--features_items-->
         <h2 class="title text-center">Searched Items</h2>
