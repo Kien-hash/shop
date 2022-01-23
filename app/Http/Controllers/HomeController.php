@@ -8,6 +8,7 @@ use App\Category;
 use App\Product;
 use App\Customer;
 use App\Comment;
+use App\Rating;
 
 use Illuminate\Support\Facades\Session;
 
@@ -71,12 +72,14 @@ class HomeController extends Controller
         $product = Product::where('slug', '=', $slug)->first();
         $relates = Product::where('category_id', $product->category_id)->where('status', 0)->where('id', '!=', $product->id)->paginate(3);
         $comments = Comment::where('status', 0)->where('product_id', $product->id)->get();
+        $rating = Rating::where('product_id', $product->id)->avg('rating');
+        $rating = round($rating);
 
         if (Session::get('customer_id')) {
             $customer = Customer::find(Session::get('customer_id'));
-            return view('pages.home.detail', ['comments' => $comments, 'customer' => $customer, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
+            return view('pages.home.detail', ['rating' => $rating, 'comments' => $comments, 'customer' => $customer, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
         } else {
-            return view('pages.home.detail', ['comments' => $comments, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
+            return view('pages.home.detail', ['rating' => $rating, 'comments' => $comments, 'product' => $product, 'categories' => $categories, 'brands' => $brands, 'relates' => $relates]);
         }
     }
 }

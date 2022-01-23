@@ -53,10 +53,8 @@
         <div class="col-sm-7">
             <div class="product-information">
                 <!--/product-information-->
-                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                 <h2>{{ $product->name }}</h2>
                 <p>ID: {{ $product->id }}</p>
-                <img src="images/product-details/rating.png" alt="" />
 
                 <form action="{{ URL::to('/save-cart') }}" method="POST">
                     {{ csrf_field() }}
@@ -81,7 +79,6 @@
                 <p><b>Số lượng trong kho:</b> {{ $product->quantity }}</p>
                 <p><b>Thương hiệu:</b> {{ $product->brand->name }}</p>
                 <p><b>Danh mục:</b> {{ $product->category->name }}</p>
-                <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
             </div>
         </div>
     </div>
@@ -108,6 +105,23 @@
 
             <div class="tab-pane fade active in" id="reviews">
                 <div class="col-sm-12">
+                    <ul class="list-inline rating" title="Đánh giá trung bình">
+                        @for ($count = 1; $count <= 5; $count++)
+                            @php
+                                if ($count <= $rating) {
+                                    $color = 'color:#ffcc00';
+                                } else {
+                                    $color = 'color:#ccc';
+                                }
+                            @endphp
+
+                            <li title="rating" id="{{ $product->id }}-{{ $count }}"
+                                data-index="{{ $count }}" data-product_id="{{ $product->id }}"
+                                data-rating="{{ $rating }}" class="rating"
+                                style="cursor: pointer; {{ $color }} ;font-size:30px">&#9733</li>
+
+                        @endfor
+                    </ul>
                     {{-- <ul>
                         <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
                         <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
@@ -211,6 +225,58 @@
 @section('scripts')
     <script type="text/javascript">
         $.validate({});
+
+        function remove_backGround(product_id) {
+            for (let i = 1; i <= 5; i++) {
+                $("#" + product_id + "-" + i).css('color', '#ccc');
+            }
+        }
+
+        $(document).on('mouseenter', '.rating', function() {
+            let index = $(this).data("index");
+            let product_id = $(this).data("product_id");
+            // alert(product_id);
+            remove_backGround(product_id);
+            for (let i = 1; i <= index; i++) {
+                $("#" + product_id + "-" + i).css('color', '#ffcc00');
+            }
+
+        });
+
+        $(document).on('mouseleave', '.rating', function() {
+            let index = $(this).data("index");
+            let product_id = $(this).data("product_id");
+            let rating = $(this).data("rating");
+            remove_backGround(product_id);
+            for (let i = 1; i <= rating; i++) {
+                $("#" + product_id + "-" + i).css('color', '#ffcc00');
+            }
+        });
+
+        $(document).on('click', '.rating', function() {
+            let index = $(this).data("index");
+            let product_id = $(this).data("product_id");
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{ url('/add-rating') }}',
+                method: 'POST',
+                data: {
+                    index: index,
+                    product_id: product_id,
+                    _token: _token,
+                },
+                success: function(data) {
+                    if (data == 'done') {
+                        alert('Bạn đã đánh giá ' + index + " trên 5");
+                        location.reload();
+                    } else {
+                        alert('Lôi đánh giá');
+                    }
+                }
+
+            });
+
+        });
 
         $(document).ready(function() {
             $('#imageGallery').lightSlider({

@@ -54,6 +54,9 @@ Route::get('/checkout', 'CheckoutController@getCheckout');
 // Add comment
 Route::post('/add-comment', 'CommentController@postAdd');
 
+// Rating
+Route::post('/add-rating', 'RatingController@postAdd');
+
 view()->composer(['*'], function ($view) {
     $currentUser = Auth::user();
     $view->with('currentUser', $currentUser);
