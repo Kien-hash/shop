@@ -41,6 +41,11 @@
                                     data-validation="length" data-validation-length='1-255' placeholder="Slug">
                             </div>
                             <div class="form-group">
+                                <label>Cost</label>
+                                <input type="text" class="form-control" data-validation="number" name="cost"
+                                    placeholder="Product's cost">
+                            </div>
+                            <div class="form-group">
                                 <label>Price</label>
                                 <input type="text" class="form-control" data-validation="number" name="price"
                                     placeholder="Product's price">
@@ -72,9 +77,9 @@
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endif
                                         @foreach ($categories as $child)
-                                        @if ($child->parent_id == $category->id)
-                                            <option value="{{ $child->id }}">----{{ $child->name }}</option>
-                                        @endif
+                                            @if ($child->parent_id == $category->id)
+                                                <option value="{{ $child->id }}">----{{ $child->name }}</option>
+                                            @endif
                                         @endforeach
                                     @endforeach
                                 </select>

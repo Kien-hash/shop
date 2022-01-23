@@ -50,6 +50,11 @@
                                     value="{{ $product->price }}">
                             </div>
                             <div class="form-group">
+                                <label>Cost</label>
+                                <input type="text" data-validation="number" class="form-control" name="cost"
+                                    value="{{ $product->cost }}">
+                            </div>
+                            <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" class="form-control" name="image">
                                 <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
@@ -80,10 +85,10 @@
                                                 value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endif
                                         @foreach ($categories as $child)
-                                        @if ($child->parent_id == $category->id)
-                                            <option {{ $product->category_id === $child->id ? 'selected' : '' }}
-                                                value="{{ $child->id }}">----{{ $child->name }}</option>
-                                        @endif
+                                            @if ($child->parent_id == $category->id)
+                                                <option {{ $product->category_id === $child->id ? 'selected' : '' }}
+                                                    value="{{ $child->id }}">----{{ $child->name }}</option>
+                                            @endif
                                         @endforeach
                                     @endforeach
                                 </select>

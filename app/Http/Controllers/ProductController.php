@@ -42,6 +42,7 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
 
         $product->slug = $request->slug;
+        $product->cost = $request->cost;
         $product->keywords = $request->keywords;
 
         $product->category_id = $request->category_id;
@@ -111,6 +112,7 @@ class ProductController extends Controller
 
         $product->slug = $request->slug;
         $product->keywords = $request->keywords;
+        $product->cost = $request->cost;
 
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;

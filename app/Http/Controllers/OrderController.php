@@ -48,14 +48,22 @@ class OrderController extends Controller
         }
         if ($order->status == 1) {
             // Xác nhận -> chuyển hàng
-            foreach ($order->order_details as $detail) {
-                $product = $detail->product;
-                $product->quantity = $product->quantity - $detail->product_sales_quantity;
-                $product->save();
-            }
+            // foreach ($order->order_details as $detail) {
+            //     $product = $detail->product;
+            //     $product->quantity = $product->quantity - $detail->product_sales_quantity;
+            //     $product->sold = $detail->product_sales_quantity;
+            //     $product->save();
+            // }
         }
         if ($order->status == 2) {
             // Chuyển hàng -> kêt thúc
+            foreach ($order->order_details as $detail) {
+                $product = $detail->product;
+                $product->quantity = $product->quantity - $detail->product_sales_quantity;
+                $product->sold = $detail->product_sales_quantity;
+                $product->save();
+            }
+
             // Payment use in here
         }
         if ($order->status < 3) $order->status = $order->status + 1;
