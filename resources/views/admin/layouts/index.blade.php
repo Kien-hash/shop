@@ -20,6 +20,8 @@
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('public/backend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/backend/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/backend/css/jquery-ui.min.css') }}">
+
 
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
@@ -77,7 +79,7 @@
 
     <script src="{{ asset('public/backend/js/datatables.min.js') }}"></script>
     <script src="{{ asset('public/backend/js/jquery.form-validator.min.js') }}"></script>
-
+    <script src="{{ asset('public/backend/js/jquery-ui.min.js') }}"></script>
 
 
     @yield('scripts')

@@ -70,6 +70,12 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::get('/logout', 'AdminController@getLogout');
 
+    Route::prefix('statistical')->group(function () {
+        // Route::get('/filter-by-date', 'ContactController@getConfig');
+        Route::post('/filter-by-date', 'StatisticalController@postFilterDate');
+    });
+
+
     Route::prefix('contact')->group(function () {
         Route::get('/config', 'ContactController@getConfig');
         Route::post('/config', 'ContactController@postConfig');
