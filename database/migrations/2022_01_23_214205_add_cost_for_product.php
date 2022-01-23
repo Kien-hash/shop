@@ -14,8 +14,8 @@ class AddCostForProduct extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('view');
-            $table->integer('cost');
+            $table->integer('view')->default(0);
+            $table->integer('cost')->default(0);
         });
     }
 
