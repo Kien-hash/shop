@@ -35,28 +35,29 @@
 
     <div class="row">
         <style>
-            .table.table-bordered.table-dark{
+            .table.table-bordered.table-dark {
                 background-color: black;
             }
+
         </style>
-        <h3 style="text-align:center;">Access Statistic</h3>
+        <h4 style="text-align:center;">Summary</h4>
         <table class="table table-bordered table-dark">
             <thead>
                 <tr>
-                    <th scope="col">Online</th>
-                    <th scope="col">Last month</th>
-                    <th scope="col">Last 2 month</th>
-                    <th scope="col">Last Year</th>
-                    <th scope="col">All</th>
+                    <th scope="col">Order</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Sales</th>
+                    <th scope="col">Profit</th>
+                    {{-- <th scope="col">All</th> --}}
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>13</td>
+                    <td id="order"></td>
+                    <td id="product"></td>
+                    <td id="sales"></td>
+                    <td id="profit"></td>
+                    {{-- <td></td> --}}
                 </tr>
             </tbody>
         </table>
@@ -109,9 +110,11 @@
                     value: value,
                 },
                 success: function(data) {
-                    // console.log(JSON.parse(data));
-                    if (data != 'error')
+                    console.log(JSON.parse(data));
+                    if (data != 'error'){
                         chart.setData(JSON.parse(data));
+
+                    }
                 }
             });
         });
@@ -132,7 +135,8 @@
                 success: function(data) {
                     if (data == 'error') alert('Please check for valid days');
                     else {
-                        chart.setData(convertDataToResult(fromDate, toDate, data));
+                        let result = convertDataToResult(fromDate, toDate, data);
+                        chart.setData(result);
                     }
                 }
             });
@@ -150,10 +154,24 @@
                 },
                 success: function(data) {
                     // console.log(JSON.parse(data));
-                    if (data != 'error')
+                    if (data != 'error'){
                         chart.setData(JSON.parse(data));
+                        sumChange(JSON.parse(data));
+                    }
                 }
             });
+        }
+
+        function sumChange(data) {
+            let order = data.reduce((n, {order_quantity}) => n + order_quantity, 0);
+            let product = data.reduce((n, {product_quantity}) => n + product_quantity, 0);
+            let profit = data.reduce((n, {profit}) => n + profit, 0);
+            let sales = data.reduce((n, {sale_money}) => n + sale_money, 0);
+
+            $("#order").text(order);
+            $("#product").text(product);
+            $("#profit").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(profit));
+            $("#sales").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(sales));
         }
 
         var convertDataToResult = function(fromDate, toDate, data) {

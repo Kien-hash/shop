@@ -71,7 +71,6 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
     Route::get('/logout', 'AdminController@getLogout');
 
     Route::prefix('statistical')->group(function () {
-        // Route::get('/filter-by-date', 'ContactController@getConfig');
         Route::post('/filter-by-date', 'StatisticalController@postFilterDate');
         Route::post('/filter-by-select', 'StatisticalController@postFilterSelect');
     });
