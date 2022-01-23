@@ -202,6 +202,8 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/edit/{id}', 'OrderController@getEdit');
         Route::post('/edit/{id}', 'OrderController@postEdit');
         Route::get('/delete/{id}', 'OrderController@getDelete');
+
+        Route::post('/total-price', 'OrderController@postTotalPrice');
     });
 
     Route::prefix('banner')->group(function () {

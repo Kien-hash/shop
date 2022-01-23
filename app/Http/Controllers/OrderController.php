@@ -64,8 +64,6 @@ class OrderController extends Controller
             if (count($statistical)) {
                 foreach ($order->order_details as $detail) {
                     $product = $detail->product;
-                    
-
                 }
             }
 
@@ -94,6 +92,7 @@ class OrderController extends Controller
         $order->code = $request->code;
         $order->shipping_fee = $request->shipping_fee;
         $order->notes = $request->notes;
+        // $order->total_price = $request->total_price;
         $order->save();
 
         $shipping = $order->shipping;
@@ -111,5 +110,15 @@ class OrderController extends Controller
         }
 
         return redirect()->back()->with('Notice', 'Order update successfully!');
+    }
+
+    public function postTotalPrice(Request $request)
+    {
+        $data = $request->all();
+        $order = Order::find($data['id']);
+        $order->total_price = $data['total'];
+        $order->save();
+        echo 'successfully';
+
     }
 }

@@ -169,10 +169,9 @@
                                             <td>{{ $detail->product_name }}</td>
                                             <td>{{ $detail->product->quantity }}</td>
                                             <td>{{ $detail->product_price }}</td>
-                                            <td><input {{ $order->status > 1 ? 'disabled' : '' }}
-                                                    style="width:50px;" type="number" name="sale_amount[]"
-                                                    data-validation="number" min="1" step="1"
-                                                    value="{{ $detail->product_sales_quantity }}"></td>
+                                            <td><input {{ $order->status > 1 ? 'disabled' : '' }} style="width:50px;"
+                                                    type="number" name="sale_amount[]" data-validation="number" min="1"
+                                                    step="1" value="{{ $detail->product_sales_quantity }}"></td>
                                             <td>{{ $detail->product_price * $detail->product_sales_quantity }}</td>
                                             <td>
                                                 <a style="visibility:{{ $order->status > 1 ? 'hidden' : '' }};"
@@ -215,7 +214,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>{{ $total + $order->shipping_fee }}</td>
+                                        <td id="total">{{ $total + $order->shipping_fee }}</td>
                                         <td></td>
                                     </tr>
                                 </tbody>
@@ -236,6 +235,27 @@
 
 @section('scripts')
     <script>
+        $(document).ready(function() {
+            let _token = $('input[name="_token"]').val();
+            let total = $("#total").text();
+            let total_price = "{{ $order->total_price }}";
+            let id = "{{ $order->id }}"
+            // console.log(total_price == total);
+            if (total != total_price) {
+                $.ajax({
+                    url: '{{ url('admin/order/total-price') }}',
+                    method: 'POST',
+                    data: {
+                        _token: _token,
+                        total: total,
+                        id: id,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    }
+                });
+            }
+        })
         $.validate({
 
         });
