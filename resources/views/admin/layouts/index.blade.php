@@ -80,6 +80,8 @@
     <script src="{{ asset('public/backend/js/datatables.min.js') }}"></script>
     <script src="{{ asset('public/backend/js/jquery.form-validator.min.js') }}"></script>
     <script src="{{ asset('public/backend/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('public/backend/js/moment.min.js') }}"></script>
+
 
 
     @yield('scripts')
