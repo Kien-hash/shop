@@ -125,8 +125,19 @@
                                 </div>
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        <li>
+                                            <button class="button_wishlist" id="{{ $product->id }}"
+                                                onclick="add_wishlist(this.id);">
+                                                <i class="fa fa-plus-square"></i>
+                                                <span>Yêu thích</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="button_wishlist">
+                                                <i class="fa fa-plus-square"></i>
+                                                <span>So sánh</span>
+                                            </button>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

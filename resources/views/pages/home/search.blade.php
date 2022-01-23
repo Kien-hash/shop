@@ -40,8 +40,18 @@
                     </div>
                     <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Yêu thích</a></li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>So sánh</a></li>
+                            <li>
+                                <button class="button_wishlist" id="{{ $product->id }}" onclick="add_wishlist(this.id);">
+                                    <i class="fa fa-plus-square"></i>
+                                    <span>Yêu thích</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="button_wishlist">
+                                    <i class="fa fa-plus-square"></i>
+                                    <span>So sánh</span>
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -58,7 +68,7 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $("#row-wishlist-delete").click(function(){
+        $("#row-wishlist-delete").click(function() {
             localStorage.removeItem('data');
             location.reload();
         });
