@@ -166,7 +166,7 @@
                 var index = data.findIndex(item => item.id == id);
                 data.splice(index, 1);
                 localStorage.setItem('compare', JSON.stringify(data));
-                document.getElementById('row-compare'+id).remove();
+                document.getElementById('row-compare' + id).remove();
             }
         }
 
@@ -197,6 +197,14 @@
         $(document).ready(function() {
             view();
             view_compare();
+
+            $("#sort").on("change", function() {
+                let url = this.value;
+                console.log(url);
+                if (url) window.location = url;
+                return false;
+            });
+
             $("#keywords").keyup(function() {
                 let query = $(this).val();
                 // console.log(query);

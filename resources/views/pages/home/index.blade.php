@@ -20,6 +20,27 @@
     <div class="features_items">
         <!--features_items-->
         <h2 class="title text-center">Tât cả sản phẩm</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="amount">Sắp xếp theo</label>
+                <form action="">
+                    @csrf
+                    <select name="sort" id="sort" class="form-control">
+                        <option value="{{ Request::url() }}?sort_by=none">--Lọc--</option>
+                        <option {{ Request::get('sort_by') == 'increase' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
+                        <option {{ Request::get('sort_by') == 'decrease' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=decrease">Giá giảm dần</option>
+                        <option {{ Request::get('sort_by') == 'a_to_z' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=a_to_z">A đến Z</option>
+                        <option {{ Request::get('sort_by') == 'z_to_a' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=z_to_a">Z đến A</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <br>
+
         @foreach ($products as $product)
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
@@ -66,7 +87,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button class="button_wishlist" onclick="add_compare({{$product->id}});">
+                                <button class="button_wishlist" onclick="add_compare({{ $product->id }});">
                                     <i class="fa fa-plus-square"></i>
                                     <span>So sánh</span>
                                 </button>
@@ -133,7 +154,7 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <button class="button_wishlist" onclick="add_compare({{$bestseller->id}});" >
+                                            <button class="button_wishlist" onclick="add_compare({{ $bestseller->id }});">
                                                 <i class="fa fa-plus-square"></i>
                                                 <span>So sánh</span>
                                             </button>
@@ -158,7 +179,6 @@
 
 @section('scripts')
     <script type="text/javascript">
-
         function add_wishlist(id) {
             let name = $('.cart_product_name_' + id).val();
             let image = "public/uploads/product/" + $('.cart_product_image_' + id).val();

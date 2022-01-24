@@ -19,11 +19,32 @@ class HomeController extends Controller
 {
     public function index()
     {
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if ($sort_by == 'increase') {
+                // echo 1;
+                $products = Product::where('status', '=', 0)->orderBy('price', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'decrease') {
+                // echo 2;
+                $products = Product::where('status', '=', 0)->orderBy('price', 'DESC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'a_to_z') {
+                // echo 3;
+                $products = Product::where('status', '=', 0)->orderBy('name', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'z_to_a') {
+                // echo 4;
+                $products = Product::where('status', '=', 0)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
+            } else {
+                $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
+            }
+        } else {
+            $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
+        }
+
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
-        $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
         $bestsellers = Product::where('status', '=', 0)->orderByDesc('sold')->limit(3)->get();
-        return view('pages.home.index',  ['products' => $products, 'categories' => $categories, 'brands' => $brands, 'bestsellers' => $bestsellers]);
+
+        return view('pages.home.index')->with(compact('categories', 'brands', 'products', 'bestsellers'));
     }
 
     public function showCategory($slug)
@@ -37,10 +58,28 @@ class HomeController extends Controller
             }
         }
         $name = $category->name;
-
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
-        $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->paginate(9);
+
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if ($sort_by == 'increase') {
+                // echo 1;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'decrease') {
+                // echo 2;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'DESC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'a_to_z') {
+                // echo 3;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'z_to_a') {
+                // echo 4;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
+            }
+        } else {
+            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->paginate(9);
+        }
+
         return view('pages.home.category', ['name' => $name, 'products' => $products, 'categories' => $categories, 'brands' => $brands]);
     }
 
