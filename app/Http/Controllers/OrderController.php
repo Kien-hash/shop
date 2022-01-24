@@ -113,7 +113,6 @@ class OrderController extends Controller
         $order->code = $request->code;
         $order->shipping_fee = $request->shipping_fee;
         $order->notes = $request->notes;
-        // $order->total_price = $request->total_price;
         $order->save();
 
         $shipping = $order->shipping;

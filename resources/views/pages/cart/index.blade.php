@@ -12,7 +12,7 @@
 
             @if (!Session::get('customer_id'))
                 <div class="register-req">
-                    <p>Làm ơn đăng ký hoặc đăng nhập để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p>
+                    <p>Làm ơn đăng ký hoặc đăng nhập để đặt hàng giỏ hàng </p>
                 </div>
             @endif
 
@@ -185,15 +185,12 @@
                                         </form>
                                         @if (Session::has('customer_id'))
                                             @if (Session::has('shipping_id'))
-                                                <a href="{{ URL::to('/payment') }}" class="btn btn-warning ">Thanh
-                                                    toán</a>
+                                                <a href="{{ URL::to('/payment') }}" class="btn btn-warning ">Đặt hàng</a>
                                             @else
-                                                <a href="{{ URL::to('/checkout') }}" class="btn btn-warning ">Thanh
-                                                    toán</a>
+                                                <a href="{{ URL::to('/checkout') }}" class="btn btn-warning ">Đặt hàng</a>
                                             @endif
                                         @else
-                                            <a href="{{ URL::to('/login-checkout') }}" class="btn btn-warning ">Thanh
-                                                toán</a>
+                                            <a href="{{ URL::to('/login-checkout') }}" class="btn btn-warning ">Đặt hàng</a>
                                         @endif
 
                                     </td>

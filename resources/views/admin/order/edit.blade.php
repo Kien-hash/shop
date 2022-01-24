@@ -210,11 +210,11 @@
                                     @endif
                                     <tr>
                                         <td></td>
-                                        <td>Total (with fee)</td>
+                                        <td>Total </td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="total">{{ $total + $order->shipping_fee }}</td>
+                                        <td id="total">{{ $total }}</td>
                                         <td></td>
                                     </tr>
                                 </tbody>

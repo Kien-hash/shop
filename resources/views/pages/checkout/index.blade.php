@@ -28,7 +28,8 @@
                                         placeholder="">
                                     @if ($shipping)
                                         <input type="text" name="shipping_email" class="shipping_email"
-                                            placeholder="Điền email" data-validation="email" value="{{ $shipping->email }}">
+                                            placeholder="Điền email" data-validation="email"
+                                            value="{{ $shipping->email }}">
                                         <input type="text" name="shipping_name" class="shipping_name"
                                             placeholder="Họ và tên người gửi" data-validation="length"
                                             data-validation-length='1-255' value="{{ $shipping->name }}">
@@ -40,8 +41,7 @@
                                             data-validation-length='1-255' value="{{ $shipping->phone }}">
 
                                         <textarea name="shipping_notes" class="shipping_notes"
-                                            placeholder="Ghi chú đơn hàng của bạn"
-                                            rows="5">{{ $shipping->notes }}</textarea>
+                                            placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
                                     @else
                                         <input type="text" name="shipping_email" class="shipping_email"
                                             placeholder="Điền email" data-validation="email">
@@ -434,37 +434,40 @@
                         let order_coupon = $('.order_coupon').val();
                         let total_price = $("#total_price").val()
                         let _token = $('input[name="_token"]').val();
+                        if (shipping_email && shipping_name && shipping_address && shipping_phone &&
+                            shipping_notes && shipping_method && order_coupon && total_price) {
+                            alert('Không được để trống trường')
+                        } else {
+                            $.ajax({
+                                url: '{{ url('/confirm-order') }}',
+                                method: 'POST',
+                                data: {
+                                    shipping_email: shipping_email,
+                                    shipping_name: shipping_name,
+                                    shipping_address: shipping_address,
+                                    shipping_phone: shipping_phone,
+                                    shipping_notes: shipping_notes,
+                                    _token: _token,
+                                    order_fee: order_fee,
+                                    order_coupon: order_coupon,
+                                    shipping_method: shipping_method,
+                                    total_price: total_price,
+                                },
+                                success: function() {
+                                    swal("Đơn hàng",
+                                        "Đơn hàng của bạn đã được gửi thành công",
+                                        "success");
+                                }
+                            });
 
-                        $.ajax({
-                            url: '{{ url('/confirm-order') }}',
-                            method: 'POST',
-                            data: {
-                                shipping_email: shipping_email,
-                                shipping_name: shipping_name,
-                                shipping_address: shipping_address,
-                                shipping_phone: shipping_phone,
-                                shipping_notes: shipping_notes,
-                                _token: _token,
-                                order_fee: order_fee,
-                                order_coupon: order_coupon,
-                                shipping_method: shipping_method,
-                                total_price: total_price,
-                            },
-                            success: function() {
-                                swal("Đơn hàng",
-                                    "Đơn hàng của bạn đã được gửi thành công",
-                                    "success");
-                            }
-                        });
+                            window.setTimeout(function() {
+                                location.reload();
+                            }, 3000);
 
-                        window.setTimeout(function() {
-                            location.reload();
-                        }, 3000);
-
+                        }
                     } else {
                         swal("Đóng", "Đơn hàng chưa được gửi, hãy hoàn tất đơn hàng", "error");
                     }
-
                 });
         });
 
