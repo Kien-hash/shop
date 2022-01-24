@@ -34,8 +34,11 @@ class HomeController extends Controller
                 // echo 4;
                 $products = Product::where('status', '=', 0)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
             } else {
-                $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
             }
+        } elseif (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+            $min_price = $_GET['min_price'];
+            $max_price = $_GET['max_price'];
+            $products = Product::where('status', '=', 0)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(6)->appends(request()->query());
         } else {
             $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
         }
@@ -43,8 +46,10 @@ class HomeController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $bestsellers = Product::where('status', '=', 0)->orderByDesc('sold')->limit(3)->get();
+        $min_price = $products->min('price');
+        $max_price = $products->max('price');
 
-        return view('pages.home.index')->with(compact('categories', 'brands', 'products', 'bestsellers'));
+        return view('pages.home.index')->with(compact('categories', 'brands', 'products', 'bestsellers', 'min_price', 'max_price'));
     }
 
     public function showCategory($slug)

@@ -19,6 +19,8 @@
     <link href="{{ asset('public/frontend/css/lightgallery.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/frontend/css/lightslider.css') }}" rel="stylesheet">
     <link href="{{ asset('public/frontend/css/prettify.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/css/jquery-ui.min.css') }}" rel="stylesheet">
+
 
 
     <!--[if lt IE 9]>
@@ -115,6 +117,8 @@
     <script src="{{ asset('public/frontend/js/lightgallery-all.min.js') }}"></script>
     <script src="{{ asset('public/frontend/js/lightslider.js') }}"></script>
     <script src="{{ asset('public/frontend/js/prettify.js') }}"></script>
+    <script src="{{ asset('public/backend/js/jquery-ui.min.js') }}"></script>
+
 
     <script>
         function add_compare(id) {
@@ -197,10 +201,27 @@
         $(document).ready(function() {
             view();
             view_compare();
+            let min = parseInt($("#min_price").val());
+            let max = parseInt($("#max_price").val());
+
+            $("#slider-range").slider({
+                range: true,
+                min: min,
+                max: max,
+                step: 10000,
+                values: [min, max],
+                slide: function(event, ui) {
+                    $("#amount").val(ui.values[0] + "VNĐ - " + ui.values[1] + 'VNĐ');
+                    $("#min_price").val(ui.values[0]);
+                    $("#max_price").val(ui.values[1]);
+                }
+            });
+            $("#amount").val($("#slider-range").slider("values", 0) +
+                "VNĐ - " + $("#slider-range").slider("values", 1) + "VNĐ");
 
             $("#sort").on("change", function() {
                 let url = this.value;
-                console.log(url);
+                // console.log(url);
                 if (url) window.location = url;
                 return false;
             });

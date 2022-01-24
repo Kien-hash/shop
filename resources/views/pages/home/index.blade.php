@@ -26,7 +26,7 @@
                 <form action="">
                     @csrf
                     <select name="sort" id="sort" class="form-control">
-                        <option value="{{ Request::url() }}?sort_by=none">--Lọc--</option>
+                        <option value="">--Lọc--</option>
                         <option {{ Request::get('sort_by') == 'increase' ? 'selected' : '' }}
                             value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
                         <option {{ Request::get('sort_by') == 'decrease' ? 'selected' : '' }}
@@ -36,6 +36,24 @@
                         <option {{ Request::get('sort_by') == 'z_to_a' ? 'selected' : '' }}
                             value="{{ Request::url() }}?sort_by=z_to_a">Z đến A</option>
                     </select>
+                </form>
+            </div>
+
+            <div class="col-md-5">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <label for="amount">Lọc giá theo khoảng: </label>
+                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                            <input type="hidden" id="min_price" name="min_price" value="{{$min_price}}" >
+                            <input type="hidden" id="max_price" name="max_price" value="{{$max_price}}" >
+                            <div id="slider-range"> </div>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="submit" name="filter_price" value="Lọc giá" class="btn btn-primary btn-sm ">
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -154,7 +172,8 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <button class="button_wishlist" onclick="add_compare({{ $bestseller->id }});">
+                                            <button class="button_wishlist"
+                                                onclick="add_compare({{ $bestseller->id }});">
                                                 <i class="fa fa-plus-square"></i>
                                                 <span>So sánh</span>
                                             </button>
