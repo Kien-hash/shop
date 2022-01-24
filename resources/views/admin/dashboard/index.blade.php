@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h3 style="text-align: center;">Donut</h3>
+            <h3 style="text-align: center;">General Information</h3>
             <div id="donut-example"></div>
         </div>
         <div class="col-md-4">
