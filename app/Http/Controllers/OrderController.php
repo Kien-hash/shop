@@ -44,8 +44,10 @@ class OrderController extends Controller
             });
 
             // Coupon used
-            $coupon->quantity = $coupon->quantity - 1;
-            $coupon->save();
+            if ($coupon) {
+                $coupon->quantity = $coupon->quantity - 1;
+                $coupon->save();
+            }
         }
         if ($order->status == 1) {
             // Xác nhận -> chuyển hàng
@@ -61,15 +63,34 @@ class OrderController extends Controller
             // Get statistical infomation
             $today = Carbon::now()->toDateString();
             $statistical = Statistical::where('date', $today)->first();
-            if (count($statistical)) {
+            $total_cost = 0;
+            $total_unit = 0;
+
+            if ($statistical) {
                 foreach ($order->order_details as $detail) {
                     $product = $detail->product;
+                    $total_cost += $detail->product_sales_quantity * $product->cost;
+                    $total_unit += $detail->product_sales_quantity;
                 }
+                $statistical->sale_money += $order->total_price;
+                $statistical->profit += $order->total_price - $total_cost;
+                $statistical->product_quantity += $total_unit;
+                $statistical->order_quantity += 1;
+            } else {
+                foreach ($order->order_details as $detail) {
+                    $product = $detail->product;
+                    $total_cost += $detail->product_sales_quantity * $product->cost;
+                    $total_unit += $detail->product_sales_quantity;
+                }
+                $statistical = new Statistical();
+                $statistical->date = $today;
+                $statistical->sale_money = $order->total_price;
+                $statistical->profit = $order->total_price - $total_cost;
+                $statistical->product_quantity = $total_unit;
+                $statistical->order_quantity = 1;
             }
 
-
-            // Get
-
+            $statistical->save();
 
             // Payment use in here
         }
@@ -119,6 +140,17 @@ class OrderController extends Controller
         $order->total_price = $data['total'];
         $order->save();
         echo 'successfully';
+    }
 
+    public function getDelete($id)
+    {
+        $order = Order::find($id);
+
+        foreach ($order->order_details as $detail) {
+            $detail->delete();
+        }
+
+        $order->delete();
+        return redirect()->back()->with('Notice', 'Order deleted successfully!');
     }
 }
