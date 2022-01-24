@@ -43,15 +43,17 @@
                 <form action="">
                     <div class="row">
                         <div class="col-md-11">
-                            <label for="amount">Lọc giá theo khoảng: </label>
-                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                            <input type="hidden" id="min_price" name="min_price" value="{{$min_price}}" >
-                            <input type="hidden" id="max_price" name="max_price" value="{{$max_price}}" >
+                            <label for="amount">Khoảng giá: </label>
+                            <input type="hidden" id="min_price" name="min_price" value="{{ $min_price }}">
+                            <input type="hidden" id="max_price" name="max_price" value="{{ $max_price }}">
                             <div id="slider-range"> </div>
+                            <input type="text" id="amount" readonly
+                                style="width:100%;border:0;text-align: center;color:#f6931f; font-weight:bold;">
                         </div>
                         <div class="col-md-1">
                             <input type="submit" name="filter_price" value="Lọc giá" class="btn btn-primary btn-sm ">
                         </div>
+
                     </div>
 
                 </form>

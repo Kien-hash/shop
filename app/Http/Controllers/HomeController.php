@@ -46,8 +46,8 @@ class HomeController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $bestsellers = Product::where('status', '=', 0)->orderByDesc('sold')->limit(3)->get();
-        $min_price = $products->min('price');
-        $max_price = $products->max('price');
+        $min_price = Product::where('status', '=', 0)->min('price');
+        $max_price = Product::where('status', '=', 0)->max('price');
 
         return view('pages.home.index')->with(compact('categories', 'brands', 'products', 'bestsellers', 'min_price', 'max_price'));
     }

@@ -203,13 +203,17 @@
             view_compare();
             let min = parseInt($("#min_price").val());
             let max = parseInt($("#max_price").val());
+            let currentMin = {{ Request::get('min_price') ? Request::get('min_price') : 0 }} ;
+            let currentMax = {{ Request::get('max_price') ? Request::get('max_price') : 0 }} ;
+            currentMin = currentMin ? currentMin : min;
+            currentMax = currentMax ? currentMax : max;
 
             $("#slider-range").slider({
                 range: true,
                 min: min,
                 max: max,
                 step: 10000,
-                values: [min, max],
+                values: [currentMin, currentMax],
                 slide: function(event, ui) {
                     $("#amount").val(ui.values[0] + "VNĐ - " + ui.values[1] + 'VNĐ');
                     $("#min_price").val(ui.values[0]);
