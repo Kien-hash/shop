@@ -113,7 +113,7 @@
                     console.log(JSON.parse(data));
                     if (data != 'error'){
                         chart.setData(JSON.parse(data));
-
+                        sumChange(JSON.parse(data));
                     }
                 }
             });
@@ -137,6 +137,7 @@
                     else {
                         let result = convertDataToResult(fromDate, toDate, data);
                         chart.setData(result);
+                        sumChange(result);
                     }
                 }
             });

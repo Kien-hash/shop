@@ -54,14 +54,14 @@ class OrderController extends Controller
             foreach ($order->order_details as $detail) {
                 $product = $detail->product;
                 $product->quantity = $product->quantity - $detail->product_sales_quantity;
-                $product->sold = $detail->product_sales_quantity;
+                $product->sold += $detail->product_sales_quantity;
                 $product->save();
             }
         }
         if ($order->status == 2) {
             // Chuyển hàng -> kêt thúc
             // Get statistical infomation
-            $today = Carbon::now()->toDateString();
+            $today = $order->created_at->format('Y-m-d');
             $statistical = Statistical::where('date', $today)->first();
             $total_cost = 0;
             $total_unit = 0;
