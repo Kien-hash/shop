@@ -86,7 +86,7 @@
             <h3 style="text-align: center;"> Top viewed post </h3>
             <br>
             @foreach ($post_views as $post_view)
-                                <div class="row col-md-12">
+                <div class="row col-md-12">
                     <div class="col-md-10">
                         <p>{{ $post_view->name }}</p>
                     </div>
@@ -121,16 +121,10 @@
             element: 'donut-example',
             resize: true,
             colors: [
-                '#E0F7FA',
-                '#B2EBF2',
-                '#80DEEA',
+                '#E05E26',
+                '#2636E0',
+                '#30F200',
                 '#4DD0E1',
-                '#26C6DA',
-                '#00BCD4',
-                '#00ACC1',
-                '#0097A7',
-                '#00838F',
-                '#006064'
             ],
             data: [{
                     label: "Products",
