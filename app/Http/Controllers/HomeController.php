@@ -75,6 +75,8 @@ class HomeController extends Controller
         $comments = Comment::where('status', 0)->where('product_id', $product->id)->get();
         $rating = Rating::where('product_id', $product->id)->avg('rating');
         $rating = round($rating);
+        $product->view++;
+        $product->save();
 
         if (Session::get('customer_id')) {
             $customer = Customer::find(Session::get('customer_id'));

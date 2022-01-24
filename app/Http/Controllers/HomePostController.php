@@ -24,6 +24,8 @@ class HomePostController extends Controller
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
         $post = Post::where('slug', $slug)->first();
+        $post->view++;
+        $post->save();
 
         return view('pages.post.index', ['post' => $post, 'brands' => $brands, 'categories' => $categories]);
     }

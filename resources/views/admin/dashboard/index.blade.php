@@ -1,9 +1,10 @@
 @extends('admin.layouts.index')
 
 @section('content')
-    <h1>Statistical</h1>
+    <h1 style="text-align: center;">Statistical</h1>
     <div class="row">
         <h3 style="text-align:center;">Sales</h3>
+        <div class="col-md-2"></div>
         <form action="" autocomplete="off">
             @csrf
             <div class="col-md-2">
@@ -40,7 +41,6 @@
             }
 
         </style>
-        <h4 style="text-align:center;">Summary</h4>
         <table class="table table-bordered table-dark">
             <thead>
                 <tr>
@@ -64,7 +64,38 @@
 
     </div>
     <div class="row">
-
+        <div class="col-md-4">
+            <h3 style="text-align: center;">Donut</h3>
+            <div id="donut-example"></div>
+        </div>
+        <div class="col-md-4">
+            <h3 style="text-align: center;">Top viewed products</h3>
+            <br>
+            @foreach ($product_views as $product_view)
+                <div class="row col-md-12">
+                    <div class="col-md-10">
+                        <p>{{ $product_view->name }}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p> {{ $product_view->view }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="col-md-4">
+            <h3 style="text-align: center;"> Top viewed post </h3>
+            <br>
+            @foreach ($post_views as $post_view)
+                                <div class="row col-md-12">
+                    <div class="col-md-10">
+                        <p>{{ $post_view->name }}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p> {{ $post_view->view }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection
 
@@ -83,6 +114,41 @@
             ykeys: ['order_quantity', 'sale_money', 'profit', 'product_quantity'],
             behaveLikeLine: true,
             labels: ['Order Quantity', 'Sales', 'Profit', 'Product Quantity'],
+        });
+
+        var colorDanger = "#FF1744";
+        Morris.Donut({
+            element: 'donut-example',
+            resize: true,
+            colors: [
+                '#E0F7FA',
+                '#B2EBF2',
+                '#80DEEA',
+                '#4DD0E1',
+                '#26C6DA',
+                '#00BCD4',
+                '#00ACC1',
+                '#0097A7',
+                '#00838F',
+                '#006064'
+            ],
+            data: [{
+                    label: "Products",
+                    value: {!! $product !!},
+                },
+                {
+                    label: "Orders",
+                    value: {!! $order !!},
+                },
+                {
+                    label: "Customer",
+                    value: {!! $customer !!},
+                },
+                {
+                    label: "Posts",
+                    value: {!! $post !!},
+                },
+            ]
         });
 
         $("#datepicker").datepicker({
@@ -111,7 +177,7 @@
                 },
                 success: function(data) {
                     console.log(JSON.parse(data));
-                    if (data != 'error'){
+                    if (data != 'error') {
                         chart.setData(JSON.parse(data));
                         sumChange(JSON.parse(data));
                     }
@@ -155,7 +221,7 @@
                 },
                 success: function(data) {
                     // console.log(JSON.parse(data));
-                    if (data != 'error'){
+                    if (data != 'error') {
                         chart.setData(JSON.parse(data));
                         sumChange(JSON.parse(data));
                     }
@@ -164,15 +230,29 @@
         }
 
         function sumChange(data) {
-            let order = data.reduce((n, {order_quantity}) => n + order_quantity, 0);
-            let product = data.reduce((n, {product_quantity}) => n + product_quantity, 0);
-            let profit = data.reduce((n, {profit}) => n + profit, 0);
-            let sales = data.reduce((n, {sale_money}) => n + sale_money, 0);
+            let order = data.reduce((n, {
+                order_quantity
+            }) => n + order_quantity, 0);
+            let product = data.reduce((n, {
+                product_quantity
+            }) => n + product_quantity, 0);
+            let profit = data.reduce((n, {
+                profit
+            }) => n + profit, 0);
+            let sales = data.reduce((n, {
+                sale_money
+            }) => n + sale_money, 0);
 
             $("#order").text(order);
             $("#product").text(product);
-            $("#profit").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(profit));
-            $("#sales").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(sales));
+            $("#profit").text(new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(profit));
+            $("#sales").text(new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(sales));
         }
 
         var convertDataToResult = function(fromDate, toDate, data) {
