@@ -54,6 +54,53 @@
             </div>
         </div>
     </section>
+    <section>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><span id="model-compare"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="row-compare">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Thông số kĩ thuật</th>
+                                        <th>Chi tiết</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- <tr id="row-compare`+id+`" >
+                                        <td>`+newItem.name+`</td>
+                                        <td>`+newItem.price+`</td>
+                                        <td><img width="200" width="100%" src="`+newItem.image+`" alt=""></td>
+                                        <td></td>
+                                        <td><a href="`+newItem.url+`">Xem sản phẩm</a></td>
+                                        <td onclick="delete_compare(`+id+`)"><a style="cursor: pointer;">Xóa so sánh</a></td>
+                                    </tr> --}}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     @include('pages.layouts.footer')
     <!--/Footer-->
@@ -70,8 +117,86 @@
     <script src="{{ asset('public/frontend/js/prettify.js') }}"></script>
 
     <script>
+        function add_compare(id) {
+            $("#model-compare").text("Chỉ cho phép so sánh tốt đa 4 sản phẩm");
+            let name = $('.cart_product_name_' + id).val();
+            let image = "public/uploads/product/" + $('.cart_product_image_' + id).val();
+            let price = $('.cart_product_price_' + id).val();
+            let url = $('.cart_product_url_' + id).val();
+
+            console.log(name, image, price, url);
+            let newItem = {
+                'url': url,
+                'id': id,
+                'name': name,
+                'image': image,
+                'price': price,
+            }
+            if (localStorage.getItem('compare') == null) {
+                localStorage.setItem('compare', '[]');
+            }
+            let oldData = JSON.parse(localStorage.getItem('compare'));
+
+            if (oldData.find(item => item.id == newItem.id)) {
+                // alert('Sản phẩm đã có trong danh sách yêu thích');
+            } else {
+                if (oldData.length <= 3) {
+                    oldData.push(newItem);
+                    $("#row-compare").find('tbody').prepend(`
+                        <tr id="row-compare` + id + `" >
+                            <td>` + newItem.name + `</td>
+                            <td>` + newItem.price + `</td>
+                            <td><img width="200" width="100%" src="` + newItem.image + `" alt=""></td>
+                            <td></td>
+                            <td><a href="` + newItem.url + `">Xem sản phẩm</a></td>
+                            <td onclick="delete_compare(` + id + `)"><a style="cursor: pointer;">Xóa so sánh</a></td>
+                        </tr>
+                    `);
+
+                }
+            }
+
+            localStorage.setItem('compare', JSON.stringify(oldData));
+            $("#exampleModalLong").modal();
+        }
+
+        function delete_compare(id) {
+            if (localStorage.getItem('compare') != null) {
+                let data = JSON.parse(localStorage.getItem('compare'));
+                var index = data.findIndex(item => item.id == id);
+                data.splice(index, 1);
+                localStorage.setItem('compare', JSON.stringify(data));
+                document.getElementById('row-compare'+id).remove();
+            }
+        }
+
+        function view_compare() {
+            if (localStorage.getItem('compare') != null) {
+                let data = JSON.parse(localStorage.getItem('compare'));
+
+                data.reverse();
+                document.getElementById('row-wishlist').style.overflow = 'scroll';
+                document.getElementById('row-wishlist').style.height = '600px';
+
+                for (let i = 0; i < data.length; i++) {
+                    $("#row-compare").find('tbody').append(`
+                        <tr id="row-compare` + data[i].id + `" >
+                            <td>` + data[i].name + `</td>
+                            <td>` + data[i].price + `</td>
+                            <td><img width="200" width="100%" src="` + data[i].image + `" alt=""></td>
+                            <td></td>
+                            <td><a href="` + data[i].url + `">Xem sản phẩm</a></td>
+                            <td onclick="delete_compare(` + data[i].id + `)"><a style="cursor: pointer;">Xóa so sánh</a></td>
+                        </tr>
+                    `);
+                }
+            }
+        }
+
+
         $(document).ready(function() {
             view();
+            view_compare();
             $("#keywords").keyup(function() {
                 let query = $(this).val();
                 // console.log(query);
@@ -95,6 +220,7 @@
                 }
             })
         });
+
         $(document).on('click', '.li-search-ajax', function() {
             $("#keywords").val($(this).text());
             $("#search-ajax").fadeOut();

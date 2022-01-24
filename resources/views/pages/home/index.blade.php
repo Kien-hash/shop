@@ -66,7 +66,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button class="button_wishlist">
+                                <button class="button_wishlist" onclick="add_compare({{$product->id}});">
                                     <i class="fa fa-plus-square"></i>
                                     <span>So sánh</span>
                                 </button>
@@ -126,14 +126,14 @@
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
                                         <li>
-                                            <button class="button_wishlist" id="{{ $product->id }}"
+                                            <button class="button_wishlist" id="{{ $bestseller->id }}"
                                                 onclick="add_wishlist(this.id);">
                                                 <i class="fa fa-plus-square"></i>
                                                 <span>Yêu thích</span>
                                             </button>
                                         </li>
                                         <li>
-                                            <button class="button_wishlist">
+                                            <button class="button_wishlist" onclick="add_compare({{$bestseller->id}});" >
                                                 <i class="fa fa-plus-square"></i>
                                                 <span>So sánh</span>
                                             </button>
