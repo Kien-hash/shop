@@ -11,8 +11,8 @@
             </div>
 
             @if (!Session::get('customer_id'))
-                <div class="register-req">
-                    <p>Làm ơn đăng ký hoặc đăng nhập để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p>
+                <div class="register-req" style="width:75%">
+                    <p>Hãy đăng ký hoặc đăng nhập để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p>
                 </div>
             @endif
 

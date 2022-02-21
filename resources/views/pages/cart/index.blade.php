@@ -11,8 +11,8 @@
             </div>
 
             @if (!Session::get('customer_id'))
-                <div class="register-req">
-                    <p>Làm ơn đăng ký hoặc đăng nhập để đặt hàng giỏ hàng </p>
+                <div class="register-req" style="width:75%">
+                    <p>Hãy đăng ký hoặc đăng nhập để đặt hàng giỏ hàng </p>
                 </div>
             @endif
 
@@ -29,10 +29,10 @@
                                 {!! session()->get('error') !!}
                             </div>
                         @endif
-                        <div class="table-responsive cart_info">
-                            <form action="{{ url('/update-cart') }}" method="POST">
+                        <div class="table-responsive cart_info" style="width:75%;">
+                            <form action="{{ url('/update-cart') }}" method="POST" >
                                 @csrf
-                                <table class="table table-condensed">
+                                <table class="table table-condensed" >
                                     <thead>
                                         <tr class="cart_menu">
                                             <td class="image">Hình ảnh</td>
@@ -40,7 +40,7 @@
                                             <td class="price">Giá sản phẩm</td>
                                             <td class="quantity">Số lượng</td>
                                             <td class="total">Thành tiền</td>
-                                            <td></td>
+                                            <td style="width:40px;"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
