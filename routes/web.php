@@ -94,6 +94,15 @@ Route::prefix('admin')->middleware('adminLogin')->group(function () {
         Route::get('/delete/{id}', 'CategoryController@getDelete');
     });
 
+    Route::prefix('customer')->group(function () {
+        Route::get('/all', 'CustomerController@getAll');
+
+        // Route::get('/delete/{id}', 'CustomerController@getDelete');
+
+        // Route::post('/edit/{id}', 'CustomerController@postEdit');
+        // Route::post('/add', 'CustomerController@postAdd');
+    });
+
     Route::prefix('comment')->group(function () {
         // Route::get('/add', 'CategoryController@getAdd');
         Route::get('/all', 'CommentController@getAll');

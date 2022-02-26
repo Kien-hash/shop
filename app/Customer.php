@@ -15,6 +15,6 @@ class Customer extends Model
 
     public function shipping()
     {
-        return $this->hasMany('App\Shipping','shipping_id', 'id');
+        return $this->belongsTo('App\Shipping','shipping_id', 'id');
     }
 }
