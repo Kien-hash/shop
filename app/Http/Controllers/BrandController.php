@@ -35,7 +35,7 @@ class BrandController extends Controller
         $brand->status = $request->status;
         $brand->keywords = $request->keywords;
         $brand->save();
-        return redirect('admin/brand/all')->with('Notice', 'Product brand add successfully');
+        return redirect('admin/brand/add')->with('Notice', 'Product brand add successfully');
     }
 
     public function getInactive($id)
@@ -84,6 +84,7 @@ class BrandController extends Controller
 
     public function getDelete($id)
     {
+        Brand::find($id)->products->delete();
         Brand::find($id)->delete();
         return redirect('admin/brand/all')->with('Notice', 'Product brand delete successfully');;
     }

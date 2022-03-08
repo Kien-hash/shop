@@ -65,9 +65,35 @@ class HomeController extends Controller
         $name = $category->name;
         $categories = Category::where('status', '=', 0)->get();
         $brands = Brand::where('status', '=', 0)->get();
-        $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->paginate(9);
+        // $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->paginate(9);
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if ($sort_by == 'increase') {
+                // echo 1;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'decrease') {
+                // echo 2;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'DESC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'a_to_z') {
+                // echo 3;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'ASC')->paginate(6)->appends(request()->query());
+            } elseif ($sort_by == 'z_to_a') {
+                // echo 4;
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
+            } else {
+            }
+        } elseif (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+            $min_price = $_GET['min_price'];
+            $max_price = $_GET['max_price'];
+            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(6)->appends(request()->query());
+        } else {
+            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderByDesc('id')->paginate(6);
+        }
 
-        return view('pages.home.category', ['name' => $name, 'products' => $products, 'categories' => $categories, 'brands' => $brands]);
+        $min_price = Product::where('status', '=', 0)->whereIn('category_id', $ids)->min('price');
+        $max_price = Product::where('status', '=', 0)->whereIn('category_id', $ids)->max('price');
+
+        return view('pages.home.category', ['min_price'=>$min_price, 'max_price'=>$max_price,'name' => $name, 'products' => $products, 'categories' => $categories, 'brands' => $brands]);
     }
 
     public function showBrand($slug)

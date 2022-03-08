@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $category->parent_id = $request->parent_id;
         $category->keywords = $request->keywords;
         $category->save();
-        return redirect('admin/category/all')->with('Notice', 'Product category add successfully');
+        return redirect('admin/category/add')->with('Notice', 'Product category add successfully');
     }
 
     public function getInactive($id)
@@ -89,6 +89,7 @@ class CategoryController extends Controller
 
     public function getDelete($id)
     {
+        Category::find($id)->products->delete();
         Category::find($id)->delete();
         return redirect('admin/category/all')->with('Notice', 'Product category delete successfully');;
     }

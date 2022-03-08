@@ -20,6 +20,48 @@
     <div class="features_items">
         <!--features_items-->
         <h2 class="title text-center">{{ $name }}</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="amount">Sắp xếp theo</label>
+                <form action="">
+                    @csrf
+                    <select name="sort" id="sort" class="form-control">
+                        <option value="">--Lọc--</option>
+                        <option {{ Request::get('sort_by') == 'increase' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
+                        <option {{ Request::get('sort_by') == 'decrease' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=decrease">Giá giảm dần</option>
+                        <option {{ Request::get('sort_by') == 'a_to_z' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=a_to_z">A đến Z</option>
+                        <option {{ Request::get('sort_by') == 'z_to_a' ? 'selected' : '' }}
+                            value="{{ Request::url() }}?sort_by=z_to_a">Z đến A</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="col-md-5">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <label for="amount">Khoảng giá: </label>
+                            <input type="hidden" id="min_price" name="min_price" value="{{ $min_price }}">
+                            <input type="hidden" id="max_price" name="max_price" value="{{ $max_price }}">
+                            <div id="slider-range"> </div>
+                            <input type="text" id="amount" readonly
+                                style="width:100%;border:0;text-align: center;color:#f6931f; font-weight:bold;">
+                        </div>
+                        <div class="col-md-1">
+                            <input type="submit" name="filter_price" value="Lọc giá" class="btn btn-primary btn-sm ">
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <br>
+
         @foreach ($products as $product)
             <div class="col-sm-4">
                 <div class="product-image-wrapper">

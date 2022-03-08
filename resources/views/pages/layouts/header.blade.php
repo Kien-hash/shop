@@ -1,6 +1,6 @@
 <header id="header">
     <!--header-->
-    <div class="header_top">
+    {{-- <div class="header_top">
         <!--header_top-->
         <div class="container">
             <div class="row">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--/header_top-->
 
     <div class="header-middle">
@@ -115,21 +115,29 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="{{ URL::to('/') }}" class="active">Trang chủ</a></li>
-                            <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    @foreach ($categories as $category) )
-                                        <li><a href="{{ URL::to('/category/' . $category->slug) }}">{{$category->name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown">
+                                <a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     @foreach ($postCategories as $postCategory)
-                                        <li><a href="{{ URL::to('/post-category/' . $postCategory->slug) }}">{{$postCategory->name }}</a></li>
-
+                                        <li><a
+                                                href="{{ URL::to('/post-category/' . $postCategory->slug) }}">{{ $postCategory->name }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a href="#">Danh mục<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    @foreach ($categories as $category) )
+                                        @if ($category->parent_id == 0)
+                                            <li><a
+                                                    href="{{ URL::to('/category/' . $category->slug) }}">{{ $category->name }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+
                             <li><a href="{{ URL::to('/show-cart') }}">Giỏ hàng</a></li>
                             <li><a href="{{ URL::to('/contact') }}">Liên hệ</a></li>
                         </ul>
