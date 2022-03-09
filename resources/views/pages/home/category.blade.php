@@ -105,7 +105,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button class="button_wishlist">
+                                <button class="button_wishlist" onclick="add_compare({{ $product->id }});">
                                     <i class="fa fa-plus-square"></i>
                                     <span>So sánh</span>
                                 </button>

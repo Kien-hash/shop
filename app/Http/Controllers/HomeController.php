@@ -23,24 +23,24 @@ class HomeController extends Controller
             $sort_by = $_GET['sort_by'];
             if ($sort_by == 'increase') {
                 // echo 1;
-                $products = Product::where('status', '=', 0)->orderBy('price', 'ASC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->orderBy('price', 'ASC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'decrease') {
                 // echo 2;
-                $products = Product::where('status', '=', 0)->orderBy('price', 'DESC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->orderBy('price', 'DESC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'a_to_z') {
                 // echo 3;
-                $products = Product::where('status', '=', 0)->orderBy('name', 'ASC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->orderBy('name', 'ASC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'z_to_a') {
                 // echo 4;
-                $products = Product::where('status', '=', 0)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->orderBy('name', 'DESC')->paginate(9)->appends(request()->query());
             } else {
             }
         } elseif (isset($_GET['min_price']) && isset($_GET['max_price'])) {
             $min_price = $_GET['min_price'];
             $max_price = $_GET['max_price'];
-            $products = Product::where('status', '=', 0)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(6)->appends(request()->query());
+            $products = Product::where('status', '=', 0)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(9)->appends(request()->query());
         } else {
-            $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(6);
+            $products = Product::where('status', '=', 0)->orderByDesc('id')->paginate(9);
         }
 
         $categories = Category::where('status', '=', 0)->get();
@@ -70,24 +70,24 @@ class HomeController extends Controller
             $sort_by = $_GET['sort_by'];
             if ($sort_by == 'increase') {
                 // echo 1;
-                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'ASC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'ASC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'decrease') {
                 // echo 2;
-                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'DESC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('price', 'DESC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'a_to_z') {
                 // echo 3;
-                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'ASC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'ASC')->paginate(9)->appends(request()->query());
             } elseif ($sort_by == 'z_to_a') {
                 // echo 4;
-                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'DESC')->paginate(6)->appends(request()->query());
+                $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderBy('name', 'DESC')->paginate(9)->appends(request()->query());
             } else {
             }
         } elseif (isset($_GET['min_price']) && isset($_GET['max_price'])) {
             $min_price = $_GET['min_price'];
             $max_price = $_GET['max_price'];
-            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(6)->appends(request()->query());
+            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->whereBetween('price', [$min_price, $max_price])->orderBy('price')->paginate(9)->appends(request()->query());
         } else {
-            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderByDesc('id')->paginate(6);
+            $products = Product::where('status', '=', 0)->whereIn('category_id', $ids)->orderByDesc('id')->paginate(9);
         }
 
         $min_price = Product::where('status', '=', 0)->whereIn('category_id', $ids)->min('price');
