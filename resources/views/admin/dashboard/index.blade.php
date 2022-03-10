@@ -74,7 +74,7 @@
             @foreach ($product_views as $product_view)
                 <div class="row col-md-12">
                     <div class="col-md-10">
-                        <p>{{ $product_view->name }}</p>
+                        <p><a href="{{ URL::to('/details/' . $product_view->slug) }}">{{ $product_view->name }}</a></p>
                     </div>
                     <div class="col-md-2">
                         <p> {{ $product_view->view }}</p>
@@ -88,7 +88,7 @@
             @foreach ($post_views as $post_view)
                 <div class="row col-md-12">
                     <div class="col-md-10">
-                        <p>{{ $post_view->name }}</p>
+                        <p><a href="{{ URL::to('/post/' . $post_view->slug) }}">{{ $post_view->name }}</a></p>
                     </div>
                     <div class="col-md-2">
                         <p> {{ $post_view->view }}</p>
