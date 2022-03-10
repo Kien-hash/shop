@@ -40,8 +40,8 @@
                     </div>
                 </div>
             </div> --}}
-            <div id="myTable" class="table-responsive">
-                <table class="table table-striped b-t b-light">
+            <div  class="table-responsive">
+                <table id="myTable" class="table table-striped b-t b-light">
                     <thead>
                         <tr>
                             <th style="width:20px;">
