@@ -73,7 +73,7 @@
                                 <td>{{ $product->cost }}</td>
                                 <th><a href="{{ URL::to('admin/gallery/all/' . $product->id) }}">Setup Gallery</a></th>
                                 <td>{{ $product->price }}</td>
-                                <td> <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
+                                <td> <img src="{{ $product->image != '' ? '/uploads/product/' . $product->image : '' }}"
                                         width="100" height="100" alt="" /></td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->brand->name }}</td>

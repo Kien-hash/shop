@@ -19,7 +19,7 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <img alt="" src="{{ asset('public/backend/images/1.png') }}">
+                    <img alt="" src="{{ asset('/backend/images/1.png') }}">
                     <span class="username">
                         {{ $currentUser->name }}
                     </span>

@@ -96,7 +96,7 @@
                                             style="width:100%;height:150px;">{{ $gallery->name }}</textarea>
                                     </td>
                                     <td>
-                                        <img src="{{ $gallery->image != '' ? 'public/uploads/gallery/' . $gallery->image : '' }}"
+                                        <img src="{{ $gallery->image != '' ? '/uploads/gallery/' . $gallery->image : '' }}"
                                             width="150" height="150" alt="" />
                                         <input type="file" name="image">
                                     </td>

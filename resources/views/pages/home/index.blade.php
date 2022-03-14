@@ -67,7 +67,7 @@
                     <div class="single-products">
                         <div class="productinfo text-center">
                             <a href="{{ URL::to('/details/' . $product->slug) }}">
-                                <img style="height: 200px;" src="{{ 'public/uploads/product/' . $product->image }}"
+                                <img style="height: 200px;" src="{{ '/uploads/product/' . $product->image }}"
                                     alt="" /></a>
                             <h2>{{ number_format($product->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
                             <p style="height: 40px;">{{ $product->name }}</p>
@@ -137,7 +137,7 @@
                                     <div class="productinfo text-center">
                                         <a href="{{ URL::to('/details/' . $bestseller->slug) }}">
                                             <img style="height: 200px;"
-                                                src="{{ 'public/uploads/product/' . $bestseller->image }}" alt="" /></a>
+                                                src="{{ '/uploads/product/' . $bestseller->image }}" alt="" /></a>
                                         <h2>{{ number_format($bestseller->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
                                         <p style="height: 40px;">{{ $bestseller->name }}</p>
                                         <form action="{{ URL::to('/save-cart') }}" method="POST">

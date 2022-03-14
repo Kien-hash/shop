@@ -37,14 +37,14 @@
         <!--product-details-->
         <div class="col-sm-5">
             <ul id="imageGallery">
-                <li data-thumb="{{ asset('public/uploads/product/' . $product->image) }}"
-                    data-src="{{ asset('public/uploads/product/' . $product->image) }}">
-                    <img width="100%" height="330" src="{{ asset('public/uploads/product/' . $product->image) }}" />
+                <li data-thumb="{{ asset('/uploads/product/' . $product->image) }}"
+                    data-src="{{ asset('/uploads/product/' . $product->image) }}">
+                    <img width="100%" height="330" src="{{ asset('/uploads/product/' . $product->image) }}" />
                 </li>
                 @foreach ($product->galleries as $gallery)
-                    <li data-thumb="{{ asset('public/uploads/gallery/' . $gallery->image) }}"
-                        data-src="{{ asset('public/uploads/gallery/' . $gallery->image) }}">
-                        <img width="100%" height="330" src="{{ asset('public/uploads/gallery/' . $gallery->image) }}" />
+                    <li data-thumb="{{ asset('/uploads/gallery/' . $gallery->image) }}"
+                        data-src="{{ asset('/uploads/gallery/' . $gallery->image) }}">
+                        <img width="100%" height="330" src="{{ asset('/uploads/gallery/' . $gallery->image) }}" />
                     </li>
                 @endforeach
             </ul>
@@ -134,7 +134,7 @@
                         @endif
                         <div class="row style-comment">
                             <div class="col-md-2">
-                                <img src="{{ asset('public/frontend/images/user.png') }}" alt="" width="100%"
+                                <img src="{{ asset('/frontend/images/user.png') }}" alt="" width="100%"
                                     class="img img-responsive img-thumbnail">
                             </div>
                             <div class="col-md-10">
@@ -148,7 +148,7 @@
                             @if ($reply->parent_id == $comment->id)
                                 <div class="row style-comment" style="width: 80%; margin: 5px 40px">
                                     <div class="col-md-2">
-                                        <img src="{{ asset('public/frontend/images/admin.png') }}"
+                                        <img src="{{ asset('/frontend/images/admin.png') }}"
                                             class="img img-responsive img-thumbnail">
                                     </div>
                                     <div class="col-md-10   ">
@@ -202,7 +202,7 @@
                                     <div class="productinfo text-center product-related">
                                         <a href="{{ URL::to('/details/' . $relate->slug) }}">
                                             <img style="height: 200px;"
-                                                src="{{ URL::to('public/uploads/product/' . $relate->image) }}" alt="" />
+                                                src="{{ URL::to('/uploads/product/' . $relate->image) }}" alt="" />
                                         </a>
                                         <h2>{{ number_format($relate->price, 0, ',', '.') . ' ' . 'VNĐ' }}</h2>
                                         <p>{{ $relate->name }}</p>

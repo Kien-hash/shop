@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{ URL::to('/') }}"><img src="{{ 'public/frontend/images/home/logo.png' }}"
+                        <a href="{{ URL::to('/') }}"><img src="{{ '/frontend/images/home/logo.png' }}"
                                 alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">

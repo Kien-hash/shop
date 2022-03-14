@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" class="form-control" name="image">
-                                <img src="{{ $comment->image != '' ? 'public/uploads/comment/' . $comment->image : '' }}"
+                                <img src="{{ $comment->image != '' ? '/uploads/comment/' . $comment->image : '' }}"
                                     width="100" height="100" alt="" />
                             </div>
                             <div class="form-group">

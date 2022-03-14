@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" class="form-control" name="image">
-                                <img src="{{ $product->image != '' ? 'public/uploads/product/' . $product->image : '' }}"
+                                <img src="{{ $product->image != '' ? '/uploads/product/' . $product->image : '' }}"
                                     width="100" height="100" alt="" />
                             </div>
                             <div class="form-group">

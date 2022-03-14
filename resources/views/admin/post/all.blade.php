@@ -66,7 +66,7 @@
                                 <td>{{ $post->name }}</td>
                                 <td>{{ $post->slug }}</td>
                                 <td>{{ $post->description }}</td>
-                                <td> <img src="{{ $post->image != '' ? 'public/uploads/post/' . $post->image : '' }}"
+                                <td> <img src="{{ $post->image != '' ? '/uploads/post/' . $post->image : '' }}"
                                         width="100" height="100" alt="" /></td>
                                 <td>{{ $post->category->name }}</td>
                                 <td>

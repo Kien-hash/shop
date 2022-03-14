@@ -7,7 +7,7 @@
             @foreach ($posts as $post)
                 <div class="single-products" style="margin:10px 0;padding:2px;">
                     <div class="text-center">
-                        <img src="{{ 'public/uploads/post/' . $post->image }}" alt="{{ $post->slug }}"
+                        <img src="{{ '/uploads/post/' . $post->image }}" alt="{{ $post->slug }}"
                             style="width:30%;height:150px;float:left;padding:5px;">
                         <h4 style="color: #000; padding: 5px;">{{ $post->name }}</h4>
                         <p>{!! $post->description !!}</p>

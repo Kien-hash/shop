@@ -172,7 +172,7 @@
                                                 @endphp
                                                 <tr>
                                                     <td class="cart_product">
-                                                        <img src="{{ asset('public/uploads/product/' . $cart['product_image']) }}"
+                                                        <img src="{{ asset('/uploads/product/' . $cart['product_image']) }}"
                                                             width="90" alt="{{ $cart['product_name'] }}" />
                                                     </td>
                                                     <td class="cart_description">

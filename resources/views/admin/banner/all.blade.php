@@ -63,7 +63,7 @@
                                 </td>
                                 <td>{{ $banner->name }}</td>
                                 <td> <img
-                                        src="{{ $banner->image != '' ? 'public/uploads/banner/' . $banner->image : '' }}"
+                                        src="{{ $banner->image != '' ? '/uploads/banner/' . $banner->image : '' }}"
                                         width="500" height="150" alt="" /></td>
                                 <td>{{ $banner->description }}</td>
                                 <td>
