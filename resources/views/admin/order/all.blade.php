@@ -50,7 +50,9 @@
                                 </label>
                             </th>
                             <th>Code</th>
+                            <th>Customer</th>
                             <th>Coupon</th>
+                            <th>Cost</th>
                             <th>Notes</th>
                             <th>Status</th>
                             <th style="width:30px;"></th>
@@ -64,7 +66,9 @@
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label>
                                 </td>
                                 <td>{{ $order->code }}</td>
+                                <td>{{ $order->customer->name }}</td>
                                 <td>{{ $order->coupon }}</td>
+                                <td>{{$order->total_price}}</td>
                                 <td>{{ $order->notes }}</td>
                                 <td>
                                     @if ($order->status == 0)
