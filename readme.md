@@ -25,8 +25,8 @@
    php artisan key:generate
    php artisan serve
    ```
-8. Go to http://localhost:3000/ => customer page
-9. Go to http://localhost:3000/admin => admin page
+8. Go to http://localhost:8000/ => customer page
+9. Go to http://localhost:8000/admin => admin page
    ```
    username: admin@gmail.com
    password: 123456
@@ -44,8 +44,8 @@
       cd /home/admin/shop/
       php artisan serve --host 0.0.0.0
    ```
-5. Go to http://localhost:3000/ => customer page
-6. Go to http://localhost:3000/admin => admin page
+5. Go to http://localhost:8000/ => customer page
+6. Go to http://localhost:8000/admin => admin page
    ```
    username: admin@gmail.com
    password: 123456
