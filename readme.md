@@ -1,4 +1,5 @@
 # How to install 
+## First method
 1. Install [xampp](https://www.apachefriends.org/download.html), [composer](https://getcomposer.org/Composer-Setup.exe).
 2. Add `%xampp\php` to PATH
 3. Clone code.
@@ -24,4 +25,30 @@
    php artisan key:generate
    php artisan serve
    ```
+8. Go to http://localhost:3000/ => customer page
+9. Go to http://localhost:3000/admin => admin page
+   ```
+   username: admin@gmail.com
+   password: 123456
+   ```
+
+
+## Second method
+1. Install [docker](https://docs.docker.com/get-docker/)
+2. Download [this](https://drive.google.com/file/d/1C8a91yVvR5ua-O3uw-AuF1ymN-Xg4Dmh/view?usp=sharing) (is a compressed docker image file)
+3. Run
+   ```
+      docker load -i shop
+      docker run -it -p 8000:8000 shop:v1
+      service mysql start
+      cd /home/admin/shop/
+      php artisan serve --host 0.0.0.0
+   ```
+5. Go to http://localhost:3000/ => customer page
+6. Go to http://localhost:3000/admin => admin page
+   ```
+   username: admin@gmail.com
+   password: 123456
+   ```
+
 
