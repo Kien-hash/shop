@@ -37,7 +37,7 @@ class BannerController extends Controller
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-            $get_image->move('public/uploads/banner', $new_image);
+            $get_image->move('uploads/banner', $new_image);
             $banner->image = $new_image;
         } else {
             $banner->image = '';
@@ -93,7 +93,7 @@ class BannerController extends Controller
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-            $get_image->move('public/uploads/banner', $new_image);
+            $get_image->move('uploads/banner', $new_image);
             $banner->image = $new_image;
         } else {
             $banner->status = 1;

@@ -25,7 +25,7 @@ class GalleryController extends Controller
                     $get_name_image = $image->getClientOriginalName();
                     $name_image = current(explode('.', $get_name_image));
                     $new_image =  $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
-                    $image->move('public/uploads/gallery', $new_image);
+                    $image->move('uploads/gallery', $new_image);
 
                     // Create new gallery
                     $gallery = new Gallery();
@@ -54,7 +54,7 @@ class GalleryController extends Controller
             $get_name_image = $image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
             $new_image =  $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
-            $image->move('public/uploads/gallery', $new_image);
+            $image->move('uploads/gallery', $new_image);
 
             // change database
             $gallery->name = $request->name;
